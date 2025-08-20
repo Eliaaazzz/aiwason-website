@@ -1,9 +1,14 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, ArrowLeft, Zap, Shield, Brain, Settings, Globe, Play, ChevronDown } from 'lucide-react'
-import { useState, useEffect, useRef } from 'react'
+import {
+  ArrowRight, ArrowLeft, Zap, Shield, Brain, Settings, Globe, Play, ChevronDown,
+  type LucideIcon
+} from 'lucide-react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+
 
 const translations = {
   en: {
@@ -56,20 +61,16 @@ const translations = {
   }
 }
 
-/** 圆环进度指示器 */
+/** Circular progress ring for slide indicators */
 function ProgressRing({ value, active }: { value: number; active: boolean }) {
   const size = 28
   const r = 12
   const c = 2 * Math.PI * r
   const dash = c
-  const offset = c * (1 - value) // 0~1
+  const offset = c * (1 - value) // 0..1
 
   return (
-    <div
-      className={`relative p-1 rounded-full ${
-        active ? 'shadow-[0_0_0_4px_rgba(118,185,0,0.08)]' : ''
-      }`}
-    >
+    <div className={`relative p-1 rounded-full ${active ? 'shadow-[0_0_0_4px_rgba(118,185,0,0.08)]' : ''}`}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="block">
         <circle cx={size / 2} cy={size / 2} r={r} stroke="rgba(255,255,255,0.15)" strokeWidth="3" fill="none" />
         <motion.circle
@@ -94,10 +95,8 @@ export default function HomePage() {
   const t = translations[language]
   const toggleLanguage = () => setLanguage(language === 'en' ? 'zh' : 'en')
 
-  /** ---------------- HERO SLIDES（5张，圆环进度 + 自动轮播） ---------------- */
-  const SLIDES_MS = 6000
-
-  const slides = [
+  /** Build slides only when language changes */
+  const slides = useMemo(() => ([
     {
       id: 0,
       lines: language === 'en' ? ['FIRE-RESISTANT', 'INTELLIGENT OPTOELECTRONIC', 'BUSBARS'] : ['耐火', '智能光电', '母线系统'],
@@ -107,19 +106,19 @@ export default function HomePage() {
     {
       id: 1,
       lines: language === 'en' ? ['AI-POWERED', 'REAL-TIME', 'MONITORING'] : ['AI智能监控', '实时分析', '预测维护'],
-      subtitle: language === 'en' ? t.features.smartMonitoring.description : t.features.smartMonitoring.description,
+      subtitle: t.features.smartMonitoring.description,
       img: '/res/factory.jpg'
     },
     {
       id: 2,
       lines: language === 'en' ? ['ULTRA-HIGH', 'EFFICIENCY', 'RELIABILITY'] : ['超高', '效率', '可靠性'],
-      subtitle: language === 'en' ? t.features.highEfficiency.description : t.features.highEfficiency.description,
+      subtitle: t.features.highEfficiency.description,
       img: '/res/factory.jpg'
     },
     {
       id: 3,
       lines: language === 'en' ? ['FIRE-RESISTANT', 'CORE', 'TECHNOLOGY'] : ['耐火', '核心', '技术'],
-      subtitle: language === 'en' ? t.features.fireResistant.description : t.features.fireResistant.description,
+      subtitle: t.features.fireResistant.description,
       img: '/res/factory.jpg'
     },
     {
@@ -130,28 +129,28 @@ export default function HomePage() {
         : '为物联网与智能楼控系统而生。',
       img: '/res/factory.jpg'
     }
-  ]
+  ]), [language, t.hero.subtitle, t.features.smartMonitoring.description, t.features.highEfficiency.description, t.features.fireResistant.description])
 
+  /** Autoplay timer state */
+  const SLIDES_MS = 6000
   const [idx, setIdx] = useState(0)
-  const [progress, setProgress] = useState(0) // 0~1
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const [progress, setProgress] = useState(0) // 0..1
+  const timerRef = useRef<number | null>(null) // number for browser timers
 
   useEffect(() => {
     setProgress(0)
-    if (timerRef.current) clearInterval(timerRef.current)
+    if (timerRef.current) window.clearInterval(timerRef.current)
     const start = Date.now()
-    timerRef.current = setInterval(() => {
+    timerRef.current = window.setInterval(() => {
       const p = Math.min(1, (Date.now() - start) / SLIDES_MS)
       setProgress(p)
       if (p >= 1) setIdx((i) => (i + 1) % slides.length)
     }, 100)
-    return () => timerRef.current && clearInterval(timerRef.current)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idx, language])
+    return () => { if (timerRef.current) window.clearInterval(timerRef.current) }
+  }, [idx, slides.length]) // re-run when slide index or slide count changes
 
   const goPrev = () => setIdx((i) => (i - 1 + slides.length) % slides.length)
   const goNext = () => setIdx((i) => (i + 1) % slides.length)
-
   const tSlide = slides[idx]
 
   return (
@@ -161,11 +160,18 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="h-16 lg:h-20 flex items-center justify-between">
             {/* Logo + Brand */}
-            <a href="/" className="flex items-center gap-3 group">
-              <Image src="/res/logo.jpg" alt="AIWASON Logo" width={64} height={48} priority className="object-contain" />
+            <Link href="/" className="flex items-center gap-3 group" aria-label="Home">
+              <Image
+                src="/res/logo.jpg"
+                alt="AIWASON Logo"
+                width={64}
+                height={48}
+                priority
+                className="object-contain"
+              />
               <span className="text-2xl font-black tracking-wide text-gray-900">AIWASON</span>
               <span className="text-xs text-gray-400">®</span>
-            </a>
+            </Link>
 
             {/* Nav links */}
             <div className="hidden md:flex items-center space-x-8">
@@ -203,9 +209,9 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* HERO —— 左文更靠左 / 右图更靠右 + 圆环进度 + 上/下按钮 */}
+      {/* HERO — text left, image right, ring progress + prev/next */}
       <section className="relative bg-black pt-14 lg:pt-20 pb-16">
-        {/* 背景渐变与网格 */}
+        {/* Background gradients and grid */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />
         <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#76B9000F] to-transparent" />
         <div className="absolute inset-0 opacity-[0.02]">
@@ -221,7 +227,7 @@ export default function HomePage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-12 items-center gap-6 lg:gap-10">
-            {/* 左侧文本：更靠左（负 margin） */}
+            {/* Left text */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={`text-${tSlide.id}-${language}`}
@@ -261,7 +267,7 @@ export default function HomePage() {
               </motion.div>
             </AnimatePresence>
 
-            {/* 右侧图片：更靠右（ml-auto & 更大） */}
+            {/* Right image */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={`img-${tSlide.id}`}
@@ -272,17 +278,24 @@ export default function HomePage() {
                 className="col-span-12 lg:col-span-6 xl:col-span-7"
               >
                 <div className="relative ml-auto w-full max-w-[760px] h-[280px] sm:h-[360px] lg:h-[480px] xl:h-[540px]">
-                  <Image src={tSlide.img} alt={language === 'en' ? 'AIWASON Factory' : 'AIWASON 工厂'} fill priority className="object-cover rounded-2xl" />
+                  <Image
+                    src={tSlide.img}
+                    alt={language === 'en' ? 'AIWASON Factory' : 'AIWASON 工厂'}
+                    fill
+                    priority
+                    sizes="(min-width:1280px) 760px, (min-width:1024px) 600px, (min-width:640px) 90vw, 100vw"
+                    className="object-cover rounded-2xl"
+                  />
                   <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10 pointer-events-none" />
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* 圆环进度 + 上/下按钮 */}
+          {/* Progress rings + Prev/Next */}
           <div className="mt-8 lg:mt-10 flex items-center justify-between">
-            {/* 圆环集合（可点击） */}
-            <div className="flex items-center gap-5">
+            {/* Rings: evenly distributed with Grid (repeat(5, 1fr)) */}
+            <div className="flex-1 grid grid-cols-5 place-items-center">
               {slides.map((s, i) => {
                 const filled = i < idx ? 1 : i === idx ? progress : 0
                 return (
@@ -291,6 +304,7 @@ export default function HomePage() {
                     onClick={() => setIdx(i)}
                     className="rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76B900]"
                     aria-label={`Go to slide ${i + 1}`}
+                    aria-current={i === idx ? 'true' : undefined}
                   >
                     <ProgressRing value={filled} active={i === idx} />
                   </button>
@@ -298,7 +312,7 @@ export default function HomePage() {
               })}
             </div>
 
-            {/* 上一页 / 下一页 */}
+            {/* Prev / Next controls */}
             <div className="flex items-center gap-3">
               <button
                 onClick={goPrev}
@@ -318,7 +332,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Scroll indicator（可保留） */}
+        {/* Scroll indicator */}
         <motion.div
           className="absolute bottom-6 left-1/2 -translate-x-1/2 text-gray-500 hover:text-[#76B900] transition-colors duration-300 hidden sm:block"
           animate={{ y: [0, 10, 0] }}
@@ -328,18 +342,30 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* ======= 下面保留你的其它区块（不动）：Stats / Features / Industries / Footer ======= */}
-
       {/* STATS */}
       <section className="relative bg-gray-900 py-20 border-y border-gray-800">
-        <motion.div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-2 lg:grid-cols-4 gap-8" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-          {[
-            { number: '1000+', label: t.stats.projects, icon: Shield },
-            { number: '99.99%', label: t.stats.reliability, icon: Zap },
-            { number: '24/7', label: t.stats.monitoring, icon: Brain },
-            { number: '50+', label: t.stats.partners, icon: Settings }
-          ].map((stat, index) => (
-            <motion.div key={stat.label} className="text-center group cursor-pointer" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.2 }} viewport={{ once: true }} whileHover={{ scale: 1.05, y: -5 }}>
+        <motion.div
+          className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-2 lg:grid-cols-4 gap-8"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          {([
+            { number: '1000+', label: t.stats.projects, icon: Shield as LucideIcon },
+            { number: '99.99%', label: t.stats.reliability, icon: Zap as LucideIcon },
+            { number: '24/7', label: t.stats.monitoring, icon: Brain as LucideIcon },
+            { number: '50+', label: t.stats.partners, icon: Settings as LucideIcon }
+          ] as { number: string; label: string; icon: LucideIcon }[]).map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              className="text-center group cursor-pointer"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.05, y: -5 }}
+            >
               <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-[#76B900]/20 via-[#76B900]/10 to-emerald-500/20 rounded-2xl flex items-center justify-center transition-all duration-300 border border-[#76B900]/30 group-hover:border-[#76B900]/60 shadow-sm group-hover:shadow-lg group-hover:shadow-[#76B900]/20">
                 <stat.icon className="w-10 h-10 text-[#76B900] group-hover:text-emerald-300 transition-colors duration-300" />
               </div>
@@ -353,22 +379,39 @@ export default function HomePage() {
       {/* FEATURES */}
       <section className="relative bg-black py-24">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />
-        <motion.div className="relative max-w-7xl mx-auto px-6 lg:px-12" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1 }} viewport={{ once: true }}>
+        <motion.div
+          className="relative max-w-7xl mx-auto px-6 lg:px-12"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+        >
           <div className="text-center mb-20">
-            <motion.h2 className="text-5xl lg:text-6xl font-black mb-8 tracking-tight" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <motion.h2
+              className="text-5xl lg:text-6xl font-black mb-8 tracking-tight"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
               <span className="bg-gradient-to-r from-white via-[#76B900] to-emerald-500 bg-clip-text text-transparent">{t.features.title}</span>
             </motion.h2>
-            <motion.p className="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} viewport={{ once: true }}>
+            <motion.p
+              className="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              viewport={{ once: true }}
+            >
               {t.features.subtitle}
             </motion.p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { title: t.features.fireResistant.title, description: t.features.fireResistant.description, icon: Shield, gradient: 'from-red-500/80 to-orange-500/80', border: 'border-red-500/30', bg: 'bg-gray-900/50 hover:bg-gray-800/50' },
-              { title: t.features.smartMonitoring.title, description: t.features.smartMonitoring.description, icon: Brain, gradient: 'from-blue-500/80 to-cyan-500/80', border: 'border-blue-500/30', bg: 'bg-gray-900/50 hover:bg-gray-800/50' },
-              { title: t.features.highEfficiency.title, description: t.features.highEfficiency.description, icon: Zap, gradient: 'from-[#76B900]/80 to-emerald-500/80', border: 'border-[#76B900]/40', bg: 'bg-gray-900/50 hover:bg-gray-800/50' }
-            ].map((feature, index) => (
+            {([
+              { title: t.features.fireResistant.title, description: t.features.fireResistant.description, icon: Shield as LucideIcon, gradient: 'from-red-500/80 to-orange-500/80', border: 'border-red-500/30', bg: 'bg-gray-900/50 hover:bg-gray-800/50' },
+              { title: t.features.smartMonitoring.title, description: t.features.smartMonitoring.description, icon: Brain as LucideIcon, gradient: 'from-blue-500/80 to-cyan-500/80', border: 'border-blue-500/30', bg: 'bg-gray-900/50 hover:bg-gray-800/50' },
+              { title: t.features.highEfficiency.title, description: t.features.highEfficiency.description, icon: Zap as LucideIcon, gradient: 'from-[#76B900]/80 to-emerald-500/80', border: 'border-[#76B900]/40', bg: 'bg-gray-900/50 hover:bg-gray-800/50' }
+            ] as { title: string; description: string; icon: LucideIcon; gradient: string; border: string; bg: string }[]).map((feature, index) => (
               <motion.div
                 key={feature.title}
                 className={`relative ${feature.bg} backdrop-blur-sm border ${feature.border} rounded-2xl p-8 transition-all duration-500 group cursor-pointer shadow-sm hover:shadow-lg hover:shadow-[#76B900]/10`}
@@ -393,12 +436,29 @@ export default function HomePage() {
 
       {/* INDUSTRIES */}
       <section className="relative bg-gray-900 py-24">
-        <motion.div className="max-w-7xl mx-auto px-6 lg:px-12" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1 }} viewport={{ once: true }}>
+        <motion.div
+          className="max-w-7xl mx-auto px-6 lg:px-12"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+        >
           <div className="text-center mb-20">
-            <motion.h2 className="text-5xl lg:text-6xl font-black mb-8 tracking-tight" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <motion.h2
+              className="text-5xl lg:text-6xl font-black mb-8 tracking-tight"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
               <span className="bg-gradient-to-r from-white via-[#76B900] to-emerald-500 bg-clip-text text-transparent">{t.industries.title}</span>
             </motion.h2>
-            <motion.p className="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} viewport={{ once: true }}>
+            <motion.p
+              className="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              viewport={{ once: true }}
+            >
               {t.industries.subtitle}
             </motion.p>
           </div>
@@ -440,7 +500,13 @@ export default function HomePage() {
           </div>
 
           {/* CTA */}
-          <motion.div className="text-center" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} viewport={{ once: true }}>
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            viewport={{ once: true }}
+          >
             <motion.button
               className="group bg-[#76B900] text-black font-bold px-12 py-6 rounded-xl flex items-center justify-center gap-4 mx-auto hover:brightness-110 transition-all duration-300 shadow-lg hover:shadow-[#76B900]/30 text-xl"
               whileHover={{ scale: 1.05, y: -5 }}
