@@ -128,7 +128,7 @@ export default function HomeShell() {
                 ? 'Real-time analytics and predictive maintenance for mission-critical workloads.'
                 : '实时分析与预测性维护，保障关键业务连续性。',
             date: '2025/05/12',
-            img: '/res/company.jpg',
+            img: '/res/factory.jpg',
             href: '/news/ai-monitoring-upgrade',
           },
         ],
@@ -149,19 +149,71 @@ export default function HomeShell() {
           },
         ],
       },
+      // 五星级酒店
       {
-        heading: language === 'en' ? 'Residential / Civil' : '民用建筑',
+        heading: language === 'en' ? 'Five-star Hotels' : '五星级酒店',
         items: [
           {
-            id: 'res-1',
-            title: language === 'en' ? 'Residential Showcase' : '民用建筑改造示范',
+            id: 'hotel-1',
+            title: language === 'en' ? 'Luxury Hotel Deployment' : '高端酒店母线部署',
             desc:
               language === 'en'
-                ? 'Safer and greener power distribution for modern communities.'
-                : '更安全、更绿色的社区配电示范项目。',
-            date: '2025/05/03',
-            img: '/res/SheratonHotel.png',
-            href: '/news/residential-showcase',
+                ? 'Reliable, quiet, and efficient power for premium hospitality.'
+                : '为高端酒店提供可靠、低噪与高效的配电方案。',
+            date: '2025/05/08',
+            img: '/res/深圳四季酒店.jpg',
+            href: '/news/hotel-deployment',
+          },
+        ],
+      },
+      // 机场
+      {
+        heading: language === 'en' ? 'Airports' : '机场',
+        items: [
+          {
+            id: 'airport-1',
+            title: language === 'en' ? 'Airport Energy Upgrade' : '机场能源系统升级',
+            desc:
+              language === 'en'
+                ? 'Enhancing terminal operations with intelligent, fire-resistant busbars.'
+                : '以耐火智能母线提升航站楼运行效率与安全性。',
+            date: '2025/04/28',
+            img: '/res/深圳机场.jpg',
+            href: '/news/airport-upgrade',
+          },
+        ],
+      },
+      // 高铁
+      {
+        heading: language === 'en' ? 'High-speed Rail' : '高铁',
+        items: [
+          {
+            id: 'hsr-1',
+            title: language === 'en' ? 'Rail Transit Power System' : '轨道交通配电系统',
+            desc:
+              language === 'en'
+                ? 'Robust distribution for depots and stations with predictive monitoring.'
+                : '为车辆段与车站提供稳健配电与预测监测能力。',
+            date: '2025/04/20',
+            img: '/res/中车集团-0.png',
+            href: '/news/rail-transit-power',
+          },
+        ],
+      },
+      // 图书馆
+      {
+        heading: language === 'en' ? 'Libraries' : '图书馆',
+        items: [
+          {
+            id: 'library-1',
+            title: language === 'en' ? 'University Library Showcase' : '高校图书馆示范项目',
+            desc:
+              language === 'en'
+                ? 'Silent, efficient power distribution for learning environments.'
+                : '面向学习空间的静音高效配电方案。',
+            date: '2025/04/12',
+            img: '/res/汕头大学新图书馆—A.jpg',
+            href: '/news/library-showcase',
           },
         ],
       },
