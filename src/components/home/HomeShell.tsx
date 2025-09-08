@@ -128,8 +128,8 @@ export default function HomeShell() {
                 ? 'Real-time analytics and predictive maintenance for mission-critical workloads.'
                 : '实时分析与预测性维护，保障关键业务连续性。',
             date: '2025/05/12',
-            img: '/res/factory.jpg',
-            href: '/news/ai-monitoring-upgrade',
+            img: '/res/dataCenter.jpeg',
+            href: '/news/data-center',
           },
         ],
       },

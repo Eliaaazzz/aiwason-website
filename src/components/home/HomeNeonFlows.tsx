@@ -38,7 +38,14 @@ export default function HomeNeonFlows({
       {/* ✅ Background (NO negative z-index) */}
       {bgImage && (
         <div className="absolute inset-0 z-0">
-          <Image src={bgImage} alt="hero background" fill priority className="object-cover object-center" />
+          <Image
+            src={bgImage}
+            alt="hero background"
+            fill
+            priority={currentSlide === 0}
+            sizes="100vw"
+            className="object-cover object-center"
+          />
           {/* soft dark overlay so text stays readable */}
           <div className="absolute inset-0 bg-black/55" />
         </div>
@@ -107,7 +114,8 @@ export default function HomeNeonFlows({
                 src={imageSrc}
                 alt={lang === 'en' ? 'Company Visual' : '公司展示'}
                 fill
-                priority
+                priority={currentSlide === 0}
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover rounded-2xl"
               />
               <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10 pointer-events-none" />
