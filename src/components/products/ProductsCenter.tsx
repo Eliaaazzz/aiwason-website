@@ -129,6 +129,7 @@ export default function ProductsCenter({ lang = 'en' as Lang }) {
                           // Use the new property name: altText
                           alt={t(p.altText, curLang)}
                           priority={i === 0}
+                          sizes="(min-width: 1024px) 560px, 100vw"
                           className="w-full h-auto object-contain rounded-xl"
                         />
                       </div>
