@@ -14,14 +14,15 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'AIWASON | Fire-Resistant Intelligent Optoelectronic Busbars',
+    default: 'AIWASON | 深圳智能芯片中心 · Fire-Resistant Intelligent Optoelectronic Busbars',
     template: '%s | AIWASON',
   },
   description:
-    'AIWASON — 耐火智能光电母线系统 | Fire-resistant intelligent optoelectronic busbars for data centers and smart buildings.',
+    'AIWASON — 深圳智能芯片中心 · 耐火智能光电母线系统 | Fire-resistant intelligent optoelectronic busbars for data centers and smart buildings.',
   applicationName: 'AIWASON',
   keywords: [
     'AIWASON',
+    '深圳智能芯片中心',
     'fireproof busbar',
     'optoelectronic',
     'data center',
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    title: 'AIWASON | Fire-Resistant Intelligent Optoelectronic Busbars',
+    title: 'AIWASON | 深圳智能芯片中心 · Fire-Resistant Intelligent Optoelectronic Busbars',
     description:
       'Revolutionary fire-resistant intelligent optoelectronic busbar technology powering data centers and real estate.',
     images: [{ url: '/res/aiwason_fireproof_busbar_hero.png' }],

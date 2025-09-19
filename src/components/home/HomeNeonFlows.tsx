@@ -2,12 +2,12 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 
 type Props = {
   lang?: 'zh' | 'en'
-  imageSrc: string
+  imageSrc: string | StaticImageData
   titleLines: string[]
   description: string
   cta?: { href: string; label: string }
@@ -31,8 +31,6 @@ export default function HomeNeonFlows({
   onSelectSlide,
   bgImage,
 }: Props) {
-  const pct = (currentSlide % totalSlides) / Math.max(1, totalSlides - 1)
-
   return (
     <section className="relative text-white overflow-hidden">
       {/* ✅ Background (NO negative z-index) */}

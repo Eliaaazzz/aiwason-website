@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import monitoringSlide from '@/assets/images/ai-monitoring-terminal.png'
 import HomeNeonFlows from './HomeNeonFlows'
 import NewsSectionsSlideIn, { type NewsGroup } from '../news/NewsSectionsSlideIn'
 
@@ -67,12 +68,16 @@ export default function HomeShell() {
       { id: 0,
         lines: language === 'en'
           ? ['FIRE-RESISTANT', 'INTELLIGENT OPTOELECTRONIC', 'BUSBARS']
-          : ['耐火', '智能光电', '母线系统'],
+          : ['耐火智能光电母线'],
         subtitle: t.hero.subtitle,
         img: '/res/company.jpg',
       },
-      { id: 1, lines: language === 'en' ? ['AI-POWERED', 'REAL-TIME', 'MONITORING'] : ['AI智能监控', '实时分析', '预测维护'],
-        subtitle: t.features.smartMonitoring.description, img: '/res/company.jpg' },
+      {
+        id: 1,
+        lines: language === 'en' ? ['AI-POWERED', 'REAL-TIME', 'MONITORING'] : ['AI智能监控', '实时分析', '预测维护'],
+        subtitle: t.features.smartMonitoring.description,
+        img: monitoringSlide,
+      },
       { id: 2, lines: language === 'en' ? ['ULTRA-HIGH', 'EFFICIENCY', 'RELIABILITY'] : ['超高', '效率', '可靠性'],
         subtitle: t.features.highEfficiency.description, img: '/res/company.jpg' },
       { id: 3, lines: language === 'en' ? ['FIRE-RESISTANT', 'CORE', 'TECHNOLOGY'] : ['耐火', '核心', '技术'],
@@ -97,8 +102,14 @@ export default function HomeShell() {
   const tSlide = slides[idx]
   const heroBg = idx === 0 ? '/res/background.png' : undefined
 
-  
-    // 放在 HomeShell.tsx 里，靠近其它 useMemo 的位置
+  const navHref: Record<string, string> = {
+    products: '/products',
+    solutions: '/solutions',
+    about: '/about',
+    contact: '#contact',
+  }
+
+  // 放在 HomeShell.tsx 里，靠近其它 useMemo 的位置
   const newsGroups: NewsGroup[] = useMemo(
     () => [
       {
@@ -223,7 +234,7 @@ export default function HomeShell() {
 
   
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-gray-900">
       {/* navbar */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -236,7 +247,7 @@ export default function HomeShell() {
 
             <div className="hidden md:flex items-center space-x-8">
               {Object.entries(t.nav).map(([key, label], index) => {
-                const href = key === 'products' ? '/products' : `#${key}`
+                const href = navHref[key as keyof typeof navHref] ?? '#'
                 return (
                   <motion.div key={key} whileHover={{ scale: 1.05 }} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08 }}>
                     <Link href={href} className="text-gray-700 hover:text-[#76B900] font-medium tracking-wide text-sm relative group transition-all duration-300">
@@ -265,22 +276,26 @@ export default function HomeShell() {
       </nav>
 
       {/* hero */}
-      <HomeNeonFlows
-        key = {idx}
-        lang={language}
-        imageSrc={tSlide.img}
-        titleLines={Array.isArray(tSlide.lines) ? tSlide.lines : [t.hero.title1, t.hero.title2, t.hero.title3]}
-        description={tSlide.subtitle}
-        cta={{ href: `/products?lang=${language}`, label: t.hero.exploreBtn }}
-        currentSlide={idx}
-        totalSlides={slides.length}
-        progressMs={SLIDES_MS}
-        onSelectSlide={setIdx}
-        bgImage={heroBg}
-      />
+      <section className="bg-neutral-950 text-white">
+        <HomeNeonFlows
+          key = {idx}
+          lang={language}
+          imageSrc={tSlide.img}
+          titleLines={Array.isArray(tSlide.lines) ? tSlide.lines : [t.hero.title1, t.hero.title2, t.hero.title3]}
+          description={tSlide.subtitle}
+          cta={{ href: `/products?lang=${language}`, label: t.hero.exploreBtn }}
+          currentSlide={idx}
+          totalSlides={slides.length}
+          progressMs={SLIDES_MS}
+          onSelectSlide={setIdx}
+          bgImage={heroBg}
+        />
+      </section>
+
+      <div className="h-1 w-full bg-[#cde9aa]" aria-hidden="true" />
 
       {/* news */}
-      <NewsSectionsSlideIn lang={language} groups={newsGroups} />
+      <NewsSectionsSlideIn lang={language} groups={newsGroups} showMetaLabel={false} />
     </div>
   )
 }
