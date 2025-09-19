@@ -1,5 +1,7 @@
 // src/app/news/data-center/page.tsx
-import NewsSectionsSlideIn, { type NewsGroup } from '../../../components/news/NewsSectionsSlideIn'
+import Image from 'next/image'
+import Link from 'next/link'
+import LanguageSwitch from '@/components/common/LanguageSwitch'
 
 export const metadata = {
   title: '数据中心 | Data Center',
@@ -12,66 +14,81 @@ type SearchParams = { [key: string]: string | string[] | undefined }
 export default function Page({ searchParams }: { searchParams?: SearchParams }) {
   const lang = (searchParams?.lang as 'zh' | 'en') || 'zh'
 
-  const groups: NewsGroup[] = [
-    {
-      heading: lang === 'en' ? 'Data Centers' : '数据中心',
-      items: [
-        {
-          id: 'dc-overview',
-          title: lang === 'en' ? 'Fire-Resistant Optoelectronic Busbars' : '耐火智能光电母线 赋能数据中心',
-          desc:
-            lang === 'en'
-              ? 'Enhance reliability and safety with 2-hour fire resistance and intelligent distribution.'
-              : '以两小时耐火等级与智能化配电，全面提升数据中心的可靠性与安全性。',
-          date: '2025/05/12',
-          img: '/res/dataCenter.jpeg',
-          href: `/products?lang=${lang}`,
-        },
-        {
-          id: 'dc-ai',
-          title: lang === 'en' ? 'AI-Powered Monitoring Upgrade' : 'AI 智能监控系统升级',
-          desc:
-            lang === 'en'
-              ? 'Real-time analytics with predictive maintenance designed for mission-critical loads.'
-              : '面向关键负载的实时分析与预测性维护，提前识别风险，保障稳定运行。',
-          date: '2025/05/18',
-          img: '/res/aiwason_fireproof_busbar_hero.png',
-          href: `/products?lang=${lang}`,
-        },
-        {
-          id: 'dc-efficiency',
-          title: lang === 'en' ? 'High-Density Power Optimization' : '高密度配电效率优化',
-          desc:
-            lang === 'en'
-              ? 'Modular design reduces losses and improves O&M efficiency at scale.'
-              : '模块化设计降低损耗并提升大规模运维效率，适配高功率密度。',
-          date: '2025/05/22',
-          img: '/res/company.jpg',
-          href: `/products?lang=${lang}`,
-        },
-      ],
-    },
-  ]
+  const detailCopy: Record<'zh' | 'en', string[]> = {
+    en: [
+      'Our data center solution couples fire-resistant copper-aluminum composite conductors with optical sensing layers so that every critical branch, tap-off, and riser stays visible in real time—even during emergency conditions.',
+      'Prefabricated tap-off modules, digital twins, and AI analytics shorten deployment cycles while supporting phased capacity growth for hyperscale and edge scenarios alike.',
+      'Lifecycle services—from design integration to AI-driven monitoring—keep mission-critical workloads protected while meeting sustainability targets.',
+    ],
+    zh: [
+      '数据中心方案采用耐火铜铝复合导体与光纤感应层，实现各级干线、分接箱在严苛环境下仍保持实时可视化。',
+      '预制化分接模块、数字孪生与 AI 分析大幅缩短交付周期，同时兼顾超大规模与边缘场景的灵活扩容需求。',
+      '贯穿设计集成、安装交付到 AI 智能运维的全生命周期服务，让关键业务在守住安全底线的同时实现节能目标。',
+    ],
+  }
+
+  const heroImage = '/res/dataCenter.jpeg'
 
   return (
-    <main className="min-h-screen bg-white text-gray-900">
-      {/* Banner / hero */}
-      <section className="bg-gradient-to-b from-gray-50 to-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 lg:py-16">
-          <h1 className="text-3xl lg:text-4xl font-extrabold">
-            {lang === 'en' ? 'Data Center Solutions' : '数据中心解决方案'}
-          </h1>
-          <p className="mt-4 text-gray-600 max-w-3xl">
-            {lang === 'en'
-              ? 'Explore AIWASON’s fire-resistant intelligent optoelectronic busbar system for reliable, efficient, and intelligent data centers.'
-              : '探索 AIWASON 耐火智能光电母线系统，打造更可靠、更高效、更智能的数据中心基础设施。'}
-          </p>
+    <main className="bg-white text-gray-900 min-h-screen">
+      <section className="border-b border-[#cde9aa]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-14 lg:py-20">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold tracking-[0.35em] text-[#76B900]/80 uppercase">
+                {lang === 'en' ? 'Data Center' : '数据中心'}
+              </p>
+              <h1 className="mt-3 text-3xl lg:text-4xl font-black text-gray-900">
+                {lang === 'en' ? 'Data Center Solutions' : '数据中心解决方案'}
+              </h1>
+              <p className="mt-4 max-w-3xl text-gray-600 text-base md:text-lg">
+                {lang === 'en'
+                  ? 'Explore AIWASON’s fire-resistant intelligent optoelectronic busbar system for reliable, efficient, and intelligent data centers.'
+                  : '探索 AIWASON 耐火智能光电母线系统，打造更可靠、更高效、更智能的数据中心基础设施。'}
+              </p>
+            </div>
+            <LanguageSwitch defaultLang={lang} />
+          </div>
+
+          <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] lg:items-start">
+            <div className="space-y-6 text-gray-700 text-base md:text-lg leading-relaxed">
+              {detailCopy[lang].map((para, idx) => (
+                <p key={idx}>{para}</p>
+              ))}
+
+              <div className="rounded-xl border border-[#76B900]/30 bg-[#f6fbef] px-5 py-4 text-sm text-gray-700">
+                {lang === 'en'
+                  ? 'Core capabilities: 2-hour fire resistance certification, optical sensing tap-offs, AI condition-based maintenance, modular capacity expansion.'
+                  : '核心能力：两小时耐火认证、光纤感知分接箱、AI 状态监测运维、模块化弹性扩容。'}
+              </div>
+            </div>
+
+            <figure className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+              <Image
+                src={heroImage}
+                alt={lang === 'en' ? 'Data center deployment' : '数据中心现场'}
+                width={960}
+                height={640}
+                className="w-full h-auto object-cover"
+              />
+              <figcaption className="px-4 py-3 text-sm text-gray-500">
+                {lang === 'en'
+                  ? 'Fire-resistant busbars safeguard hyperscale and edge facilities.'
+                  : '耐火母线守护超大规模与边缘数据中心。'}
+              </figcaption>
+            </figure>
+          </div>
+
+          <div className="mt-12">
+            <Link
+              href={`/solutions?lang=${lang}#dc-overview`}
+              className="inline-flex items-center gap-2 rounded-lg bg-[#76B900] px-5 py-3 text-sm font-semibold text-black shadow hover:brightness-110 transition"
+            >
+              {lang === 'en' ? 'View Data Center Solution' : '查看数据中心方案'}
+            </Link>
+          </div>
         </div>
       </section>
-
-      {/* Content list reusing the homepage news style */}
-      <NewsSectionsSlideIn lang={lang} anchorId="dc-news" groups={groups} />
     </main>
   )
 }
-
