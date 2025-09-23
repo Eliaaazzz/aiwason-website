@@ -1,20 +1,9 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: {
-    default: 'AIWASON | 深圳智能芯片中心 · Fire-Resistant Intelligent Optoelectronic Busbars',
+    default: 'AIWASON',
     template: '%s | AIWASON',
   },
   description:
@@ -38,9 +27,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    title: 'AIWASON | 深圳智能芯片中心 · Fire-Resistant Intelligent Optoelectronic Busbars',
+    title: 'AIWASON',
     description:
-      'Revolutionary fire-resistant intelligent optoelectronic busbar technology powering data centers and real estate.',
+      'Fire-resistant intelligent optoelectronic busbar technology powering data centers and smart buildings.',
     images: [{ url: '/res/aiwason_fireproof_busbar_hero.png' }],
   },
   alternates: {
@@ -65,9 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="antialiased font-sans">
         {children}
       </body>
     </html>
