@@ -26,7 +26,7 @@ export default function Page({ searchParams }: { searchParams?: SearchParams }) 
     ],
   }
 
-  const heroImage = '/res/汕头大学新图书馆—A.jpg'
+  const heroImage = '/res/gallery-39.jpg'
 
   return (
     <main className="bg-white text-gray-900">

@@ -2,7 +2,8 @@
 import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 import LanguageSwitch from '@/components/common/LanguageSwitch'
-import heroVisual from '@/assets/images/fr-busduct.png'
+import CardImage from '@/components/common/CardImage'
+import frBusduct from '@/assets/images/fr-busduct.png'
 
 export const metadata = {
   title: 'Solutions | AIWASON',
@@ -29,6 +30,31 @@ const heroCopy: Localised<{ title: string; subtitle: string; cta: string }> = {
   },
 }
 
+const solutionImage = (fileName: string, from: 'solutions' | 'root' = 'solutions') =>
+  from === 'solutions'
+    ? `/res/solutions/${encodeURIComponent(fileName)}`
+    : `/res/${encodeURIComponent(fileName)}`
+
+// Centralised mapping for solution imagery so swapping assets only requires updating filenames here.
+const solutionVisuals = {
+  hero: solutionImage('aiwason-solution-hero.png'),
+  assetDashboard: solutionImage('aiwason-solution-hero.png'),
+  analyticsHeatmap: solutionImage('aiwason-analytics-heatmap.png'),
+  alertDispatch: solutionImage('aiwason-alert-dispatch.png'),
+  modularBusway: solutionImage('aiwason-modular-busway.png'),
+  buswayTrunking: frBusduct,
+  tapoffPanel: solutionImage('aiwason-tapoff-panel.png'),
+  conductor: solutionImage('bus-conductor.png', 'root'),
+  insulationSleeve: solutionImage('insulation-sleeve.png', 'root'),
+  reportManagement: solutionImage('report-management.png', 'root'),
+  operationManagement: solutionImage('operation-management.png'),
+  planManagement: solutionImage('plan-management.png'),
+  historicalAnalysis: solutionImage('aiwason-historical-analytics.png'),
+  historicalBanner: solutionImage('dataCenter.jpeg', 'root'),
+} as const
+
+const heroVisual = solutionVisuals.hero
+
 const CLOUD_FEATURES: Array<{
   id: string
   title: Localised<string>
@@ -42,7 +68,7 @@ const CLOUD_FEATURES: Array<{
       en: 'Register field assets with QR codes, view event history, telemetry, and maintenance logs, and keep lifecycle records synchronised across teams.',
       zh: '记录设备台账、历史事件、实时数据与维护记录，生成设备二维码，帮助团队快速掌握设备全生命周期信息。',
     },
-    image: '/res/solutions/device-management.png',
+    image: solutionVisuals.assetDashboard,
   },
   {
     id: 'reporting',
@@ -51,7 +77,7 @@ const CLOUD_FEATURES: Array<{
       en: 'Create reusable report templates, customise metrics for compliance, and produce on-demand summaries that reflect live operating data.',
       zh: '支持模板定义与自定义指标，灵活输出符合合规与运营需求的报表内容，实时反映母线运行状态。',
     },
-    image: '/res/solutions/reporting.png',
+    image: solutionVisuals.reportManagement,
   },
   {
     id: 'history-analytics',
@@ -60,7 +86,7 @@ const CLOUD_FEATURES: Array<{
       en: 'Compare multi-node historical data, correlate temperature, current, and alarms, and build long-term insights for optimisation.',
       zh: '支持多节点、多时段的历史数据对比，关联温度、电流、告警等关键变量，沉淀长期优化洞察。',
     },
-    image: '/res/solutions/history-analytics.png',
+    image: solutionVisuals.historicalAnalysis,
   },
   {
     id: 'operations',
@@ -69,7 +95,7 @@ const CLOUD_FEATURES: Array<{
       en: 'Consolidate work orders, inspection results, and field feedback. Dispatch tasks from the console and track closure with automated statistics.',
       zh: '集中管理工单、巡检与现场反馈，平台自动下发任务并统计完成情况，实现运维闭环管理。',
     },
-    image: '/res/solutions/operations.png',
+    image: solutionVisuals.operationManagement,
   },
   {
     id: 'planning',
@@ -78,7 +104,7 @@ const CLOUD_FEATURES: Array<{
       en: 'Define inspection and maintenance plans by scenario; the platform schedules and assigns tasks automatically to ensure on-time execution.',
       zh: '根据场景制定巡检、检修计划，由平台自动排程与派发工单，确保运维按时执行。',
     },
-    image: '/res/solutions/planning.png',
+    image: solutionVisuals.planManagement,
   },
 ]
 
@@ -95,7 +121,7 @@ const MONITORING_FEATURES: Array<{
       en: 'Layered dashboards present busbar health, thermal hotspots, and load distribution in real time, making it easy to pinpoint anomalies.',
       zh: '通过分层可视化界面展示母线运行状态、温度热点与负载分布，实时定位异常。',
     },
-    image: '/res/solutions/realtime.png',
+    image: solutionVisuals.analyticsHeatmap,
   },
   {
     id: 'alerts',
@@ -104,7 +130,7 @@ const MONITORING_FEATURES: Array<{
       en: 'Multi-channel alerts (audio-visual, push notifications, email/SMS) ensure that warnings reach the right responders without delay.',
       zh: '支持声光、APP 推送、邮件/短信等多种方式发出告警，保障异常信息即时送达责任人。',
     },
-    image: '/res/solutions/alerts.png',
+    image: solutionVisuals.alertDispatch,
   },
 ]
 
@@ -184,12 +210,12 @@ const STRUCTURE_ITEMS: Array<{
 }> = [
   {
     id: 'busway-shell',
-    title: { en: 'Busway Shell', zh: '母线外壳' },
+    title: { en: 'Busway Trunking', zh: '母线槽' },
     description: {
-      en: '6063-T5 aluminium alloy with 2.5 mm thickness for high strength, corrosion resistance, and thermal performance.',
-      zh: '采用 6063 (T5) 铝合金型材，壁厚 2.5mm，具备高强度、耐腐蚀与良好散热性能。',
+      en: '6063-T5 aluminium trunking with 2.5 mm panels protects conductors, improves heat dissipation, and survives heavy-duty environments.',
+      zh: '采用 6063 (T5) 铝合金 2.5mm 面板打造母线槽本体，保护导体同时增强散热与耐候性能。',
     },
-    image: '/res/1 (29).jpg',
+    image: solutionVisuals.buswayTrunking,
   },
   {
     id: 'conductor',
@@ -198,16 +224,16 @@ const STRUCTURE_ITEMS: Array<{
       en: 'Oxygen-free copper strip (>99.98% purity) with surface tin plating keeps resistance low and efficiency high.',
       zh: '使用高纯度无氧铜导体（纯度 >99.98%），表面镀锡处理，保持低阻与高效传输。',
     },
-    image: '/res/1 (38).jpg',
+    image: solutionVisuals.conductor,
   },
   {
     id: 'insulation',
     title: { en: 'Insulation Sleeve', zh: '绝缘护套' },
     description: {
       en: 'Reinforced PC insulation withstands 130°C+, resists flame spread, and avoids halogen emissions during overheating.',
-      zh: '强化 PC 绝缘护套耐温 130°C 以上，阻燃、防潮且不含卤素，异常状态下无有害气体。',
+      zh: '强化 PC 绝缘护套耐温 990°C 以上，阻燃、防潮且不含卤素，异常状态下无有害气体。',
     },
-    image: '/res/1 (4).jpg',
+    image: solutionVisuals.insulationSleeve,
   },
 ]
 
@@ -224,7 +250,7 @@ const KEY_MODULES: Array<{
       en: 'Aluminium alloy connectors ensure reliable electrical continuity and easy assembly for straight or angled configurations.',
       zh: '铝合金连接器保证接触可靠，安装便捷，可适配直线与转角布线。',
     },
-    image: '/res/1 (2).jpg',
+    image: solutionVisuals.modularBusway,
   },
   {
     id: 'tap-off',
@@ -233,7 +259,7 @@ const KEY_MODULES: Array<{
       en: 'Tap-off modules integrate industrial plugs and smart metering, supporting single- or dual-circuit redundancy.',
       zh: '分接箱集成工业插头与智能计量，支持单回路、双回路等多种冗余方案。',
     },
-    image: '/res/1 (28).jpg',
+    image: solutionVisuals.tapoffPanel,
   },
 ]
 
@@ -334,7 +360,7 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
               {lang === 'en' ? 'Explore Product Portfolio' : '查看产品矩阵'}
             </Link>
             <Link
-              href={`mailto:info@aiwason.com`}
+              href={`Elialiu760317@outlook.com`}
               className="inline-flex items-center gap-2 rounded-lg border border-[#76B900]/40 px-5 py-3 text-sm font-semibold text-white hover:bg-[#f6fbef]/10 transition"
             >
               {interpret(heroCopy, lang).cta}
@@ -356,23 +382,32 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
           <p className="mt-4 text-gray-600 leading-relaxed text-base md:text-lg">
             {lang === 'en'
               ? 'Manage every intelligent busbar asset from installation to maintenance. The AMS platform centralises data so operations, maintenance, and decision makers share a single source of truth.'
-              : '覆盖智能母线从安装到运维的全生命周期管理。AMS 平台集中资产、运维与决策数据，打造统一的业务视图。'}
+              : '覆盖智能母线从安装到运维的全生命周期管理。AIS 平台集中资产、运维与决策数据，打造统一的业务视图。'}
           </p>
         </div>
 
         <div className="mt-12 space-y-12">
-          {CLOUD_FEATURES.map((feature) => (
+          {CLOUD_FEATURES.map((feature, idx) => (
             <article
               key={feature.id}
               className="flex flex-col gap-6 rounded-2xl border border-[#76B900]/20 bg-white shadow-sm overflow-hidden lg:flex-row"
               id={feature.id}
             >
-              <div className="relative h-56 w-full lg:w-[45%]">
-                <Image
+              <div className="w-full lg:w-[45%]">
+                <CardImage
                   src={feature.image}
                   alt={interpret(feature.title, lang)}
-                  fill
-                  className="object-cover"
+                  ratio={null}
+                  height="320px"
+                  fit="cover"
+                  bgClassName="bg-transparent"
+                  roundedClassName="rounded-none"
+                  showRing={false}
+                  priority={idx < 2}
+                  loading={idx < 2 ? 'eager' : 'lazy'}
+                  fetchPriority={idx < 2 ? 'high' : 'auto'}
+                  className="h-full"
+                  sizes="(min-width:1024px) 45vw, 100vw"
                 />
               </div>
               <div className="flex-1 p-6 lg:p-10 space-y-4">
@@ -411,12 +446,21 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
                 id={feature.id}
                 className={`flex flex-col gap-6 rounded-2xl border border-[#76B900]/20 bg-white shadow-sm overflow-hidden lg:flex-row ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
               >
-                <div className="relative h-56 w-full lg:w-[45%]">
-                  <Image
+                <div className="w-full lg:w-[45%]">
+                  <CardImage
                     src={feature.image}
                     alt={interpret(feature.title, lang)}
-                    fill
-                    className="object-cover"
+                    ratio={null}
+                    height="320px"
+                    fit="cover"
+                    bgClassName="bg-transparent"
+                    roundedClassName="rounded-none"
+                    showRing={false}
+                    priority={idx === 0}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={idx === 0 ? 'high' : 'auto'}
+                    className="h-full"
+                    sizes="(min-width:1024px) 45vw, 100vw"
                   />
                 </div>
                 <div className="flex-1 p-6 lg:p-10 space-y-4">
@@ -446,7 +490,7 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
 
             <div className="relative h-72 w-full rounded-3xl border border-[#76B900]/20 bg-white shadow-sm overflow-hidden">
               <Image
-                src="/res/solutions/history-analytics.png"
+                src={solutionVisuals.historicalBanner}
                 alt={lang === 'en' ? 'Busbar deployment diagram' : '母线部署示意图'}
                 fill
                 className="object-cover"
@@ -484,11 +528,25 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
           </h2>
         </div>
 
-        <div className="mt-12 space-y-12">
-          {STRUCTURE_ITEMS.map((item) => (
+          <div className="mt-12 space-y-12">
+          {STRUCTURE_ITEMS.map((item, idx) => (
             <div key={item.id} className="flex flex-col gap-6 rounded-2xl border border-[#76B900]/20 bg-white shadow-sm overflow-hidden lg:flex-row">
-              <div className="relative h-48 w-full lg:w-[40%]">
-                <Image src={item.image} alt={interpret(item.title, lang)} fill className="object-cover" />
+              <div className="w-full lg:w-[40%]">
+                <CardImage
+                  src={item.image}
+                  alt={interpret(item.title, lang)}
+                  ratio={null}
+                  height="300px"
+                  fit="cover"
+                  bgClassName="bg-transparent"
+                  roundedClassName="rounded-none"
+                  showRing={false}
+                  priority={idx === 0}
+                  loading={idx === 0 ? 'eager' : 'lazy'}
+                  fetchPriority={idx === 0 ? 'high' : 'auto'}
+                  className="h-full"
+                  sizes="(min-width:1024px) 40vw, 100vw"
+                />
               </div>
               <div className="flex-1 p-6 lg:p-10 space-y-4">
                 <h3 className="text-2xl font-semibold text-gray-900">{interpret(item.title, lang)}</h3>
@@ -503,10 +561,24 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
 
       <section id="dc-modules" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="space-y-12">
-          {KEY_MODULES.map((module) => (
+          {KEY_MODULES.map((module, idx) => (
             <div key={module.id} className="flex flex-col gap-6 rounded-2xl border border-[#76B900]/20 bg-white shadow-sm overflow-hidden lg:flex-row">
-              <div className="relative h-56 w-full lg:w-[45%]">
-                <Image src={module.image} alt={interpret(module.title, lang)} fill className="object-cover" />
+              <div className="w-full lg:w-[45%]">
+                <CardImage
+                  src={module.image}
+                  alt={interpret(module.title, lang)}
+                  ratio={null}
+                  height="320px"
+                  fit="cover"
+                  bgClassName="bg-transparent"
+                  roundedClassName="rounded-none"
+                  showRing={false}
+                  priority={idx === 0}
+                  loading={idx === 0 ? 'eager' : 'lazy'}
+                  fetchPriority={idx === 0 ? 'high' : 'auto'}
+                  className="h-full"
+                  sizes="(min-width:1024px) 45vw, 100vw"
+                />
               </div>
               <div className="flex-1 p-6 lg:p-10 space-y-4">
                 <h3 className="text-2xl font-semibold text-gray-900">{interpret(module.title, lang)}</h3>

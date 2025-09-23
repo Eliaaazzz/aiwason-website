@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import type { Locale, NewsItem } from '../../lib/types/news'
+import type { Locale, NewsItem, LocalizedText } from '../../lib/types/news'
 
 export default function NewsGrid({
   items,
@@ -12,6 +12,8 @@ export default function NewsGrid({
   if (!items?.length) return null
 
   const fallbackCover = '/res/factory.jpg'
+  const resolveText = (value: LocalizedText | string, loc: Locale) =>
+    typeof value === 'string' ? value : value[loc] ?? value.en
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -20,7 +22,7 @@ export default function NewsGrid({
           <div className="relative w-full aspect-[16/10]">
             <Image
               src={n.cover || fallbackCover}
-              alt={typeof n.title === 'string' ? n.title : (locale === 'zh' ? (n.title as any).zh : (n.title as any).en) || 'news'}
+              alt={resolveText(n.title, locale) || 'news'}
               fill
               className="object-cover group-hover:scale-[1.02] transition"
             />
@@ -30,7 +32,7 @@ export default function NewsGrid({
               {new Date(n.date).toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US')}
             </div>
             <h3 className="mt-1 text-base font-semibold line-clamp-2">
-              {typeof n.title === 'string' ? n.title : (locale === 'zh' ? (n.title as any).zh : (n.title as any).en)}
+              {resolveText(n.title, locale)}
             </h3>
             {n.url && (
               <div className="mt-3">
@@ -51,4 +53,3 @@ export default function NewsGrid({
     </div>
   )
 }
-

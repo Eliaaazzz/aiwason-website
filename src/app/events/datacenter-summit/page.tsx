@@ -5,7 +5,7 @@ import LanguageSwitch from '@/components/common/LanguageSwitch'
 
 export const metadata = {
   title: '会议中心 | Conference Center',
-  description: 'AIWASON 会议与展会活动：国际数据中心大会等。',
+  description: 'AIWASON 会议与展会活动：国际会议中心等。', // FIX: wording matches new theme
 }
 
 type SearchParams = { [key: string]: string | string[] | undefined }
@@ -13,18 +13,22 @@ type SearchParams = { [key: string]: string | string[] | undefined }
 export default function Page({ searchParams }: { searchParams?: SearchParams }) {
   const lang = (searchParams?.lang as 'zh' | 'en') || 'zh'
 
+  // FIX: Replace detail copy with International Conference Center content (ZH & EN)
   const detailCopy: Record<'zh' | 'en', string[]> = {
     en: [
-      'We showcase real deployments that combine fire-resistant busbars, intelligent monitoring, and lifecycle services to meet the uptime targets of hyperscale campuses and colocation sites.',
-      'Visit our booth for live demos, compliance consultations, and a hands-on look at the digital tools that shorten design-to-go-live timelines.',
+      'At the Shenzhen Qianhai International Conference Center—where global leaders and industry pioneers gather—AIWASON delivers a high-efficiency, green, intelligent, and safe power distribution foundation for large exhibitions and international summits.',
+      'Through the synergy of fire-resistant optoelectronic busbars, end-to-end intelligent monitoring, and lifecycle services, we continuously elevate venue safety and energy performance.',
     ],
     zh: [
-      '我们分享耐火母线、智能监测与全生命周期服务如何协同，帮助超大规模与托管数据中心达成高等级运行指标。',
-      '欢迎莅临展位体验现场演示、资质合规咨询，以及加速设计到投运进程的数字化工具。',
+      '深圳前海国际会议中心，汇聚全球领导者与产业先锋。AIWASON 以“高效、绿色、智能、安全”为核心，打造面向大型会展与国际峰会的稳健输配电体系。',
+      '通过耐火智能光电母线、全域智能监测与全生命周期服务的联动，我们持续驱动场馆运行的安全升级与能效跃升。',
     ],
   }
 
+  // You can keep your existing image; if you have a venue photo, point to it here.
+  // Avoid spaces in filenames if possible; or ensure they’re URL-encoded.
   const heroImage = '/res/conference.jpg'
+  // const heroImage = '/res/gallery-21.png' // Optional: if you have this asset available
 
   return (
     <main className="bg-white text-gray-900 min-h-screen">
@@ -36,12 +40,14 @@ export default function Page({ searchParams }: { searchParams?: SearchParams }) 
                 {lang === 'en' ? 'Conference' : '会议中心'}
               </p>
               <h1 className="mt-3 text-3xl lg:text-4xl font-black text-gray-900">
-                {lang === 'en' ? 'Global Data Center Summit' : '国际数据中心大会'}
+                {/* FIX: International Conference Center */}
+                {lang === 'en' ? 'International Conference Center' : '国际会议中心'}
               </h1>
               <p className="mt-4 max-w-3xl text-gray-600 text-base md:text-lg">
+                {/* FIX: Inject your concise intro under the title */}
                 {lang === 'en'
-                  ? 'Showcasing AIWASON’s latest fire-resistant optoelectronic busbar technologies for data centers.'
-                  : '展示 AIWASON 最新耐火智能光电母线技术，面向数据中心应用场景。'}
+                  ? 'Shenzhen Qianhai International Conference Center brings together global leaders and industry pioneers. AIWASON provides a high-efficiency, green, intelligent, and safe power distribution system for large exhibitions and international summits.'
+                  : '在深圳前海国际会议中心，汇聚全球领导者与行业精英。AIWASON 以高效、绿色、智能、安全的输配电体系，为大型会展与国际峰会提供稳定可靠的能源底座。'}
               </p>
             </div>
             <LanguageSwitch defaultLang={lang} />
@@ -57,7 +63,7 @@ export default function Page({ searchParams }: { searchParams?: SearchParams }) 
             <figure className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
               <Image
                 src={heroImage}
-                alt={lang === 'en' ? 'Summit showcase' : '大会现场'}
+                alt={lang === 'en' ? 'Conference venue' : '会议中心场景'}
                 width={960}
                 height={640}
                 className="w-full h-auto object-cover"
@@ -65,8 +71,8 @@ export default function Page({ searchParams }: { searchParams?: SearchParams }) 
               />
               <figcaption className="px-4 py-3 text-sm text-gray-500">
                 {lang === 'en'
-                  ? 'Live demonstrations of AIWASON fire-resistant intelligent busbar systems.'
-                  : '现场演示 AIWASON 耐火智能母线系统。'}
+                  ? 'AIWASON power distribution for large venues and international summits.'
+                  : 'AIWASON 面向大型会展与国际峰会的输配电方案。'}
               </figcaption>
             </figure>
           </div>

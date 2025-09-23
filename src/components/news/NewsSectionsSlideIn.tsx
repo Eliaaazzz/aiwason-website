@@ -98,7 +98,7 @@ export default function NewsSectionsSlideIn({
                         alt={it.title}
                         fill
                         sizes="(min-width: 1024px) 560px, 100vw"
-                        className="object-cover"
+                        className="object-cover object-top"
                         priority={idx < 2}
                       />
                       {/* Brand accent line */}

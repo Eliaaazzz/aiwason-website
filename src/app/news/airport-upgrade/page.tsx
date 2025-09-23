@@ -26,7 +26,7 @@ export default function Page({ searchParams }: { searchParams?: SearchParams }) 
     ],
   }
 
-  const heroImage = '/res/深圳机场.jpg'
+  const heroImage = '/res/gallery-46.jpg'
 
   return (
     <main className="bg-white text-gray-900">
