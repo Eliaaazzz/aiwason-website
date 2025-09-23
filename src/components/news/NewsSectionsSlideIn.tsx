@@ -24,10 +24,12 @@ export default function NewsSectionsSlideIn({
   lang = 'zh',
   anchorId = 'news',
   groups,
+  showMetaLabel = true,
 }: {
   lang?: 'zh' | 'en'
   anchorId?: string
   groups: NewsGroup[]
+  showMetaLabel?: boolean
 }) {
   return (
     <section id={anchorId} className="relative bg-white">
@@ -63,11 +65,13 @@ export default function NewsSectionsSlideIn({
                 >
                   {/* Left: text block */}
                   <div className="order-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="text-sm text-[#76B900] font-semibold tracking-wider uppercase">
-                        {it.tag ?? it.date ?? (lang === 'en' ? 'Update' : '动态')}
+                    {showMetaLabel && (
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="text-sm text-[#76B900] font-semibold tracking-wider uppercase">
+                          {it.tag ?? it.date ?? (lang === 'en' ? 'Update' : '动态')}
+                        </div>
                       </div>
-                    </div>
+                    )}
                     <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">
                       {it.title}
                     </h3>
@@ -94,7 +98,7 @@ export default function NewsSectionsSlideIn({
                         alt={it.title}
                         fill
                         sizes="(min-width: 1024px) 560px, 100vw"
-                        className="object-cover"
+                        className="object-cover object-top"
                         priority={idx < 2}
                       />
                       {/* Brand accent line */}

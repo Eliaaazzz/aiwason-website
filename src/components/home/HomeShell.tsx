@@ -7,13 +7,19 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import HomeNeonFlows from './HomeNeonFlows'
+import monitoringSlide from '@/assets/images/ai-monitoring-terminal.png'
 import NewsSectionsSlideIn, { type NewsGroup } from '../news/NewsSectionsSlideIn'
-
+import HomeNeonFlows from './HomeNeonFlows'
 
 
 const LOGO_SRC = '/res/logo.png?v=20250825'
-const IMG_VER = '20250828';
+const IMG_VER = '20250921'
+const BACKGROUND_IMG = `/res/background.png?v=${IMG_VER}`
+
+const monitoringSlideVersioned: typeof monitoringSlide = {
+  ...monitoringSlide,
+  src: `${monitoringSlide.src}?v=${IMG_VER}`,
+}
 
 const translations = {
   en: {
@@ -64,25 +70,54 @@ export default function HomeShell() {
 
   const slides = useMemo(
     () => [
-      { id: 0,
+      {
+        id: 0,
         lines: language === 'en'
-          ? ['FIRE-RESISTANT', 'INTELLIGENT OPTOELECTRONIC', 'BUSBARS']
+          ? ['FIRE-RESISTANT', 'INTELLIGENT', 'OPTOELECTRONIC BUSBARS']
           : ['耐火', '智能光电', '母线系统'],
         subtitle: t.hero.subtitle,
         img: '/res/company.jpg',
+        bg: BACKGROUND_IMG,
       },
-      { id: 1, lines: language === 'en' ? ['AI-POWERED', 'REAL-TIME', 'MONITORING'] : ['AI智能监控', '实时分析', '预测维护'],
-        subtitle: t.features.smartMonitoring.description, img: '/res/company.jpg' },
-      { id: 2, lines: language === 'en' ? ['ULTRA-HIGH', 'EFFICIENCY', 'RELIABILITY'] : ['超高', '效率', '可靠性'],
-        subtitle: t.features.highEfficiency.description, img: '/res/company.jpg' },
-      { id: 3, lines: language === 'en' ? ['FIRE-RESISTANT', 'CORE', 'TECHNOLOGY'] : ['耐火', '核心', '技术'],
-        subtitle: t.features.fireResistant.description,  img: `/res/aiwason_fireproof_busbar_hero.png?v=${IMG_VER}`},
-      { id: 4, lines: language === 'en' ? ['SMART', 'BUILDINGS', 'READY'] : ['面向', '智能建筑', '应用'],
-        subtitle: language === 'en'
-          ? 'Designed for IoT-enabled facilities with intelligent building management.'
-          : '为物联网与智能楼控系统而生。', img: '/res/company.jpg' },
+      {
+        id: 1,
+        lines: language === 'en' ? ['AI-POWERED', 'REAL-TIME', 'MONITORING'] : ['AI智能监控', '实时分析', '预测维护'],
+        subtitle: t.features.smartMonitoring.description,
+        img: monitoringSlideVersioned,
+        bg: BACKGROUND_IMG,
+      },
+      {
+        id: 2,
+        lines: language === 'en' ? ['ULTRA-HIGH', 'EFFICIENCY', 'RELIABILITY'] : ['超高', '效率', '可靠性'],
+        subtitle: t.features.highEfficiency.description,
+        img: '/res/company.jpg',
+        bg: BACKGROUND_IMG,
+      },
+      {
+        id: 3,
+        lines: language === 'en' ? ['FIRE-RESISTANT', 'CORE', 'TECHNOLOGY'] : ['耐火', '核心', '技术'],
+        subtitle: t.features.fireResistant.description,
+        img: `/res/aiwason_fireproof_busbar_hero.png?v=${IMG_VER}`,
+        bg: BACKGROUND_IMG,
+      },
+      {
+        id: 4,
+        lines: language === 'en' ? ['SMART', 'BUILDINGS', 'READY'] : ['面向', '智能建筑', '应用'],
+        subtitle:
+          language === 'en'
+            ? 'Designed for IoT-enabled facilities with intelligent building management.'
+            : '为物联网与智能楼控系统而生。',
+        img: '/res/company.jpg',
+        bg: BACKGROUND_IMG,
+      },
     ],
-    [language, t.hero.subtitle, t.features.smartMonitoring.description, t.features.highEfficiency.description, t.features.fireResistant.description]
+    [
+      language,
+      t.hero.subtitle,
+      t.features.smartMonitoring.description,
+      t.features.highEfficiency.description,
+      t.features.fireResistant.description,
+    ]
   )
 
   const SLIDES_MS = 6000
@@ -95,24 +130,32 @@ export default function HomeShell() {
   }, [slides.length])
 
   const tSlide = slides[idx]
-  const heroBg = idx === 0 ? '/res/background.png' : undefined
+  const navHref = useMemo(
+    () => ({
+      products: `/products?lang=${language}`,
+      solutions: `/solutions?lang=${language}`,
+      about: `/about?lang=${language}`,
+      contact: `/contact?lang=${language}`,
+    }),
+    [language],
+  )
 
-  
-    // 放在 HomeShell.tsx 里，靠近其它 useMemo 的位置
   const newsGroups: NewsGroup[] = useMemo(
     () => [
+
       {
         heading: language === 'en' ? 'Conference Center' : '会议中心',
         items: [
           {
             id: 'meet-1',
-            title: language === 'en' ? 'Global Data Center Summit' : '国际数据中心大会',
-            desc:
-              language === 'en'
-                ? 'AIWASON presents fire-resistant intelligent optoelectronic busbar solutions.'
-                : '发布耐火智能光电母线解决方案。',
+            title: language === 'en'
+              ? 'International Conference Center'
+              : '国际会议中心',
+            desc: language === 'en'
+              ? 'At Shenzhen Qianhai International Conference Center, AIWASON delivers high-efficiency, green, intelligent, and safe power distribution for large exhibitions and summits.'
+              : '深圳前海国际会议中心，AIWASON 以高效、绿色、智能、安全的输配电体系，支撑大型会展与国际峰会。',
             date: '2025/05/18',
-            img: '/res/conference.jpg',
+            img: '/res/conference.jpg', 
             href: '/events/datacenter-summit',
           },
         ],
@@ -128,8 +171,8 @@ export default function HomeShell() {
                 ? 'Real-time analytics and predictive maintenance for mission-critical workloads.'
                 : '实时分析与预测性维护，保障关键业务连续性。',
             date: '2025/05/12',
-            img: '/res/company.jpg',
-            href: '/news/ai-monitoring-upgrade',
+            img: '/res/dataCenter.jpeg',
+            href: '/news/data-center',
           },
         ],
       },
@@ -149,19 +192,71 @@ export default function HomeShell() {
           },
         ],
       },
+      // 五星级酒店
       {
-        heading: language === 'en' ? 'Residential / Civil' : '民用建筑',
+        heading: language === 'en' ? 'Five-star Hotels' : '五星级酒店',
         items: [
           {
-            id: 'res-1',
-            title: language === 'en' ? 'Residential Showcase' : '民用建筑改造示范',
+            id: 'hotel-1',
+            title: language === 'en' ? 'Luxury Hotel Deployment' : '高端酒店母线部署',
             desc:
               language === 'en'
-                ? 'Safer and greener power distribution for modern communities.'
-                : '更安全、更绿色的社区配电示范项目。',
-            date: '2025/05/03',
-            img: '/res/SheratonHotel.png',
-            href: '/news/residential-showcase',
+                ? 'Reliable, quiet, and efficient power for premium hospitality.'
+                : '为高端酒店提供可靠、低噪与高效的配电方案。',
+            date: '2025/05/08',
+            img: '/res/gallery-44.jpg',
+            href: '/news/hotel-deployment',
+          },
+        ],
+      },
+      // 机场
+      {
+        heading: language === 'en' ? 'Airports' : '机场',
+        items: [
+          {
+            id: 'airport-1',
+            title: language === 'en' ? 'Airport Energy Upgrade' : '机场能源系统升级',
+            desc:
+              language === 'en'
+                ? 'Enhance the operational efficiency and safety of the terminal building with fire-resistant intelligent photoelectric busbars.'
+                : '以耐火智能光电母线提升航站楼运行效率与安全性。',
+            date: '2025/04/28',
+            img: '/res/gallery-46.jpg',
+            href: '/news/airport-upgrade',
+          },
+        ],
+      },
+      // 高铁
+      {
+        heading: language === 'en' ? 'High-speed Rail' : '高铁',
+        items: [
+          {
+            id: 'hsr-1',
+            title: language === 'en' ? 'Rail Transit Power System' : '轨道交通配电系统',
+            desc:
+              language === 'en'
+                ? 'Robust distribution for depots and stations with predictive monitoring.'
+                : '为车辆段与车站提供稳健配电与预测监测能力。',
+            date: '2025/04/20',
+            img: '/res/gallery-18.png',
+            href: '/news/rail-transit-power',
+          },
+        ],
+      },
+      // 图书馆
+      {
+        heading: language === 'en' ? 'Libraries' : '图书馆',
+        items: [
+          {
+            id: 'library-1',
+            title: language === 'en' ? 'University Library Showcase' : '高校图书馆示范项目',
+            desc:
+              language === 'en'
+                ? 'Silent, efficient power distribution for learning environments.'
+                : '面向学习空间的静音高效配电方案。',
+            date: '2025/04/12',
+            img: '/res/gallery-39.jpg',
+            href: '/news/library-showcase',
           },
         ],
       },
@@ -171,7 +266,7 @@ export default function HomeShell() {
 
   
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-gray-900">
       {/* navbar */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -184,7 +279,7 @@ export default function HomeShell() {
 
             <div className="hidden md:flex items-center space-x-8">
               {Object.entries(t.nav).map(([key, label], index) => {
-                const href = key === 'products' ? '/products' : `#${key}`
+                const href = navHref[key as keyof typeof navHref] ?? '#'
                 return (
                   <motion.div key={key} whileHover={{ scale: 1.05 }} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08 }}>
                     <Link href={href} className="text-gray-700 hover:text-[#76B900] font-medium tracking-wide text-sm relative group transition-all duration-300">
@@ -213,22 +308,26 @@ export default function HomeShell() {
       </nav>
 
       {/* hero */}
-      <HomeNeonFlows
-        key = {idx}
-        lang={language}
-        imageSrc={tSlide.img}
-        titleLines={Array.isArray(tSlide.lines) ? tSlide.lines : [t.hero.title1, t.hero.title2, t.hero.title3]}
-        description={tSlide.subtitle}
-        cta={{ href: `/products?lang=${language}`, label: t.hero.exploreBtn }}
-        currentSlide={idx}
-        totalSlides={slides.length}
-        progressMs={SLIDES_MS}
-        onSelectSlide={setIdx}
-        bgImage={heroBg}
-      />
+      <section className="bg-neutral-950 text-white">
+        <HomeNeonFlows
+          key={idx}
+          lang={language}
+          imageSrc={tSlide.img}
+          titleLines={Array.isArray(tSlide.lines) ? tSlide.lines : [t.hero.title1, t.hero.title2, t.hero.title3]}
+          description={tSlide.subtitle}
+          cta={{ href: `/products?lang=${language}`, label: t.hero.exploreBtn }}
+          currentSlide={idx}
+          totalSlides={slides.length}
+          progressMs={SLIDES_MS}
+          onSelectSlide={setIdx}
+          bgImage={tSlide.bg ?? BACKGROUND_IMG}
+        />
+      </section>
+
+      <div className="h-1 w-full bg-[#cde9aa]" aria-hidden="true" />
 
       {/* news */}
-      <NewsSectionsSlideIn lang={language} groups={newsGroups} />
+      <NewsSectionsSlideIn lang={language} groups={newsGroups} showMetaLabel={false} />
     </div>
   )
 }
