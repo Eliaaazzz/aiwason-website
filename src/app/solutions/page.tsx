@@ -3,7 +3,21 @@ import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 import LanguageSwitch from '@/components/common/LanguageSwitch'
 import CardImage from '@/components/common/CardImage'
-import frBusduct from '@/assets/images/fr-busduct.png'
+
+// ---- 静态导入（来自 public/res 或 public/res/solutions）----
+import frBusduct from '@/assets/images/fr-busduct.png'                          // 你现有的静态导入
+import heroPng from '@public/res/solutions/aiwason-solution-hero.png'
+import analyticsHeatmapPng from '@public/res/solutions/aiwason-analytics-heatmap.png'
+import alertDispatchPng from '@public/res/solutions/aiwason-alert-dispatch.png'
+import modularBuswayPng from '@public/res/solutions/aiwason-modular-busway.png'
+import tapoffPanelPng from '@public/res/solutions/aiwason-tapoff-panel.png'
+import operationMgmtPng from '@public/res/solutions/operation-management.png'
+import planMgmtPng from '@public/res/solutions/plan-management.png'
+import historicalAnalyticsPng from '@public/res/solutions/aiwason-historical-analytics.png'
+
+import conductorPng from '@public/res/bus-conductor.png'
+import insulationSleevePng from '@public/res/insulation-sleeve.png'
+import historicalBannerJpg from '@public/res/dataCenter.jpeg'
 
 export const metadata = {
   title: 'Solutions | AIWASON',
@@ -11,9 +25,7 @@ export const metadata = {
 }
 
 type SearchParams = { [key: string]: string | string[] | undefined }
-
 type Lang = 'en' | 'zh'
-
 type Localised<T> = { en: T; zh: T }
 
 const heroCopy: Localised<{ title: string; subtitle: string; cta: string }> = {
@@ -30,27 +42,22 @@ const heroCopy: Localised<{ title: string; subtitle: string; cta: string }> = {
   },
 }
 
-const solutionImage = (fileName: string, from: 'solutions' | 'root' = 'solutions') =>
-  from === 'solutions'
-    ? `/res/solutions/${encodeURIComponent(fileName)}`
-    : `/res/${encodeURIComponent(fileName)}`
-
-// Centralised mapping for solution imagery so swapping assets only requires updating filenames here.
+// 统一的素材映射（都是 StaticImageData，不再用字符串）
 const solutionVisuals = {
-  hero: solutionImage('aiwason-solution-hero.png'),
-  assetDashboard: solutionImage('aiwason-solution-hero.png'),
-  analyticsHeatmap: solutionImage('aiwason-analytics-heatmap.png'),
-  alertDispatch: solutionImage('aiwason-alert-dispatch.png'),
-  modularBusway: solutionImage('aiwason-modular-busway.png'),
+  hero: heroPng,
+  assetDashboard: heroPng,
+  analyticsHeatmap: analyticsHeatmapPng,
+  alertDispatch: alertDispatchPng,
+  modularBusway: modularBuswayPng,
   buswayTrunking: frBusduct,
-  tapoffPanel: solutionImage('aiwason-tapoff-panel.png'),
-  conductor: solutionImage('bus-conductor.png', 'root'),
-  insulationSleeve: solutionImage('insulation-sleeve.png', 'root'),
-  reportManagement: solutionImage('report-management.png', 'root'),
-  operationManagement: solutionImage('operation-management.png'),
-  planManagement: solutionImage('plan-management.png'),
-  historicalAnalysis: solutionImage('aiwason-historical-analytics.png'),
-  historicalBanner: solutionImage('dataCenter.jpeg', 'root'),
+  tapoffPanel: tapoffPanelPng,
+  conductor: conductorPng,
+  insulationSleeve: insulationSleevePng,
+  reportManagement: require('@public/res/report-management.png').default as StaticImageData,
+  operationManagement: operationMgmtPng,
+  planManagement: planMgmtPng,
+  historicalAnalysis: historicalAnalyticsPng,
+  historicalBanner: historicalBannerJpg,
 } as const
 
 const heroVisual = solutionVisuals.hero
@@ -59,7 +66,7 @@ const CLOUD_FEATURES: Array<{
   id: string
   title: Localised<string>
   description: Localised<string>
-  image: StaticImageData | string
+  image: StaticImageData
 }> = [
   {
     id: 'device-management',
@@ -108,12 +115,7 @@ const CLOUD_FEATURES: Array<{
   },
 ]
 
-const MONITORING_FEATURES: Array<{
-  id: string
-  title: Localised<string>
-  description: Localised<string>
-  image: StaticImageData | string
-}> = [
+const MONITORING_FEATURES = [
   {
     id: 'realtime',
     title: { en: 'Real-time Monitoring', zh: '实时监测' },
@@ -132,7 +134,7 @@ const MONITORING_FEATURES: Array<{
     },
     image: solutionVisuals.alertDispatch,
   },
-]
+] as const
 
 const DC_INTRO: Localised<{ title: string; overview: string }> = {
   en: {
@@ -202,12 +204,7 @@ const DC_FEATURES: Array<{
   },
 ]
 
-const STRUCTURE_ITEMS: Array<{
-  id: string
-  title: Localised<string>
-  description: Localised<string>
-  image: StaticImageData | string
-}> = [
+const STRUCTURE_ITEMS = [
   {
     id: 'busway-shell',
     title: { en: 'Busway Trunking', zh: '母线槽' },
@@ -235,14 +232,9 @@ const STRUCTURE_ITEMS: Array<{
     },
     image: solutionVisuals.insulationSleeve,
   },
-]
+] as const
 
-const KEY_MODULES: Array<{
-  id: string
-  title: Localised<string>
-  description: Localised<string>
-  image: StaticImageData | string
-}> = [
+const KEY_MODULES = [
   {
     id: 'connector',
     title: { en: 'Precision Connector', zh: '连接器' },
@@ -261,7 +253,7 @@ const KEY_MODULES: Array<{
     },
     image: solutionVisuals.tapoffPanel,
   },
-]
+] as const
 
 const CUSTOM_PLANS: Array<{
   id: string
@@ -320,12 +312,19 @@ const CUSTOM_PLANS: Array<{
 
 const interpret = <T,>(value: Localised<T>, lang: Lang) => value[lang]
 
-export default function SolutionsPage({ searchParams }: { searchParams?: SearchParams }) {
-  const langParam = searchParams?.lang
+// Next 15+：searchParams 是 Promise，需 await
+export default async function SolutionsPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>
+}) {
+  const sp = await searchParams
+  const langParam = sp?.lang
   const lang: Lang = langParam === 'en' || langParam === 'zh' ? (langParam as Lang) : 'zh'
 
   return (
     <main className="bg-white text-gray-900 min-h-screen">
+      {/* HERO */}
       <section id="overview" className="relative min-h-[70vh] border-b border-[#cde9aa] overflow-hidden">
         <Image
           src={heroVisual}
@@ -360,7 +359,7 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
               {lang === 'en' ? 'Explore Product Portfolio' : '查看产品矩阵'}
             </Link>
             <Link
-              href={`Elialiu760317@outlook.com`}
+              href={`mailto:Elialiu760317@outlook.com`}
               className="inline-flex items-center gap-2 rounded-lg border border-[#76B900]/40 px-5 py-3 text-sm font-semibold text-white hover:bg-[#f6fbef]/10 transition"
             >
               {interpret(heroCopy, lang).cta}
@@ -371,6 +370,7 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
 
       <div className="h-1 w-full bg-[#cde9aa]" aria-hidden="true" />
 
+      {/* Cloud Platform */}
       <section id="cloud-platform" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
@@ -423,6 +423,7 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
 
       <div className="h-1 w-full bg-[#cde9aa]" aria-hidden="true" />
 
+      {/* Monitoring */}
       <section id="monitoring" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="space-y-10">
           <div className="space-y-4 max-w-3xl">
@@ -477,6 +478,7 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
 
       <div className="h-1 w-full bg-[#cde9aa]" aria-hidden="true" />
 
+      {/* Data Center Overview */}
       <section id="dc-overview" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="space-y-12">
           <div className="space-y-6 max-w-3xl">
@@ -494,6 +496,7 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
                 alt={lang === 'en' ? 'Busbar deployment diagram' : '母线部署示意图'}
                 fill
                 className="object-cover"
+                priority={false}
               />
             </div>
           </div>
@@ -518,6 +521,7 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
 
       <div className="h-1 w-full bg-[#cde9aa]" aria-hidden="true" />
 
+      {/* Structure */}
       <section id="dc-structure" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
@@ -528,7 +532,7 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
           </h2>
         </div>
 
-          <div className="mt-12 space-y-12">
+        <div className="mt-12 space-y-12">
           {STRUCTURE_ITEMS.map((item, idx) => (
             <div key={item.id} className="flex flex-col gap-6 rounded-2xl border border-[#76B900]/20 bg-white shadow-sm overflow-hidden lg:flex-row">
               <div className="w-full lg:w-[40%]">
@@ -559,6 +563,7 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
 
       <div className="h-1 w-full bg-[#cde9aa]" aria-hidden="true" />
 
+      {/* Modules */}
       <section id="dc-modules" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="space-y-12">
           {KEY_MODULES.map((module, idx) => (
@@ -593,6 +598,7 @@ export default function SolutionsPage({ searchParams }: { searchParams?: SearchP
 
       <div className="h-1 w-full bg-[#cde9aa]" aria-hidden="true" />
 
+      {/* Custom plans */}
       <section id="dc-custom" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">

@@ -8,36 +8,26 @@ export const metadata = {
 }
 
 const CONTACTS = [
-  {
-    labelEn: 'General Enquiries',
-    labelZh: '业务咨询',
-    value: 'Elialiu760317@outlook.com',
-    href: 'mailto:Elialiu760317@outlook.com',
-  },
-  {
-    labelEn: 'Australia',
-    labelZh: '澳大利亚',
-    value: '+61 475 926 539',
-    href: 'tel:+61475926539',
-  },
-  {
-    labelEn: 'China',
-    labelZh: '中国',
-    value: '+86 139 2334 7968',
-    href: 'tel:+8613923347968',
-  },
+  { labelEn: 'General Enquiries', labelZh: '业务咨询', value: 'Elialiu760317@outlook.com', href: 'mailto:Elialiu760317@outlook.com' },
+  { labelEn: 'Australia',        labelZh: '澳大利亚',   value: '+61 475 926 539',         href: 'tel:+61475926539' },
+  { labelEn: 'China',            labelZh: '中国',       value: '+86 139 2334 7968',       href: 'tel:+8613923347968' },
 ]
 
-export default function ContactPage({
+type SearchParams = Record<string, string | string[] | undefined>
+type Lang = 'en' | 'zh'
+
+export default async function ContactPage({
   searchParams,
 }: {
-  searchParams?: Record<string, string | string[] | undefined>
+  searchParams: Promise<SearchParams>
 }) {
-  const langParam = searchParams?.lang
-  const lang = langParam === 'en' || langParam === 'zh' ? langParam : 'zh'
+  const sp = await searchParams
+  const langParam = sp?.lang
+  const lang: Lang = langParam === 'en' || langParam === 'zh' ? (langParam as Lang) : 'zh'
   const isEN = lang === 'en'
 
-  const toggleHref = `?lang=${isEN ? 'zh' : 'en'}`
+  // 修复：补充语言切换链接
+  const toggleHref = `/contact?lang=${isEN ? 'zh' : 'en'}`
 
   return (
     <main className="bg-white text-gray-900 min-h-dvh">
@@ -56,6 +46,7 @@ export default function ContactPage({
                 : '无论是工程咨询、技术合作还是现场支持，AIWASON 团队都将为您提供及时、专业的服务。'}
             </p>
           </div>
+
           <div className="rounded-2xl border border-[#76B900]/25 bg-[#f6fbef] px-6 py-8 shadow-sm w-full max-w-md">
             <div className="flex justify-end">
               <Link
@@ -66,6 +57,7 @@ export default function ContactPage({
                 {isEN ? '中文' : 'EN'}
               </Link>
             </div>
+
             <div className="space-y-6">
               {CONTACTS.map((entry) => (
                 <div key={entry.value} className="space-y-2">
@@ -81,6 +73,7 @@ export default function ContactPage({
           </div>
         </div>
       </section>
+
       <section className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="rounded-2xl border border-[#76B900]/20 bg-white shadow-sm p-6 lg:p-8 space-y-4">
@@ -93,6 +86,7 @@ export default function ContactPage({
                 : '欢迎将您的配电需求、BIM 资料或负载规划发送给我们。工程团队将快速为您提供现场勘察、母线布局以及智能监测方案建议。'}
             </p>
           </div>
+
           <div className="rounded-2xl border border-[#76B900]/20 bg-white shadow-sm p-6 lg:p-8 space-y-4">
             <h2 className="text-2xl font-extrabold text-gray-900">
               {isEN ? 'Response Times' : '响应时效'}
@@ -100,7 +94,7 @@ export default function ContactPage({
             <p className="text-gray-600 leading-relaxed">
               {isEN
                 ? 'We operate across Greater China and the Asia-Pacific. Expect an initial response within one business day and rapid escalation for mission-critical incidents.'
-                : '团队覆盖大中华与亚太区，一般咨询 1 个工作日内响应；关键故障与停电风险可获得即时升级处理。'}
+                : '团队覆盖全球，一般咨询 1 个工作日内响应；关键故障与停电风险可获得即时升级处理。'}
             </p>
           </div>
         </div>
