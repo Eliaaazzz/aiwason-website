@@ -5,7 +5,7 @@ import LanguageSwitch from '@/components/common/LanguageSwitch'
 
 export const metadata = {
   title: '会议中心 | Conference Center',
-  description: 'AIWASON 会议与展会活动：国际会议中心等。', // FIX: wording matches new theme
+  description: 'AIWASON 会议与展会活动：国际会议中心等。', 
 }
 
 type SearchParams = { [key: string]: string | string[] | undefined }
@@ -25,10 +25,9 @@ export default function Page({ searchParams }: { searchParams?: SearchParams }) 
     ],
   }
 
-  // You can keep your existing image; if you have a venue photo, point to it here.
-  // Avoid spaces in filenames if possible; or ensure they’re URL-encoded.
+
   const heroImage = '/res/conference.jpg'
-  // const heroImage = '/res/gallery-21.png' // Optional: if you have this asset available
+  // const heroImage = '/res/前海国际会议中心.png' // Optional: if you have this asset available
 
   return (
     <main className="bg-white text-gray-900 min-h-screen">

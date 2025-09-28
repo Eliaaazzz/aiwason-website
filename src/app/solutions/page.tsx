@@ -4,20 +4,23 @@ import Link from 'next/link'
 import LanguageSwitch from '@/components/common/LanguageSwitch'
 import CardImage from '@/components/common/CardImage'
 
-// ---- 静态导入（来自 public/res 或 public/res/solutions）----
-import frBusduct from '@/assets/images/fr-busduct.png'                          // 你现有的静态导入
-import heroPng from '@public/res/solutions/aiwason-solution-hero.png'
-import analyticsHeatmapPng from '@public/res/solutions/aiwason-analytics-heatmap.png'
-import alertDispatchPng from '@public/res/solutions/aiwason-alert-dispatch.png'
-import modularBuswayPng from '@public/res/solutions/aiwason-modular-busway.png'
-import tapoffPanelPng from '@public/res/solutions/aiwason-tapoff-panel.png'
-import operationMgmtPng from '@public/res/solutions/operation-management.png'
-import planMgmtPng from '@public/res/solutions/plan-management.png'
-import historicalAnalyticsPng from '@public/res/solutions/aiwason-historical-analytics.png'
+// ---- 静态导入（放在 src/assets 下的仍可用 StaticImageData）----
+import frBusduct from '@/assets/images/fr-busduct.png'
 
-import conductorPng from '@public/res/bus-conductor.png'
-import insulationSleevePng from '@public/res/insulation-sleeve.png'
-import historicalBannerJpg from '@public/res/dataCenter.jpeg'
+// ---- 来自 public/ 的资源：用根路径字符串（/public 映射为站点根）----
+const heroPng = '/res/solutions/aiwason-solution-hero.png'
+const analyticsHeatmapPng = '/res/solutions/aiwason-analytics-heatmap.png'
+const alertDispatchPng = '/res/solutions/aiwason-alert-dispatch.png'
+const modularBuswayPng = '/res/solutions/aiwason-modular-busway.png'
+const tapoffPanelPng = '/res/solutions/aiwason-tapoff-panel.png'
+const operationMgmtPng = '/res/solutions/operation-management.png'
+const planMgmtPng = '/res/solutions/plan-management.png'
+const historicalAnalyticsPng = '/res/solutions/aiwason-historical-analytics.png'
+
+const conductorPng = '/res/bus-conductor.png'
+const insulationSleevePng = '/res/insulation-sleeve.png'
+const historicalBannerJpg = '/res/dataCenter.jpeg'
+const reportManagementPng = '/res/report-management.png'
 
 export const metadata = {
   title: 'Solutions | AIWASON',
@@ -42,18 +45,18 @@ const heroCopy: Localised<{ title: string; subtitle: string; cta: string }> = {
   },
 }
 
-// 统一的素材映射（都是 StaticImageData，不再用字符串）
+// 统一素材映射（支持 string 或 StaticImageData）
 const solutionVisuals = {
   hero: heroPng,
   assetDashboard: heroPng,
   analyticsHeatmap: analyticsHeatmapPng,
   alertDispatch: alertDispatchPng,
   modularBusway: modularBuswayPng,
-  buswayTrunking: frBusduct,
+  buswayTrunking: frBusduct, // from src/assets
   tapoffPanel: tapoffPanelPng,
   conductor: conductorPng,
   insulationSleeve: insulationSleevePng,
-  reportManagement: require('@public/res/report-management.png').default as StaticImageData,
+  reportManagement: reportManagementPng,
   operationManagement: operationMgmtPng,
   planManagement: planMgmtPng,
   historicalAnalysis: historicalAnalyticsPng,
@@ -66,7 +69,7 @@ const CLOUD_FEATURES: Array<{
   id: string
   title: Localised<string>
   description: Localised<string>
-  image: StaticImageData
+  image: string | StaticImageData
 }> = [
   {
     id: 'device-management',

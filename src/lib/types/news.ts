@@ -1,35 +1,40 @@
-// src/lib/types/news.ts
-// Centralized types for the news module
-
-export type Locale = 'zh' | 'en'
-
-export type LocalizedText = {
-  zh: string
-  en: string
+// src/types/news.ts
+export type Localised<T> = { en: T; zh: T }
+export type VideoItem = {
+  id: string
+  type: 'standard' | 'interview'
+  title: Localised<string>
+  description?: Localised<string>
+  thumbnail: string
+  videoUrl: string
+  date?: string
+  duration?: string
 }
-
-// Minimal shape used by UI components
 export type NewsItem = {
   id: string
-  slug: string
-  date: string // ISO date string
-  cover: string
-  title: LocalizedText | string
-  summary?: LocalizedText | string
-  tags?: string[]
-  url?: string
+  title: Localised<string>
+  description?: Localised<string>
+  source: string
+  link: string
+  date: string
 }
-
-export type NewsListParams = {
-  page?: number
-  pageSize?: number
-  tag?: string
-  locale?: Locale
+export type WeChatPost = {
+  id: string
+  title: Localised<string>
+  description?: Localised<string>
+  thumbnail: string
+  link: string
+  date: string
 }
-
-export type NewsListResult = {
-  items: NewsItem[]
-  total: number
-  page: number
-  pageSize: number
+export type WeChatAccount = {
+  name: Localised<string>
+  qr: string
+  homepage?: string
+  intro?: Localised<string>
+}
+export type NewsPayload = {
+  videos: VideoItem[]
+  news: NewsItem[]
+  wechat: WeChatPost[]
+  wechatAccount: WeChatAccount
 }
