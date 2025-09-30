@@ -14,7 +14,7 @@ const PX_PER_SEC = 40
 const SHOWCASE_EAGER = 12   // 项目首屏优先加载数
 const PATENT_EAGER   = 7   
 
-// ── 项目与专利（移除 patent8） ─────────────────────────────────
+
 const SHOWCASE_ITEMS: ShowcaseItem[] = [
   { src: '/res/gallery-42.jpg', caption: { en: 'Shenzhen Global Smart Chip Center', zh: '深圳全球智能芯片中心' } },
   { src: '/res/gallery-44.jpg', caption: { en: 'Shenzhen Four Seasons Hotel', zh: '深圳四季酒店' } },
@@ -142,7 +142,7 @@ function SmartImg({
           height={height}
           loading={eager ? 'eager' : 'lazy'}
           decoding="async"
-          fetchpriority={eager ? 'high' : 'low'}
+          fetchPriority={eager ? 'high' : 'low'}
           onLoad={() => setLoaded(true)}
           onError={() => { setFailed(true); setLoaded(false) }}
           draggable={false}
@@ -246,6 +246,7 @@ function InfiniteScroller({
 
       <style jsx>{`
         @keyframes ${animName} {
+          // force GPU acceleration
           0%   { transform: translate3d(0,0,0); }
           100% { transform: translate3d(-${distance}px,0,0); }
         }

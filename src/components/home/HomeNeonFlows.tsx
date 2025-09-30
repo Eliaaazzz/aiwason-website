@@ -47,36 +47,7 @@ export default function HomeNeonFlows({
         </div>
       )}
 
-      {/* <svg
-        className="pointer-events-none absolute right-0 top-0 h-[120%] w-[60%] opacity-60 z-[1]"
-        viewBox="0 0 600 1000"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id="neonFlowGradient" x1="0" x2="1">
-            <stop offset="0" stopColor="#76B900" stopOpacity="0" />
-            <stop offset="0.6" stopColor="#76B900" stopOpacity="0.45" />
-            <stop offset="1" stopColor="#9BE15D" stopOpacity="0.8" />
-          </linearGradient>
-        </defs>
-        {Array.from({ length: 6 }).map((_, i) => {
-          const path = `M ${560 - i * 35} 0 C ${400 - i * 30} 200, ${520 - i * 10} 500, ${380 - i * 25} 800`
-          return (
-            <motion.path
-              key={i}
-              d={path}
-              fill="none"
-              stroke="url(#neonFlowGradient)"
-              strokeWidth={2.2}
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 2 + i * 0.25, ease: 'easeInOut' }}
-              style={{ filter: 'drop-shadow(0 0 12px rgba(118,185,0,0.35))' }}
-            />
-          )
-        })}
-      </svg> */}
-
+     
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="grid grid-cols-12 gap-8 items-center">
           <div className="col-span-12 lg:col-span-6">

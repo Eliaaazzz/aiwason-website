@@ -1,16 +1,14 @@
-// src/app/products/page.tsx
 import ProductsCenter from '@/components/products/ProductsCenter'
 
-export const metadata = { title: 'Products | AIWASON' }
+type SearchParams = Record<string, string | string[] | undefined>
+type Lang = 'en' | 'zh'
 
 export default async function ProductsPage({
-  searchParams = {},
+  searchParams,
 }: {
-  searchParams?: Record<string, string | string[] | undefined>
+  searchParams: Promise<SearchParams>
 }) {
-  // Default to English unless lang=zh is explicitly set
-  const lang =
-    (searchParams.lang as 'en' | 'zh') === 'zh' ? 'zh' : 'en'
-
+  const sp = await searchParams
+  const lang: Lang = sp?.lang === 'zh' ? 'zh' : 'en' 
   return <ProductsCenter lang={lang} />
 }

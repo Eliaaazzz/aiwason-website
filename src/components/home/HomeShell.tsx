@@ -5,30 +5,28 @@ import { motion } from 'framer-motion'
 import { Globe } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import monitoringSlide from '@/assets/images/ai-monitoring-terminal.png'
+
+// 静态 import：保持不变（Next 会生成 hashed 静态资源，直接把模块对象传给 <Image /> 即可）
+import monitoringSlide from '@/assets/products/ai-monitoring-terminal.png'
+
 import NewsSectionsSlideIn, { type NewsGroup } from '../news/NewsSectionsSlideIn'
 import HomeNeonFlows from './HomeNeonFlows'
 
-
-const LOGO_SRC = '/res/logo.png?v=20250825'
-const IMG_VER = '20250921'
-const BACKGROUND_IMG = `/res/background.png?v=${IMG_VER}`
-
-const monitoringSlideVersioned: typeof monitoringSlide = {
-  ...monitoringSlide,
-  src: `${monitoringSlide.src}?v=${IMG_VER}`,
-}
+// ✅ 纯 public 路径（不带 ?v）
+const LOGO_SRC = '/res/logo.png'
+const BACKGROUND_IMG = '/res/background.png'
 
 const translations = {
   en: {
-    nav: { products: 'PRODUCTS', solutions: 'SOLUTIONS', about: 'ABOUT', contact: 'CONTACT' },
+    nav: { products: 'PRODUCTS', news: 'NEWS', solutions: 'SOLUTIONS', about: 'ABOUT', contact: 'CONTACT' },
     hero: {
       title1: 'FIRE-RESISTANT',
       title2: 'INTELLIGENT OPTOELECTRONIC',
       title3: 'BUSBARS',
-      subtitle: 'Powering the future of data centers and real estate with revolutionary fire-resistant intelligent optoelectronic busbar technology.',
+      subtitle:
+        'Powering the future of data centers and real estate with revolutionary fire-resistant intelligent optoelectronic busbar technology.',
       exploreBtn: 'EXPLORE PRODUCTS',
     },
     features: {
@@ -38,7 +36,7 @@ const translations = {
     },
   },
   zh: {
-    nav: { products: '产品中心', solutions: '解决方案', about: '关于我们', contact: '联系我们' },
+    nav: { products: '产品中心', news: '新闻动态', solutions: '解决方案', about: '关于我们', contact: '联系我们' },
     hero: {
       title1: '耐火', title2: '智能光电', title3: '母线系统',
       subtitle: '革命性耐火智能光电母线技术，为数据中心和房地产行业提供未来动力。',
@@ -72,18 +70,19 @@ export default function HomeShell() {
     () => [
       {
         id: 0,
-        lines: language === 'en'
-          ? ['FIRE-RESISTANT', 'INTELLIGENT', 'OPTOELECTRONIC BUSBARS']
-          : ['耐火', '智能光电', '母线系统'],
+        lines:
+          language === 'en'
+            ? ['FIRE-RESISTANT', 'INTELLIGENT', 'PHOTOELECTRIC BUSBARS']
+            : ['耐火', '智能光电', '母线系统'],
         subtitle: t.hero.subtitle,
-        img: '/res/company.jpg',
-        bg: BACKGROUND_IMG,
+        img: '/res/company.jpg',        // public 路径
+        bg: BACKGROUND_IMG,             // public 路径
       },
       {
         id: 1,
         lines: language === 'en' ? ['AI-POWERED', 'REAL-TIME', 'MONITORING'] : ['AI智能监控', '实时分析', '预测维护'],
         subtitle: t.features.smartMonitoring.description,
-        img: monitoringSlideVersioned,
+        img: monitoringSlide,           // ✅ 直接用静态 import 的模块对象（不要拼 ?v）
         bg: BACKGROUND_IMG,
       },
       {
@@ -97,7 +96,7 @@ export default function HomeShell() {
         id: 3,
         lines: language === 'en' ? ['FIRE-RESISTANT', 'CORE', 'TECHNOLOGY'] : ['耐火', '核心', '技术'],
         subtitle: t.features.fireResistant.description,
-        img: `/res/aiwason_fireproof_busbar_hero.png?v=${IMG_VER}`,
+        img: '/res/aiwason_fireproof_busbar_hero.png',  // ✅ 去掉 ?v
         bg: BACKGROUND_IMG,
       },
       {
@@ -121,41 +120,68 @@ export default function HomeShell() {
   )
 
   const SLIDES_MS = 6000
+
   const [idx, setIdx] = useState(0)
-  const timerRef = useRef<number | null>(null)
-  useEffect(() => {
-    if (timerRef.current) window.clearInterval(timerRef.current)
-    timerRef.current = window.setInterval(() => setIdx(i => (i + 1) % slides.length), SLIDES_MS)
-    return () => { if (timerRef.current) window.clearInterval(timerRef.current) }
+  const timeoutRef = useRef<number | null>(null)
+
+  const scheduleNext = useCallback(() => {
+    if (timeoutRef.current) window.clearTimeout(timeoutRef.current)
+    timeoutRef.current = window.setTimeout(() => {
+      setIdx((i) => (i + 1) % slides.length)
+    }, SLIDES_MS)
   }, [slides.length])
 
+  useEffect(() => {
+    scheduleNext()
+    return () => { if (timeoutRef.current) window.clearTimeout(timeoutRef.current) }
+  }, [idx, scheduleNext])
+
   const tSlide = slides[idx]
+
   const navHref = useMemo(
     () => ({
       products: `/products?lang=${language}`,
+      news: `/news?lang=${language}`,  
       solutions: `/solutions?lang=${language}`,
       about: `/about?lang=${language}`,
       contact: `/contact?lang=${language}`,
     }),
-    [language],
+    [language]
   )
 
   const newsGroups: NewsGroup[] = useMemo(
     () => [
-
+      {
+        heading: language === 'en' ? 'Video' : '视频',
+        items: [
+          {
+            id: 'video-hero-1',
+            title: language === 'en' ? 'AIWASON Overview' : 'AIWASON 概览视频',
+            desc:
+              language === 'en'
+                ? 'A quick look at AIWASON fire-resistant, intelligent optoelectronic busbar.'
+                : '快速了解 AIWASON 耐火智能光电母线。',
+            date: '2025/09/26',
+            img: '/res/home-hero-poster.jpg',
+            video: {
+              poster: '/res/home-hero-poster.jpg',
+              sources: [{ src: '/video/home-hero.mp4', type: 'video/mp4' }],
+            },
+          },
+        ],
+      },
       {
         heading: language === 'en' ? 'Conference Center' : '会议中心',
         items: [
           {
             id: 'meet-1',
-            title: language === 'en'
-              ? 'International Conference Center'
-              : '国际会议中心',
-            desc: language === 'en'
-              ? 'At Shenzhen Qianhai International Conference Center, AIWASON delivers high-efficiency, green, intelligent, and safe power distribution for large exhibitions and summits.'
-              : '深圳前海国际会议中心，AIWASON 以高效、绿色、智能、安全的输配电体系，支撑大型会展与国际峰会。',
+            title: language === 'en' ? 'International Conference Center' : '国际会议中心',
+            desc:
+              language === 'en'
+                ? 'At Shenzhen Qianhai International Conference Center, AIWASON delivers high-efficiency, green, intelligent, and safe power distribution for large exhibitions and summits.'
+                : '深圳前海国际会议中心，AIWASON 以高效、绿色、智能、安全的输配电体系，支撑大型会展与国际峰会。',
             date: '2025/05/18',
-            img: '/res/conference.jpg', 
+            img: '/res/conference.jpg',
             href: '/events/datacenter-summit',
           },
         ],
@@ -192,7 +218,6 @@ export default function HomeShell() {
           },
         ],
       },
-      // 五星级酒店
       {
         heading: language === 'en' ? 'Five-star Hotels' : '五星级酒店',
         items: [
@@ -209,7 +234,6 @@ export default function HomeShell() {
           },
         ],
       },
-      // 机场
       {
         heading: language === 'en' ? 'Airports' : '机场',
         items: [
@@ -226,7 +250,6 @@ export default function HomeShell() {
           },
         ],
       },
-      // 高铁
       {
         heading: language === 'en' ? 'High-speed Rail' : '高铁',
         items: [
@@ -243,7 +266,6 @@ export default function HomeShell() {
           },
         ],
       },
-      // 图书馆
       {
         heading: language === 'en' ? 'Libraries' : '图书馆',
         items: [
@@ -264,7 +286,6 @@ export default function HomeShell() {
     [language]
   )
 
-  
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* navbar */}
@@ -279,7 +300,16 @@ export default function HomeShell() {
 
             <div className="hidden md:flex items-center space-x-8">
               {Object.entries(t.nav).map(([key, label], index) => {
-                const href = navHref[key as keyof typeof navHref] ?? '#'
+                const href = ((): string => {
+                  const map = {
+                    news: `/news?lang=${language}`,
+                    products: `/products?lang=${language}`,
+                    solutions: `/solutions?lang=${language}`,
+                    about: `/about?lang=${language}`,
+                    contact: `/contact?lang=${language}`,
+                  } as const
+                  return (map as any)[key] ?? '#'
+                })()
                 return (
                   <motion.div key={key} whileHover={{ scale: 1.05 }} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08 }}>
                     <Link href={href} className="text-gray-700 hover:text-[#76B900] font-medium tracking-wide text-sm relative group transition-all duration-300">
@@ -312,7 +342,7 @@ export default function HomeShell() {
         <HomeNeonFlows
           key={idx}
           lang={language}
-          imageSrc={tSlide.img}
+          imageSrc={tSlide.img} 
           titleLines={Array.isArray(tSlide.lines) ? tSlide.lines : [t.hero.title1, t.hero.title2, t.hero.title3]}
           description={tSlide.subtitle}
           cta={{ href: `/products?lang=${language}`, label: t.hero.exploreBtn }}

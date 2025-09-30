@@ -1,13 +1,13 @@
 import { type StaticImageData } from 'next/image'
 
 // Static images (Next knows width/height)
-import imgAiTerminal      from '@/assets/images/ai-monitoring-terminal.png'
-import imgSpecialMaterial from '@/assets/images/special-material.png'
-import imgIp68Section     from '@/assets/images/ip68-section.png'
-import imgConnectorModule from '@/assets/images/connector-module.png'
-import imgWallPatent      from '@/assets/images/wall-patent-system.png'
-import imgBuildingLayout  from '@/assets/images/building-layout-system.png'
-import imgFrBusbarEquip   from '@/assets/images/fr-busduct.png'
+import imgAiTerminal      from '@/assets/products/ai-monitoring-terminal.png'
+import imgSpecialMaterial from '@/assets/products/special-material.png'
+import imgIp68Section     from '@/assets/products/ip68-section.png'
+import imgConnectorModule from '@/assets/products/connector-module.png'
+import imgWallPatent      from '@/assets/products/wall-patent-system.png'
+import imgBuildingLayout  from '@/assets/products/building-layout-system.png'
+import imgFrBusbarEquip   from '@/assets/products/fr-busduct.png'
 
 export type Lang = 'en' | 'zh'
 export type I18n = { en: string; zh: string }

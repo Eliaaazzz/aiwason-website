@@ -4,20 +4,23 @@ import Link from 'next/link'
 import LanguageSwitch from '@/components/common/LanguageSwitch'
 import CardImage from '@/components/common/CardImage'
 
-// ---- 静态导入（来自 public/res 或 public/res/solutions）----
-import frBusduct from '@/assets/images/fr-busduct.png'                          // 你现有的静态导入
-import heroPng from '@public/res/solutions/aiwason-solution-hero.png'
-import analyticsHeatmapPng from '@public/res/solutions/aiwason-analytics-heatmap.png'
-import alertDispatchPng from '@public/res/solutions/aiwason-alert-dispatch.png'
-import modularBuswayPng from '@public/res/solutions/aiwason-modular-busway.png'
-import tapoffPanelPng from '@public/res/solutions/aiwason-tapoff-panel.png'
-import operationMgmtPng from '@public/res/solutions/operation-management.png'
-import planMgmtPng from '@public/res/solutions/plan-management.png'
-import historicalAnalyticsPng from '@public/res/solutions/aiwason-historical-analytics.png'
+import frBusduct from '@/assets/products/fr-busduct.png'
 
-import conductorPng from '@public/res/bus-conductor.png'
-import insulationSleevePng from '@public/res/insulation-sleeve.png'
-import historicalBannerJpg from '@public/res/dataCenter.jpeg'
+// Add these static imports at the top of the file
+import heroPng from '@/assets/solutions/aiwason-solution-hero.png'
+import analyticsHeatmapPng from '@/assets/solutions/aiwason-analytics-heatmap.png'
+import alertDispatchPng from '@/assets/solutions/aiwason-alert-dispatch.png'
+import modularBuswayPng from '@/assets/solutions/aiwason-modular-busway.png'
+import tapoffPanelPng from '@/assets/solutions/aiwason-tapoff-panel.png'
+import operationMgmtPng from '@/assets/solutions/operation-management.png'
+import planMgmtPng from '@/assets/solutions/plan-management.png'
+import historicalAnalyticsPng from '@/assets/solutions/aiwason-historical-analytics.png'
+
+import conductorPng from '@/assets/solutions/bus-conductor.png'
+import insulationSleevePng from '@/assets/solutions/insulation-sleeve.png'
+import dataCenterJpeg from '@/assets/solutions/dataCenter.jpeg'
+import reportManagementPng from '@/assets/solutions/report-management.png'
+
 
 export const metadata = {
   title: 'Solutions | AIWASON',
@@ -42,22 +45,22 @@ const heroCopy: Localised<{ title: string; subtitle: string; cta: string }> = {
   },
 }
 
-// 统一的素材映射（都是 StaticImageData，不再用字符串）
+// 统一素材映射（支持 string 或 StaticImageData）
 const solutionVisuals = {
   hero: heroPng,
   assetDashboard: heroPng,
   analyticsHeatmap: analyticsHeatmapPng,
   alertDispatch: alertDispatchPng,
   modularBusway: modularBuswayPng,
-  buswayTrunking: frBusduct,
+  buswayTrunking: frBusduct, 
   tapoffPanel: tapoffPanelPng,
   conductor: conductorPng,
   insulationSleeve: insulationSleevePng,
-  reportManagement: require('@public/res/report-management.png').default as StaticImageData,
+  reportManagement: reportManagementPng,
   operationManagement: operationMgmtPng,
   planManagement: planMgmtPng,
   historicalAnalysis: historicalAnalyticsPng,
-  historicalBanner: historicalBannerJpg,
+  dataCenter: dataCenterJpeg,
 } as const
 
 const heroVisual = solutionVisuals.hero
@@ -66,7 +69,7 @@ const CLOUD_FEATURES: Array<{
   id: string
   title: Localised<string>
   description: Localised<string>
-  image: StaticImageData
+  image: string | StaticImageData
 }> = [
   {
     id: 'device-management',
@@ -492,7 +495,7 @@ export default async function SolutionsPage({
 
             <div className="relative h-72 w-full rounded-3xl border border-[#76B900]/20 bg-white shadow-sm overflow-hidden">
               <Image
-                src={solutionVisuals.historicalBanner}
+                src={solutionVisuals.dataCenter}
                 alt={lang === 'en' ? 'Busbar deployment diagram' : '母线部署示意图'}
                 fill
                 className="object-cover"
