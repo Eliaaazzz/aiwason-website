@@ -9,7 +9,7 @@ import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 // 静态 import：保持不变（Next 会生成 hashed 静态资源，直接把模块对象传给 <Image /> 即可）
-import monitoringSlide from '@/assets/images/ai-monitoring-terminal.png'
+import monitoringSlide from '@/assets/products/ai-monitoring-terminal.png'
 
 import NewsSectionsSlideIn, { type NewsGroup } from '../news/NewsSectionsSlideIn'
 import HomeNeonFlows from './HomeNeonFlows'
@@ -20,7 +20,7 @@ const BACKGROUND_IMG = '/res/background.png'
 
 const translations = {
   en: {
-    nav: { products: 'PRODUCTS', solutions: 'SOLUTIONS', about: 'ABOUT', contact: 'CONTACT' },
+    nav: { products: 'PRODUCTS', news: 'NEWS', solutions: 'SOLUTIONS', about: 'ABOUT', contact: 'CONTACT' },
     hero: {
       title1: 'FIRE-RESISTANT',
       title2: 'INTELLIGENT OPTOELECTRONIC',
@@ -36,7 +36,7 @@ const translations = {
     },
   },
   zh: {
-    nav: { products: '产品中心', solutions: '解决方案', about: '关于我们', contact: '联系我们' },
+    nav: { products: '产品中心', news: '新闻动态', solutions: '解决方案', about: '关于我们', contact: '联系我们' },
     hero: {
       title1: '耐火', title2: '智能光电', title3: '母线系统',
       subtitle: '革命性耐火智能光电母线技术，为数据中心和房地产行业提供未来动力。',
@@ -141,6 +141,7 @@ export default function HomeShell() {
   const navHref = useMemo(
     () => ({
       products: `/products?lang=${language}`,
+      news: `/news?lang=${language}`,  
       solutions: `/solutions?lang=${language}`,
       about: `/about?lang=${language}`,
       contact: `/contact?lang=${language}`,
@@ -340,7 +341,7 @@ export default function HomeShell() {
         <HomeNeonFlows
           key={idx}
           lang={language}
-          imageSrc={tSlide.img} // ✅ 现在是 public 字符串 或 静态 import 模块对象
+          imageSrc={tSlide.img} 
           titleLines={Array.isArray(tSlide.lines) ? tSlide.lines : [t.hero.title1, t.hero.title2, t.hero.title3]}
           description={tSlide.subtitle}
           cta={{ href: `/products?lang=${language}`, label: t.hero.exploreBtn }}
