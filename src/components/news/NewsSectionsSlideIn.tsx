@@ -3,7 +3,7 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 
 export type VideoSource = { src: string; type: string }
@@ -13,13 +13,14 @@ export type NewsItem = {
   title: string
   desc: string
   date?: string
-  img: string
+  img: string | StaticImageData
   href?: string
   tag?: string
+  imageFit?: 'cover' | 'contain'
   /** 可选：提供即渲染“视频卡片”，版式与图片一致，点击播放 Lightbox */
   video?: {
     title?: string
-    poster?: string
+    poster?: string | StaticImageData
     sources: VideoSource[] // 至少 1 个，如 {src:'/video/home-hero.mp4', type:'video/mp4'}
   }
 }
@@ -66,6 +67,7 @@ export default function NewsSectionsSlideIn({
               {group.items.map((it, idx) => {
                 const isVideo = !!it.video && it.video.sources?.length > 0
                 const poster = it.video?.poster || it.img
+                const imageFit = it.imageFit || (it.video ? 'cover' : 'cover')
                 const meta =
                   it.tag ??
                   (isVideo
@@ -120,7 +122,7 @@ export default function NewsSectionsSlideIn({
                           alt={it.title}
                           fill
                           sizes="(min-width: 1024px) 560px, 100vw"
-                          className="object-cover object-top"
+                          className={imageFit === 'contain' ? 'object-contain' : 'object-cover object-top'}
                           priority={idx < 2}
                         />
                         {/* Brand accent line */}

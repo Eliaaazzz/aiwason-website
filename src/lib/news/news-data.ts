@@ -1,50 +1,26 @@
 // src/lib/news/news-data.ts
 
 // ===== Local types for the data layer (与组件的结构完全一致) =====
-export type Localised<T> = { en: T; zh: T }
-
-export type VideoItem = {
-  id: string
-  type: 'standard' | 'interview'
-  title: Localised<string>
-  description?: Localised<string>
-  thumbnail: string
-  videoUrl: string
-  date?: string
-  duration?: string
-}
-
-export type NewsItem = {
-  id: string
-  title: Localised<string>
-  description?: Localised<string>
-  source: string
-  link: string        // 外链
-  date: string
-}
-
-export type WeChatPost = {
-  id: string
-  title: Localised<string>
-  description?: Localised<string>
-  thumbnail: string
-  link: string
-  date: string
-}
-
-export type WeChatAccount = {
-  name: Localised<string>
-  qr: string          // 建议放 public/res/wechat-qr.png
-  homepage?: string
-  intro?: Localised<string>
-}
-
-export type NewsPayload = {
-  videos: VideoItem[]
-  news: NewsItem[]            // 10 条外链
-  wechat: WeChatPost[]
-  wechatAccount: WeChatAccount
-}
+import sinaImg from '@/assets/News/新浪.png'
+import chinaDailyImg from '@/assets/News/中国日报.png'
+import chinaComImg from '@/assets/News/中华.png'
+import ifengImg from '@/assets/News/凤凰.png'
+import chinaManufacturingImg from '@/assets/News/中国制造.png'
+import dayangImg from '@/assets/News/大洋.png'
+import cinnImg from '@/assets/News/中国工业.png'
+import chinaPowerImg from '@/assets/News/中国电力.png'
+import entrepreneurImg from '@/assets/News/企业.png'
+import bnbImg from '@/assets/News/media7.png'
+import creditChinaPoster from '@/assets/News/credit-china-poster.png'
+import wechatQr from '@/assets/News/Wechat-QRcode.png'
+import homeHeroPoster from '../../../public/res/home-hero-poster.jpg'
+import type {
+  NewsPayload,
+  NewsItem,
+  VideoItem,
+  WeChatAccount,
+  WeChatPost,
+} from '@/lib/types/news'
 
 export async function getNewsData(): Promise<NewsPayload> {
   const videos: VideoItem[] = [
@@ -53,110 +29,120 @@ export async function getNewsData(): Promise<NewsPayload> {
       type: 'standard',
       title: { en: 'AIWASON Smart Busbar Technology', zh: 'AIWASON 智能母线科技' },
       description: { en: 'Explore innovations.', zh: '探索我们的创新。' },
-      thumbnail: '/res/video-thumbnail-1.jpg',
-      videoUrl: '/video/tech-showcase.mp4',
+      thumbnail: homeHeroPoster,
+      videoUrl: '/video/home-hero.mp4',
       date: '2025-09-20',
       duration: '02:34',
     },
     {
       id: 'v2',
       type: 'interview',
-      title: { en: 'Discovering Beauty: Engineering Excellence', zh: '发现之美：工程技术的卓越追求' },
-      description: { en: 'Sustainable power discussion.', zh: '关于可持续能源的讨论。' },
-      thumbnail: '/res/interview-1.jpg',
-      videoUrl: '/video/interview-1.mp4',
-      date: '2025-09-15',
+      title: { en: 'Credit China – Liu Jingguang', zh: '信用中国 · 刘金光' },
+      description: { en: 'Credit China feature.', zh: '信用中国专题片。' },
+      thumbnail: creditChinaPoster,
+      videoUrl: '/video/credit-China.mp4',
+      date: '2024-12-01',
       duration: '06:50',
     },
   ]
 
-  // 10 条外链新闻（全部 https:// 开头）
+  // 10 条外链新闻（使用你提供的媒体链接，描述与标题可后续替换）
   const news: NewsItem[] = [
     {
-      id: 'n1',
-      title: { en: 'Innovation Award 2025', zh: '荣获 2025 创新奖' },
-      source: 'Industry Today',
-      link: 'https://example.com/news/innovation-award-2025',
-      date: '2025-09-10',
-      description: { en: 'Breakthrough recognised.', zh: '技术突破获得认可。' },
+      id: 'n-sina',
+      title: { en: 'AIWASON Featured by Sina Finance', zh: '新浪网财经报道艾默森' },
+      source: '新浪网财经',
+      link: 'https://finance.sina.com.cn/jjxw/2025-05-12/doc-inewhnwe8190331.shtml',
+      date: '2025-05-12',
+      description: { en: 'Breakthrough fire-resistant intelligent busbar tech.', zh: '耐火智能母线科技突破。' },
+      image: sinaImg,
     },
     {
-      id: 'n2',
-      title: { en: 'Data Center Resilience', zh: '数据中心韧性提升' },
-      source: 'Tech Daily',
-      link: 'https://example.com/news/data-center-resilience',
-      date: '2025-09-09',
-      description: { en: 'Fire-resistant busbars boost uptime.', zh: '耐火母线提升可用性。' },
+      id: 'n-chinadaily',
+      title: { en: 'China Daily Covers AIWASON', zh: '中国日报报道艾默森' },
+      source: '中国日报网',
+      link: 'https://caijing.chinadaily.com.cn/a/202505/13/WS6822ea40a310205377032daa.html',
+      date: '2025-05-13',
+      description: { en: 'Technology leadership in intelligent busbars.', zh: '智能母线科技引领未来。' },
+      image: chinaDailyImg,
     },
     {
-      id: 'n3',
-      title: { en: 'Smart Buildings', zh: '智慧楼宇' },
-      source: 'SmartBuild',
-      link: 'https://example.com/news/smart-buildings',
-      date: '2025-09-08',
-      description: { en: 'Integrated monitoring case study.', zh: '监测一体化案例。' },
+      id: 'n-china',
+      title: { en: 'China.com In-depth Report', zh: '中华网深度报道艾默森' },
+      source: '中华网',
+      link: 'https://mtz.china.com/touzi/2025/0512/165386.html',
+      date: '2025-05-12',
+      description: { en: 'Mainstream media coverage.', zh: '主流媒体报道。' },
+      image: chinaComImg,
     },
     {
-      id: 'n4',
-      title: { en: 'Airport Deployment', zh: '机场部署' },
-      source: 'Aviation Weekly',
-      link: 'https://example.com/news/airport-deployment',
-      date: '2025-09-07',
-      description: { en: 'Mission-critical power track.', zh: '关键电力通道。' },
+      id: 'n-ifeng',
+      title: { en: 'Phoenix Shenzhen Highlights AIWASON', zh: '凤凰网报道艾默森' },
+      source: '凤凰网深圳',
+      link: 'https://sz.ifeng.com/c/8jI5JgSvn9w.html',
+      date: '2025-05-12',
+      description: { en: 'Innovation reshaping the power grid.', zh: '创新重塑电力格局。' },
+      image: ifengImg,
     },
     {
-      id: 'n5',
-      title: { en: 'Real Estate ESG', zh: '地产 ESG' },
-      source: 'ESG Watch',
-      link: 'https://example.com/news/real-estate-esg',
-      date: '2025-09-06',
-      description: { en: 'Safety and sustainability.', zh: '安全与可持续。' },
+      id: 'n-manufacturing',
+      title: { en: 'China Manufacturing Network Feature', zh: '中国制造网报道艾默森' },
+      source: '中国制造网',
+      link: 'https://china.nmqs1.com/7112.html',
+      date: '2025-05-12',
+      description: { en: 'Manufacturing industry spotlight.', zh: '制造业领域聚焦。' },
+      image: chinaManufacturingImg,
     },
     {
-      id: 'n6',
-      title: { en: 'Manufacturing Upgrade', zh: '制造升级' },
-      source: 'Factory 4.0',
-      link: 'https://example.com/news/manufacturing-upgrade',
-      date: '2025-09-05',
-      description: { en: 'Digital QA pipeline.', zh: '数字化质检。' },
+      id: 'n-dayang',
+      title: { en: 'Dayang News Coverage', zh: '大洋新闻网报道艾默森' },
+      source: '大洋新闻网',
+      link: 'https://www.zjw.cn/info-216758.html',
+      date: '2025-05-12',
+      description: { en: 'Regional media feature.', zh: '区域媒体专题报道。' },
+      image: dayangImg,
     },
     {
-      id: 'n7',
-      title: { en: 'Standards & Compliance', zh: '标准合规' },
-      source: 'Compliance Pro',
-      link: 'https://example.com/news/standards-compliance',
-      date: '2025-09-04',
-      description: { en: 'New certification obtained.', zh: '新增认证。' },
+      id: 'n-cinn',
+      title: { en: 'CINN Industry Daily Report', zh: '中国工业新闻网报道艾默森' },
+      source: '中国工业新闻网',
+      link: 'https://www.cinn.cn/p/404448.html',
+      date: '2025-05-12',
+      description: { en: 'Industry innovation perspective.', zh: '行业创新视角。' },
+      image: cinnImg,
     },
     {
-      id: 'n8',
-      title: { en: 'Investor Brief', zh: '投资者快讯' },
-      source: 'Finance Note',
-      link: 'https://example.com/news/investor-brief',
-      date: '2025-09-03',
-      description: { en: 'Market adoption update.', zh: '市场采用度更新。' },
+      id: 'n-power',
+      title: { en: 'China Power Industry Net Feature', zh: '中国电力产业网报道艾默森' },
+      source: '中国电力产业网',
+      link: 'http://www.dianchanye.com/news/720.html',
+      date: '2025-05-12',
+      description: { en: 'Power sector analysis.', zh: '电力行业深度解析。' },
+      image: chinaPowerImg,
     },
     {
-      id: 'n9',
-      title: { en: 'R&D Milestone', zh: '研发里程碑' },
-      source: 'Lab Journal',
-      link: 'https://example.com/news/rd-milestone',
-      date: '2025-09-02',
-      description: { en: 'Thermal model validated.', zh: '热模型验证。' },
+      id: 'n-entrepreneur',
+      title: { en: 'Entrepreneur Daily Coverage', zh: '企业家日报网报道艾默森' },
+      source: '企业家日报网',
+      link: 'http://www.imnews.com.cn/a/content/2025-05/12/content_2732321.htm',
+      date: '2025-05-12',
+      description: { en: 'Entrepreneurship-focused story.', zh: '创业视角报道。' },
+      image: entrepreneurImg,
     },
     {
-      id: 'n10',
-      title: { en: 'Partnership', zh: '生态合作' },
-      source: 'Partner Wire',
-      link: 'https://example.com/news/partnership',
-      date: '2025-09-01',
-      description: { en: 'Joint solution announced.', zh: '联合解决方案发布。' },
+      id: 'n-bnb',
+      title: { en: 'Bnbnews Social Coverage', zh: '蚌埠新闻网报道艾默森' },
+      source: '蚌埠新闻网',
+      link: 'http://www.bnbnews.cn/shehui/p/97413.html',
+      date: '2025-05-12',
+      description: { en: 'Regional social coverage.', zh: '地方社会报道。' },
+      image: bnbImg,
     },
   ]
 
   const wechatAccount: WeChatAccount = {
     name: { en: 'AIWASON Official', zh: 'AIWASON 官方公众号' },
-    qr: '/res/wechat-qr.png',
+    qr: wechatQr,
     homepage: 'https://mp.weixin.qq.com/...',
     intro: {
       en: 'Follow for project cases and technical notes.',
@@ -164,16 +150,8 @@ export async function getNewsData(): Promise<NewsPayload> {
     },
   }
 
-  const wechat: WeChatPost[] = [
-    {
-      id: 'w1',
-      title: { en: 'Next Generation Busbar', zh: '新一代母线技术' },
-      thumbnail: '/res/wechat-post-1.jpg',
-      link: 'https://mp.weixin.qq.com/...',
-      date: '2025-09-25',
-      description: { en: 'Future of distribution.', zh: '配电的未来。' },
-    },
-  ]
+  // 微信图文先留空，占位只显示账号与二维码
+  const wechat: WeChatPost[] = []
 
   const payload: NewsPayload = { videos, news, wechat, wechatAccount }
   return payload

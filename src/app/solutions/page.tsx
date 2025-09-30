@@ -4,23 +4,23 @@ import Link from 'next/link'
 import LanguageSwitch from '@/components/common/LanguageSwitch'
 import CardImage from '@/components/common/CardImage'
 
-// ---- 静态导入（放在 src/assets 下的仍可用 StaticImageData）----
-import frBusduct from '@/assets/images/fr-busduct.png'
+import frBusduct from '@/assets/products/fr-busduct.png'
 
-// ---- 来自 public/ 的资源：用根路径字符串（/public 映射为站点根）----
-const heroPng = '/res/solutions/aiwason-solution-hero.png'
-const analyticsHeatmapPng = '/res/solutions/aiwason-analytics-heatmap.png'
-const alertDispatchPng = '/res/solutions/aiwason-alert-dispatch.png'
-const modularBuswayPng = '/res/solutions/aiwason-modular-busway.png'
-const tapoffPanelPng = '/res/solutions/aiwason-tapoff-panel.png'
-const operationMgmtPng = '/res/solutions/operation-management.png'
-const planMgmtPng = '/res/solutions/plan-management.png'
-const historicalAnalyticsPng = '/res/solutions/aiwason-historical-analytics.png'
+// Add these static imports at the top of the file
+import heroPng from '@/assets/solutions/aiwason-solution-hero.png'
+import analyticsHeatmapPng from '@/assets/solutions/aiwason-analytics-heatmap.png'
+import alertDispatchPng from '@/assets/solutions/aiwason-alert-dispatch.png'
+import modularBuswayPng from '@/assets/solutions/aiwason-modular-busway.png'
+import tapoffPanelPng from '@/assets/solutions/aiwason-tapoff-panel.png'
+import operationMgmtPng from '@/assets/solutions/operation-management.png'
+import planMgmtPng from '@/assets/solutions/plan-management.png'
+import historicalAnalyticsPng from '@/assets/solutions/aiwason-historical-analytics.png'
 
-const conductorPng = '/res/bus-conductor.png'
-const insulationSleevePng = '/res/insulation-sleeve.png'
-const historicalBannerJpg = '/res/dataCenter.jpeg'
-const reportManagementPng = '/res/report-management.png'
+import conductorPng from '@/assets/solutions/bus-conductor.png'
+import insulationSleevePng from '@/assets/solutions/insulation-sleeve.png'
+import dataCenterJpeg from '@/assets/solutions/dataCenter.jpeg'
+import reportManagementPng from '@/assets/solutions/report-management.png'
+
 
 export const metadata = {
   title: 'Solutions | AIWASON',
@@ -52,7 +52,7 @@ const solutionVisuals = {
   analyticsHeatmap: analyticsHeatmapPng,
   alertDispatch: alertDispatchPng,
   modularBusway: modularBuswayPng,
-  buswayTrunking: frBusduct, // from src/assets
+  buswayTrunking: frBusduct, 
   tapoffPanel: tapoffPanelPng,
   conductor: conductorPng,
   insulationSleeve: insulationSleevePng,
@@ -60,7 +60,7 @@ const solutionVisuals = {
   operationManagement: operationMgmtPng,
   planManagement: planMgmtPng,
   historicalAnalysis: historicalAnalyticsPng,
-  historicalBanner: historicalBannerJpg,
+  dataCenter: dataCenterJpeg,
 } as const
 
 const heroVisual = solutionVisuals.hero
@@ -495,7 +495,7 @@ export default async function SolutionsPage({
 
             <div className="relative h-72 w-full rounded-3xl border border-[#76B900]/20 bg-white shadow-sm overflow-hidden">
               <Image
-                src={solutionVisuals.historicalBanner}
+                src={solutionVisuals.dataCenter}
                 alt={lang === 'en' ? 'Busbar deployment diagram' : '母线部署示意图'}
                 fill
                 className="object-cover"

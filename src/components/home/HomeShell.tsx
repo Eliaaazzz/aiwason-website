@@ -302,6 +302,7 @@ export default function HomeShell() {
               {Object.entries(t.nav).map(([key, label], index) => {
                 const href = ((): string => {
                   const map = {
+                    news: `/news?lang=${language}`,
                     products: `/products?lang=${language}`,
                     solutions: `/solutions?lang=${language}`,
                     about: `/about?lang=${language}`,

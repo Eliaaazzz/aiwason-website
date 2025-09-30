@@ -5,43 +5,12 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Play, ExternalLink } from 'lucide-react'
-
-// ===== Types (export 给其它地方复用也OK) =====
-export type VideoItem = {
-  id: string
-  title: { zh: string; en: string }
-  description?: { zh: string; en: string }
-  thumbnail: string
-  videoUrl: string
-  type: 'standard' | 'interview'
-  date?: string
-  duration?: string
-}
-
-export type NewsItem = {
-  id: string
-  title: { zh: string; en: string }
-  description?: { zh: string; en: string }
-  source: string
-  link: string
-  date: string
-}
-
-export type WeChatPost = {
-  id: string
-  title: { zh: string; en: string }
-  description?: { zh: string; en: string }
-  thumbnail: string
-  link: string
-  date: string
-}
-
-export type WeChatAccount = {
-  name: { zh: string; en: string }
-  qr: string
-  homepage?: string
-  intro?: { zh: string; en: string }
-}
+import type {
+  VideoItem,
+  NewsItem,
+  WeChatPost,
+  WeChatAccount,
+} from '@/lib/types/news'
 
 interface NewsSectionProps {
   langDefault: 'zh' | 'en'
@@ -49,7 +18,6 @@ interface NewsSectionProps {
   newsItems: NewsItem[]
   wechatPosts: WeChatPost[]
   wechatAccount: WeChatAccount
-  enableModal?: boolean
 }
 
 export default function NewsSection({
@@ -58,7 +26,6 @@ export default function NewsSection({
   newsItems = [],
   wechatPosts = [],
   wechatAccount,
-  enableModal = false, // 目前未启用弹窗，后续可接
 }: NewsSectionProps) {
   const language = langDefault
 
@@ -132,13 +99,13 @@ export default function NewsSection({
               className="group relative"
             >
               <div className="flex gap-3">
-                <div className="relative w-20 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                <div className="relative w-20 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-white">
                   <Image
                     src={video.thumbnail}
                     alt={video.title[language]}
                     fill
                     sizes="80px"
-                    className="object-cover"
+                    className="object-contain"
                   />
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                     <Play className="w-4 h-4 text-white" />
@@ -262,16 +229,7 @@ export default function NewsSection({
                 {wechatAccount.intro[language]}
               </p>
             ) : null}
-            {wechatAccount.homepage ? (
-              <a
-                href={wechatAccount.homepage}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-green-400 hover:text-green-300 mt-2 inline-block"
-              >
-                {content.visitSource} →
-              </a>
-            ) : null}
+            {/* 用户要求移除 Learn More 链接，保留纯静态信息展示 */}
           </div>
         </div>
 
@@ -282,13 +240,13 @@ export default function NewsSection({
               {wechatPosts.slice(0, 3).map((post) => (
                 <div key={post.id} className="group relative">
                   <div className="flex gap-3">
-                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-white">
                       <Image
                         src={post.thumbnail}
                         alt={post.title[language]}
                         fill
                         sizes="64px"
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
                     <div className="flex-1 min-w-0">
