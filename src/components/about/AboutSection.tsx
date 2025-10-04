@@ -37,13 +37,15 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
 ]
 
 const PATENT_ITEMS: ShowcaseItem[] = [
-  { src: '/res/patent1.jpeg', caption: { en: 'Busbar Patent Exhibit #1', zh: '母线专利成果展示 #1' } },
-  { src: '/res/patent2.jpeg', caption: { en: 'Busbar Patent Exhibit #2', zh: '母线专利成果展示 #2' } },
-  { src: '/res/patent3.jpeg', caption: { en: 'Busbar Patent Exhibit #3', zh: '母线专利成果展示 #3' } },
-  { src: '/res/patent4.jpeg', caption: { en: 'Busbar Patent Exhibit #4', zh: '母线专利成果展示 #4' } },
-  { src: '/res/patent5.jpeg', caption: { en: 'Busbar Patent Exhibit #5', zh: '母线专利成果展示 #5' } },
-  { src: '/res/patent6.jpeg', caption: { en: 'Busbar Patent Exhibit #6', zh: '母线专利成果展示 #6' } },
-  { src: '/res/patent7.jpeg', caption: { en: 'Busbar Patent Exhibit #7', zh: '母线专利成果展示 #7' } },
+  { src: '/res/patent1.JPG', caption: { en: 'Busbar Patent Exhibit #1', zh: '母线专利成果展示 #1' } },
+  { src: '/res/patent2.png', caption: { en: 'Busbar Patent Exhibit #2', zh: '母线专利成果展示 #2' } },
+  { src: '/res/patent3.JPG', caption: { en: 'Busbar Patent Exhibit #3', zh: '母线专利成果展示 #3' } },
+  { src: '/res/patent4.JPG', caption: { en: 'Busbar Patent Exhibit #4', zh: '母线专利成果展示 #4' } },
+  { src: '/res/patent5.jpg', caption: { en: 'Busbar Patent Exhibit #5', zh: '母线专利成果展示 #5' } },
+  { src: '/res/patent6.JPG', caption: { en: 'Busbar Patent Exhibit #6', zh: '母线专利成果展示 #6' } },
+  { src: '/res/patent7.JPG', caption: { en: 'Busbar Patent Exhibit #7', zh: '母线专利成果展示 #7' } },
+  { src: '/res/patent8.JPG', caption: { en: 'Busbar Patent Exhibit #8', zh: '母线专利成果展示 #8' } },
+  { src: '/res/patent9.JPG', caption: { en: 'Busbar Patent Exhibit #9', zh: '母线专利成果展示 #9' } },
 ]
 
 // ── 文案（中文为你提供的三段） ───────────────────────────────────

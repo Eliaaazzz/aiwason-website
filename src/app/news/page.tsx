@@ -3,7 +3,13 @@ import type { Metadata } from 'next'
 import { getNewsData } from '@/lib/news/news-data'
 import LanguageSwitch from '@/components/common/LanguageSwitch'
 import NewsSectionsSlideIn, { type NewsGroup } from '@/components/news/NewsSectionsSlideIn'
-import MediaCarousel from '@/components/news/MediaCarousel'
+// ❌ 移除 MediaCarousel
+// import MediaCarousel from '@/components/news/MediaCarousel'
+import MediaReportRail from '@/components/news/MediaReportRail'
+
+import sina from '@/assets/News/新浪.png'
+import china from '@/assets/News/中华网.png'
+import dayang from '@/assets/News/大洋.png'
 import coverCEEC from '@/assets/News/中欧企业对接会.png'
 import coverNobel from '@/assets/News/诺贝尔创新工作站.png'
 import coverNobelMeet from '@/assets/News/会面诺奖教授.png'
@@ -21,21 +27,18 @@ export const metadata: Metadata = {
   description: 'Latest videos, featured stories, media coverage, and WeChat.',
 }
 
-type PageProps = { searchParams?: { lang?: string } }
+// ✅ 按 Next.js 新规范：searchParams 是 Promise
+type PageProps = { searchParams: Promise<{ lang?: string }> }
 
 type Localised<T> = { en: T; zh: T }
 
 const mediaImageMap = {
-  'n-sina': '/res/新浪网.png',
-  'n-chinadaily': '/res/中国日报.png',
-  'n-china': '/res/中华.png',
-  'n-ifeng': '/res/凤凰网.png',
-  'n-manufacturing': '/res/中国制造.png',
-  'n-dayang': '/res/大洋.png',
-  'n-cinn': '/res/中国工业新闻网.png',
-  'n-power': '/res/中国电力产业网.png',
-  'n-entrepreneur': '/res/企业.png',
-  'n-bnb': '/res/links.png',
+  'n-sina': sina,
+  'n-zhonghua': china,
+  'n-dayang': dayang,
+  'n-znj': coverNobel,
+  'n-qyjr': coverCCTV1,
+  'n-energy': coverCCTV2,
 } as const
 
 const Separator = () => (
@@ -43,8 +46,11 @@ const Separator = () => (
 )
 
 export default async function NewsPage({ searchParams }: PageProps) {
+  // ✅ await searchParams，修复你控制台的报错
+  const sp = await searchParams
+  const lang = (sp?.lang === 'en' ? 'en' : 'zh') as 'en' | 'zh'
+
   const { videos, news } = await getNewsData()
-  const lang = (searchParams?.lang === 'en' ? 'en' : 'zh') as 'en' | 'zh'
 
   const copy = {
     pageTitle: {
@@ -57,7 +63,7 @@ export default async function NewsPage({ searchParams }: PageProps) {
     },
     headings: {
       videoCenter: { en: 'Video Center', zh: '视频专区' },
-      media: { en: 'Media Coverage', zh: '媒体报道' },
+      media: { en: 'Media Report', zh: '媒体报道' }, // 标题文案统一
       featured: { en: 'Featured Stories', zh: '重点新闻' },
       wechat: { en: 'WeChat Official', zh: '微信公众号' },
     },
@@ -114,10 +120,11 @@ export default async function NewsPage({ searchParams }: PageProps) {
         img: wechatQrcode,
       },
     ],
-  } satisfies Record<string, any>
+  } as const
 
   const localise = <T,>(value: Localised<T>) => value[lang]
-  
+
+  // 视频组
   const videoEntries = videos.slice(0, 2).map((video, index) => ({
     id: video.id,
     title: video.title[lang],
@@ -143,6 +150,7 @@ export default async function NewsPage({ searchParams }: PageProps) {
     })),
   }
 
+  // 重点新闻组
   const featuredConfigs = [
     { key: 'ceec', image: coverCEEC },
     { key: 'nobel', image: coverNobelMeet },
@@ -152,7 +160,10 @@ export default async function NewsPage({ searchParams }: PageProps) {
   const groupFeatured: NewsGroup = {
     heading: localise(copy.headings.featured),
     items: featuredConfigs.map(({ key, image }) => {
-      const data = (copy.featuredEntries as Record<string, { title: Localised<string>; desc: Localised<string>; date: string; href: string }>)[key]
+      const data = (copy.featuredEntries as Record<
+        string,
+        { title: Localised<string>; desc: Localised<string>; date: string; href: string }
+      >)[key]
       return {
         id: `feat-${key}`,
         title: localise(data.title),
@@ -164,29 +175,51 @@ export default async function NewsPage({ searchParams }: PageProps) {
     }),
   }
 
+  // 媒体报道小卡（给 MediaReportRail 用）
   const mediaCards = news.map((item) => ({
     id: item.id,
     title: localise(item.title),
     desc: item.description ? item.description[lang] : localise(copy.mediaTagline),
     subline: item.source,
     href: item.link,
-    img: mediaImageMap[item.id as keyof typeof mediaImageMap] ?? '/res/links.png',
+    // ✅ 明确 fallback，别再用未定义的 media1
+    img: mediaImageMap[item.id as keyof typeof mediaImageMap] ?? coverCCTV1,
+    date: item.date,
+    source: item.source,
   }))
 
+  // 微信组
   const groupWeChat: NewsGroup = {
     heading: localise(copy.headings.wechat),
-    items: copy.wechatCards.map((card) => ({
-      id: card.id,
-      title: localise(card.title),
-      desc: localise(card.desc),
-      img: card.img,
-      imageFit: 'contain',
-      href: 'https://mp.weixin.qq.com/...',
-    })),
+    items: [
+      {
+        id: 'wechat-intro',
+        title: localise({ en: 'Official Account Highlights', zh: '公众号精选内容' }),
+        desc: localise({
+          en: 'Follow AIWASON Official for project milestones, solution deep-dives, and industry insights covering intelligent busbars.',
+          zh: '关注 AIWASON 官方公众号，获取项目进展、方案详解与智能母线行业洞察。',
+        }),
+        img: wechatBanner,
+        imageFit: 'contain',
+        href: 'https://mp.weixin.qq.com/...',
+      },
+      {
+        id: 'wechat-qr',
+        title: localise({ en: 'Scan to Follow', zh: '扫码关注' }),
+        desc: localise({
+          en: 'Scan the QR code to stay updated with AIWASON news on WeChat.',
+          zh: '扫描二维码，即刻获取 AIWASON 微信端最新动态。',
+        }),
+        img: wechatQrcode,
+        imageFit: 'contain',
+        href: 'https://mp.weixin.qq.com/...',
+      },
+    ],
   }
 
   return (
     <main className="bg-white text-gray-900">
+      {/* 顶部标题区 */}
       <section className="border-b border-[#cde9aa]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-3 max-w-3xl">
@@ -204,7 +237,23 @@ export default async function NewsPage({ searchParams }: PageProps) {
       <NewsSectionsSlideIn lang={lang} groups={[groupFeatured]} showMetaLabel={false} />
 
       <Separator />
-      <MediaCarousel title={localise(copy.headings.media)} items={mediaCards} lang={lang} />
+      {/* ✅ 用专用的 MediaReportRail：粗体标题 + 右上 NavButton + 小图完整展示 */}
+      <section>
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <MediaReportRail
+            title={localise(copy.headings.media)}
+            items={mediaCards.map((m) => ({
+              id: m.id,
+              title: m.title,
+              href: m.href,
+              img: m.img,
+              date: m.date,
+              source: m.source,
+            }))}
+            lang={lang}
+          />
+        </div>
+      </section>
 
       <Separator />
       <NewsSectionsSlideIn lang={lang} groups={[groupWeChat]} showMetaLabel={false} />

@@ -3,7 +3,7 @@
 // ===== Local types for the data layer (与组件的结构完全一致) =====
 import sinaImg from '@/assets/News/新浪.png'
 import chinaDailyImg from '@/assets/News/中国日报.png'
-import chinaComImg from '@/assets/News/中华.png'
+import chinaComImg from '@/assets/News/中华网.png'
 import ifengImg from '@/assets/News/凤凰.png'
 import chinaManufacturingImg from '@/assets/News/中国制造.png'
 import dayangImg from '@/assets/News/大洋.png'
@@ -50,8 +50,8 @@ export async function getNewsData(): Promise<NewsPayload> {
   const news: NewsItem[] = [
     {
       id: 'n-sina',
-      title: { en: 'AIWASON Featured by Sina Finance', zh: '新浪网财经报道艾默森' },
-      source: '新浪网财经',
+      title: { en: 'AIWASON Featured by Sina Technology', zh: '新浪科技报道艾默森' },
+      source: 'sinaImg',
       link: 'https://finance.sina.com.cn/jjxw/2025-05-12/doc-inewhnwe8190331.shtml',
       date: '2025-05-12',
       description: { en: 'Breakthrough fire-resistant intelligent busbar tech.', zh: '耐火智能母线科技突破。' },
@@ -60,7 +60,7 @@ export async function getNewsData(): Promise<NewsPayload> {
     {
       id: 'n-chinadaily',
       title: { en: 'China Daily Covers AIWASON', zh: '中国日报报道艾默森' },
-      source: '中国日报网',
+      source: 'chinaDailyImg',
       link: 'https://caijing.chinadaily.com.cn/a/202505/13/WS6822ea40a310205377032daa.html',
       date: '2025-05-13',
       description: { en: 'Technology leadership in intelligent busbars.', zh: '智能母线科技引领未来。' },
