@@ -55,6 +55,17 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
       { id: 'dc-award', title: '', href: '/news/data-center', img: '/res/数据中心获奖.png' },
     ],
   },
+
+  {
+    id: 'chip-center',
+    heading: 'Global Chip Centers',
+    sub: 'Shenzhen Global Intelligent Chip Center',
+    intro: ['High-density power distribution for semiconductor fabrication with ultra-clean supply and real-time monitoring.'],
+    bullets: ['Clean power for sensitive chip production', 'Redundant backbone for 24/7 operations', 'Smart monitoring for equipment protection'],
+    cta: { href: '/news/chip-center', label: 'Chip Center Case' },
+    cards: [{ id: 'chip-center-project', title: '', href: '/news/chip-center', img: '/res/深圳全球智能芯片中心.jpg' }],
+  },
+ 
   {
     id: 'manufacturing',
     heading: 'Large-scale Manufacturing',
@@ -74,37 +85,6 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     cards: [
       { id: 'conference-project', title: '', href: '/events/datacenter-summit', img: '/res/conference.jpg' },
       { id: 'conference-award', title: '', href: '/events/datacenter-summit', img: '/res/横琴口岸鲁班奖.png' },
-    ],
-  },
-
-  // 汇总（轮播）
-  {
-    id: 'urban',
-    heading: 'Large Urban Complexes',
-    sub: 'Cluster of Mixed-use Projects',
-    intro: ['Fire-rated smart busways across retail, offices, hotels and cultural venues with centralized metering.'],
-    bullets: ['Ring distribution for mixed-use podiums', 'Real-time sub-metering for ESG reporting'],
-    cta: { href: '/news/zhongshan-perfect-plaza', label: 'See Urban Complex Cases' },
-    cards: [
-      { id: 'urban-zhongshan', title: '', href: '/news/zhongshan-perfect-plaza', img: '/res/zhonshan%20perfect%20plaza.jpg' },
-      { id: 'urban-zhongshan-award', title: '', href: '/news/zhongshan-perfect-plaza', img: '/res/zhonshan%20perfect%20plaza%20American%20LEED%20GOLD.png' },
-
-      { id: 'urban-qianhai', title: '', href: '/news/qianhai-trading-plaza', img: '/res/前海交易广场.jpg' },
-      { id: 'urban-qianhai-award', title: '', href: '/news/qianhai-trading-plaza', img: '/res/前海交易广场获奖.jpg' },
-
-      { id: 'urban-qhih', title: '', href: '/news/qianhai-holding-investment', img: '/res/前海投控大厦.jpg' },
-      { id: 'urban-qhih-award', title: '', href: '/news/qianhai-holding-investment', img: '/res/qianhai-investment-prize.jpg' },
-
-      { id: 'urban-guangzhou', title: '', href: '/news/guangzhou-smart-park', img: '/res/广州新一代技术信息产业园.jpg' },
-      { id: 'urban-guangzhou-award', title: '', href: '/news/guangzhou-smart-park', img: '/res/世界智慧城市大奖.jpg' },
-
-      { id: 'urban-dongguan', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸.jpg' },
-      { id: 'urban-dongguan-award-1', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED.jpg' },
-      { id: 'urban-dongguan-award-2', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-      { id: 'urban-dongguan-award-3', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸LEED证书.jpg' },
-
-      { id: 'urban-mixc', title: '', href: '/news/mixc-flagship', img: '/res/万象汇.jpeg' },
-      { id: 'urban-mixc-award', title: '', href: '/news/mixc-flagship', img: '/res/东莞民盈国贸美国LEED2.jpg' },
     ],
   },
 
@@ -239,7 +219,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     bullets: ['Isolated feeds for audio, lighting and rigging', 'Zone-level metering for event settlement'],
     cta: { href: '/news/library-showcase', label: 'Poly Theatre Showcase' },
     cards: [
-      { id: 'poly-theatre-exterior', title: '', href: '/news/library-showcase', img: '/res/深圳保利剧院.jpg' },
+      { id: 'poly-theatre-exterior', title: '', href: '/news/library-showcase', img: '/res/保利剧院.jpg' },
       { id: 'poly-theatre-hall', title: '', href: '/news/library-showcase', img: '/res/gallery-39.jpg' },
     ],
   },
@@ -260,6 +240,15 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
     ],
   },
   {
+    id: 'chip-center',
+    heading: '芯片中心',
+    sub: '深圳全球智能芯片中心',
+    intro: ['为半导体制造提供高密度配电，超洁净供电结合实时监控，保障芯片生产环境。'],
+    bullets: ['洁净电力适配敏感芯片生产', '冗余骨干支撑24/7运行', '智能监测保护设备安全'],
+    cta: { href: '/news/chip-center', label: '芯片中心案例' },
+    cards: [{ id: 'chip-center-project', title: '', href: '/news/chip-center', img: '/res/深圳全球智能芯片中心.jpg' }],
+  },
+  {
     id: 'manufacturing',
     heading: '大型制造',
     sub: '比亚迪智能制造园区',
@@ -268,6 +257,8 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
     cta: { href: '/news/byd-smart-factory', label: '查看制造案例' },
     cards: [{ id: 'factory-project', title: '', href: '/news/byd-smart-factory', img: '/res/深圳比亚迪—A.jpg' }],
   },
+
+
   {
     id: 'conference',
     heading: '会议中心',
@@ -281,36 +272,6 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
     ],
   },
 
-  // 汇总（轮播）
-  {
-    id: 'urban',
-    heading: '大型城市综合体',
-    sub: '多个综合体项目集',
-    intro: ['耐火智能母线贯通商业、办公、酒店与文化场馆，计量与管理集中化。'],
-    bullets: ['混合业态环网配电', '回路级计量支持 ESG 披露'],
-    cta: { href: '/news/zhongshan-perfect-plaza', label: '查看综合体案例' },
-    cards: [
-      { id: 'urban-zhongshan', title: '', href: '/news/zhongshan-perfect-plaza', img: '/res/zhonshan%20perfect%20plaza.jpg' },
-      { id: 'urban-zhongshan-award', title: '', href: '/news/zhongshan-perfect-plaza', img: '/res/zhonshan%20perfect%20plaza%20American%20LEED%20GOLD.png' },
-
-      { id: 'urban-qianhai', title: '', href: '/news/qianhai-trading-plaza', img: '/res/前海交易广场.jpg' },
-      { id: 'urban-qianhai-award', title: '', href: '/news/qianhai-trading-plaza', img: '/res/前海交易广场获奖.jpg' },
-
-      { id: 'urban-qhih', title: '', href: '/news/qianhai-holding-investment', img: '/res/前海投控大厦.jpg' },
-      { id: 'urban-qhih-award', title: '', href: '/news/qianhai-holding-investment', img: '/res/qianhai-investment-prize.png' },
-
-      { id: 'urban-guangzhou', title: '', href: '/news/guangzhou-smart-park', img: '/res/广州新一代技术信息产业园.jpg' },
-      { id: 'urban-guangzhou-award', title: '', href: '/news/guangzhou-smart-park', img: '/res/世界智慧城市大奖.jpg' },
-
-      { id: 'urban-dongguan', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸.jpg' },
-      { id: 'urban-dongguan-award-1', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED.jpg' },
-      { id: 'urban-dongguan-award-2', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-      { id: 'urban-dongguan-award-3', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸LEED证书.jpg' },
-
-      { id: 'urban-mixc', title: '', href: '/news/mixc-flagship', img: '/res/万象汇.jpeg' },
-      { id: 'urban-mixc-award', title: '', href: '/news/mixc-flagship', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-    ],
-  },
 
   // 六个子项目
   {

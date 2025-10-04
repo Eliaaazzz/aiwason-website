@@ -1,3 +1,4 @@
+// src/components/news/MediaCarousel.tsx
 'use client'
 
 import Link from 'next/link'
@@ -29,7 +30,7 @@ type Props = {
   frameless?: boolean
   /** 隐藏头部标题 */
   hideHeader?: boolean
-  /** 显示覆盖在视口右上的导航控件 */
+  /** 显示覆盖在视口右上的导航控件（模型项目用这个） */
   controlsOverlay?: boolean
   /** 为兼容旧调用保留，不再加样式 */
   controlsVariant?: 'brand' | 'ghost'
@@ -41,6 +42,19 @@ type Props = {
   imageHeightClass?: string
   /** 最大视口高度（vh），例如 86 */
   viewportContainMaxVH?: number
+  /**
+   * ✅ 向外暴露控制权（新闻区在 Header 放按钮时使用）
+   * 每次 canPrev/canNext 变化都会回调一次
+   */
+  expose?: (api: { prev: () => void; next: () => void; canPrev: boolean; canNext: boolean }) => void
+}
+
+/** 从 cardWidthClass 里提取 px 宽度，供 <Image sizes> 使用 */
+function sizesFromWidthClass(cardWidthClass: string | undefined) {
+  const cls = cardWidthClass ?? ''
+  const pxMatches = Array.from(cls.matchAll(/\[(\d+)px\]/g)).map((m) => parseInt(m[1]!, 10))
+  const desktopPx = pxMatches.length ? Math.max(...pxMatches) : null
+  return desktopPx ? `(min-width:1024px) ${desktopPx}px, 88vw` : '(min-width:1024px) 820px, 88vw'
 }
 
 export default function MediaCarousel({
@@ -52,10 +66,12 @@ export default function MediaCarousel({
   hideHeader = true,
   controlsOverlay = true,
   // controlsVariant,
-  cardWidthClass = 'min-w-[88vw] sm:min-w-[70vw] lg:min-w-[820px] lg:max-w-[820px]',
+  // ✅ 默认小尺寸（新闻区），模型项目会在调用处显式传大尺寸覆盖
+  cardWidthClass = 'min-w-[68vw] sm:min-w-[52vw] md:min-w-[380px] lg:min-w-[360px] lg:max-w-[360px]',
   roundedClass = 'rounded-2xl',
-  imageHeightClass = 'h-[560px] md:h-[640px] lg:h-[740px]',
+  imageHeightClass = 'h-[160px] sm:h-[180px] lg:h-[200px]',
   viewportContainMaxVH,
+  expose,
 }: Props) {
   const scrollerRef = useRef<HTMLDivElement | null>(null)
   const [canPrev, setCanPrev] = useState(false)
@@ -65,7 +81,7 @@ export default function MediaCarousel({
     const el = scrollerRef.current
     if (!el) return
     const { scrollLeft, scrollWidth, clientWidth } = el
-    const max = scrollWidth - clientWidth - 2 // 容差
+    const max = scrollWidth - clientWidth - 2
     setCanPrev(scrollLeft > 1)
     setCanNext(scrollLeft < max)
   }, [])
@@ -73,9 +89,12 @@ export default function MediaCarousel({
   const scrollByDir = useCallback((dir: -1 | 1) => {
     const el = scrollerRef.current
     if (!el) return
-    const delta = el.clientWidth * 0.98 * dir // 视口宽度
+    const delta = el.clientWidth * 0.98 * dir
     el.scrollBy({ left: delta, behavior: 'smooth' })
   }, [])
+
+  const prev = useCallback(() => scrollByDir(-1), [scrollByDir])
+  const next = useCallback(() => scrollByDir(1), [scrollByDir])
 
   useEffect(() => {
     updateButtons()
@@ -83,18 +102,25 @@ export default function MediaCarousel({
 
   const onScroll = useCallback(() => updateButtons(), [updateButtons])
 
+  // 每次状态变化时，把控制权暴露给外部（新闻区的 Header 按钮使用）
+  useEffect(() => {
+    expose?.({ prev, next, canPrev, canNext })
+  }, [expose, prev, next, canPrev, canNext])
+
+  const sizesHint = useMemo(() => sizesFromWidthClass(cardWidthClass), [cardWidthClass])
+
   const overlay = controlsOverlay ? (
     <div className="pointer-events-none absolute right-3 top-3 z-10">
       <div className="flex gap-2 pointer-events-auto">
         <NavButton
           dir="prev"
-          onClick={() => scrollByDir(-1)}
+          onClick={prev}
           disabled={!canPrev}
           ariaLabel={lang === 'en' ? 'Previous' : '上一张'}
         />
         <NavButton
           dir="next"
-          onClick={() => scrollByDir(1)}
+          onClick={next}
           disabled={!canNext}
           ariaLabel={lang === 'en' ? 'Next' : '下一张'}
         />
@@ -114,18 +140,11 @@ export default function MediaCarousel({
         </header>
       ) : null}
 
-      {/* 视口容器（相对定位，用于放置右上角按钮） */}
-      <div
-        className={clsx(
-          'relative w-full',
-          imageHeightClass, // 固定高度视觉
-        )}
-        style={maxVHStyle}
-      >
-        {/* 固定在右上角的覆盖按钮（不随内容滚动） */}
+      {/* 相对定位：供右上角 overlay 按钮使用（模型项目） */}
+      <div className={clsx('relative w-full', imageHeightClass)} style={maxVHStyle}>
         {overlay}
 
-        {/* 横向滚动区域（内容滚动时按钮不动） */}
+        {/* 横向滚动区域 */}
         <div
           ref={scrollerRef}
           onScroll={onScroll}
@@ -140,15 +159,10 @@ export default function MediaCarousel({
           {items.map((card) => {
             const fit = card.fit ?? 'cover'
             const objectPos = card.objectPosition ? { objectPosition: card.objectPosition } : undefined
-            const img = (
+            const cardNode = (
               <div
                 key={card.id}
-                className={clsx(
-                  'relative shrink-0 snap-start bg-white',
-                  cardWidthClass,
-                  imageHeightClass,
-                  roundedClass,
-                )}
+                className={clsx('relative shrink-0 snap-start bg-white', cardWidthClass, imageHeightClass, roundedClass)}
                 style={maxVHStyle}
               >
                 <Image
@@ -156,25 +170,19 @@ export default function MediaCarousel({
                   alt={card.title ?? ''}
                   fill
                   priority={true}
-                  sizes="(min-width:1024px) 820px, 88vw"
-                  className={clsx(
-                    fit === 'contain' ? 'object-contain' : 'object-cover',
-                    roundedClass ? '' : '',
-                    'select-none',
-                  )}
+                  sizes={sizesHint}
+                  className={clsx(fit === 'contain' ? 'object-contain' : 'object-cover', 'select-none')}
                   style={objectPos}
                 />
-                {/* 内边框微弱描边 */}
                 <div className="pointer-events-none absolute inset-0 ring-1 ring-black/5 rounded-[inherit]" />
               </div>
             )
-
             return card.href ? (
               <Link href={card.href} key={card.id} className="focus:outline-none">
-                {img}
+                {cardNode}
               </Link>
             ) : (
-              img
+              cardNode
             )
           })}
         </div>
