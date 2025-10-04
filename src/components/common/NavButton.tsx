@@ -1,4 +1,3 @@
-// src/components/common/NavButton.tsx
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 type NavBtnProps = {

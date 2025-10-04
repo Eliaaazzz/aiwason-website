@@ -4,8 +4,6 @@ import { getNewsData } from '@/lib/news/news-data'
 import LanguageSwitch from '@/components/common/LanguageSwitch'
 import NewsSectionsSlideIn, { type NewsGroup } from '@/components/news/NewsSectionsSlideIn'
 import MediaCarousel from '@/components/news/MediaCarousel'
-import media1 from '@/assets/News/新浪.png'
-import media3 from '@/assets/News/大洋.png'
 import coverCEEC from '@/assets/News/中欧企业对接会.png'
 import coverNobel from '@/assets/News/诺贝尔创新工作站.png'
 import coverNobelMeet from '@/assets/News/会面诺奖教授.png'
@@ -28,12 +26,16 @@ type PageProps = { searchParams?: { lang?: string } }
 type Localised<T> = { en: T; zh: T }
 
 const mediaImageMap = {
-  'n-sina': media1,
-  'n-zhonghua': coverCEEC,
-  'n-dayang': media3,
-  'n-znj': coverNobel,
-  'n-qyjr': coverCCTV1,
-  'n-energy': coverCCTV2,
+  'n-sina': '/res/新浪网.png',
+  'n-chinadaily': '/res/中国日报.png',
+  'n-china': '/res/中华.png',
+  'n-ifeng': '/res/凤凰网.png',
+  'n-manufacturing': '/res/中国制造.png',
+  'n-dayang': '/res/大洋.png',
+  'n-cinn': '/res/中国工业新闻网.png',
+  'n-power': '/res/中国电力产业网.png',
+  'n-entrepreneur': '/res/企业.png',
+  'n-bnb': '/res/links.png',
 } as const
 
 const Separator = () => (
@@ -168,7 +170,7 @@ export default async function NewsPage({ searchParams }: PageProps) {
     desc: item.description ? item.description[lang] : localise(copy.mediaTagline),
     subline: item.source,
     href: item.link,
-    img: mediaImageMap[item.id as keyof typeof mediaImageMap] ?? media1,
+    img: mediaImageMap[item.id as keyof typeof mediaImageMap] ?? '/res/links.png',
   }))
 
   const groupWeChat: NewsGroup = {

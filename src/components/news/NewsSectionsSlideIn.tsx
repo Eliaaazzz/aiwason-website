@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
+import MediaCarousel, { type MediaCard } from './MediaCarousel'
 
 export type VideoSource = { src: string; type: string }
 
@@ -17,6 +18,9 @@ export type NewsItem = {
   href?: string
   tag?: string
   imageFit?: 'cover' | 'contain'
+  ctaLabel?: string
+  /** 可选：在同一版面展示多张图片 */
+  gallery?: Array<string | StaticImageData>
   /** 可选：提供即渲染“视频卡片”，版式与图片一致，点击播放 Lightbox */
   video?: {
     title?: string
@@ -28,6 +32,8 @@ export type NewsItem = {
 export type NewsGroup = {
   heading: string
   items: NewsItem[]
+  carouselItems?: MediaCard[]
+  carouselTitle?: string
 }
 
 export default function NewsSectionsSlideIn({
@@ -67,6 +73,7 @@ export default function NewsSectionsSlideIn({
               {group.items.map((it, idx) => {
                 const isVideo = !!it.video && it.video.sources?.length > 0
                 const poster = it.video?.poster || it.img
+                const gallery = it.gallery?.length ? it.gallery : undefined
                 const imageFit = it.imageFit || (it.video ? 'cover' : 'cover')
                 const meta =
                   it.tag ??
@@ -106,7 +113,7 @@ export default function NewsSectionsSlideIn({
                           className="inline-flex items-center gap-2 text-[#2b7a00] font-semibold hover:underline"
                           aria-label={(lang === 'en' ? 'Read more: ' : '查看详情：') + it.title}
                         >
-                          {lang === 'en' ? 'Read more' : '查看详情'}
+                          {it.ctaLabel ?? (lang === 'en' ? 'Read more' : '查看详情')}
                           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                           </svg>
@@ -117,14 +124,34 @@ export default function NewsSectionsSlideIn({
                     {/* Right: media card（图片或视频海报） */}
                     <div className="order-2">
                       <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
-                        <Image
-                          src={poster}
-                          alt={it.title}
-                          fill
-                          sizes="(min-width: 1024px) 560px, 100vw"
-                          className={imageFit === 'contain' ? 'object-contain' : 'object-cover object-top'}
-                          priority={idx < 2}
-                        />
+                        {gallery ? (
+                          <div className="grid h-full w-full grid-cols-1 gap-3 p-3 sm:grid-cols-2">
+                            {gallery.map((src, galleryIdx) => (
+                              <div
+                                key={`${it.id}-gallery-${galleryIdx}`}
+                                className="relative min-h-[160px] w-full overflow-hidden rounded-xl bg-white/70 sm:min-h-0"
+                              >
+                                <Image
+                                  src={src}
+                                  alt={`${it.title} ${galleryIdx + 1}`}
+                                  fill
+                                  sizes="(min-width: 1024px) 260px, 50vw"
+                                  className="object-cover"
+                                  priority={idx < 2 && galleryIdx === 0}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <Image
+                            src={poster}
+                            alt={it.title}
+                            fill
+                            sizes="(min-width: 1024px) 560px, 100vw"
+                            className={imageFit === 'contain' ? 'object-contain' : 'object-cover object-top'}
+                            priority={idx < 2}
+                          />
+                        )}
                         {/* Brand accent line */}
                         <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#76B900] to-transparent" />
 
@@ -157,6 +184,14 @@ export default function NewsSectionsSlideIn({
                 )
               })}
             </div>
+
+            {group.carouselItems?.length ? (
+              <MediaCarousel
+                title={group.carouselTitle || (lang === 'en' ? 'Project Gallery' : '项目影像')}
+                items={group.carouselItems}
+                lang={lang}
+              />
+            ) : null}
           </motion.div>
         ))}
       </div>
