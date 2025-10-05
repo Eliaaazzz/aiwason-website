@@ -1,4 +1,3 @@
-// src/app/news/zhongshan-perfect-plaza/page.tsx
 import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 
@@ -18,10 +17,6 @@ const projectData: ProjectDetail = {
   subtitle: {
     zh: '大型城市综合体智能配电系统',
     en: 'Large Urban Complex Intelligent Power Distribution System',
-  },
-  location: {
-    zh: '广东省中山市石岐区',
-    en: 'Shiqi District, Zhongshan City, Guangdong Province',
   },
   completionDate: '2022年9月',
   category: {
