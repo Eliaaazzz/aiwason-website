@@ -11,7 +11,7 @@ export type ProjectDetail = {
   id: string
   title: { zh: string; en: string }
   subtitle?: { zh: string; en: string }
-  location: { zh: string; en: string }
+  location?: { zh: string; en: string }
   completionDate: string
   category: { zh: string; en: string }
   heroImage: string
@@ -117,10 +117,12 @@ export default function ProjectDetailLayout({ project, lang }: ProjectDetailLayo
 
             {/* Project Meta Info */}
             <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#76B900]" />
-                <span>{project.location[lang]}</span>
-              </div>
+              {project.location && (
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-[#76B900]" />
+                  <span>{project.location[lang]}</span>
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-[#76B900]" />
                 <span>{project.completionDate}</span>
