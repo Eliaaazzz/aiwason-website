@@ -68,7 +68,7 @@ export default function NewsSection({
         id: n.id,
         title: n.title[language],
         href: n.link,
-        img: (n as any).thumbnail ?? '/res/news-placeholder.png',
+        img: typeof n.image === 'string' ? n.image : n.image.src,
         date: n.date,
         source: n.source,
         desc: n.description?.[language],

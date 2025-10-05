@@ -23,7 +23,7 @@ const projectData: ProjectDetail = {
     zh: '文化艺术',
     en: 'Cultural Arts',
   },
-  heroImage: '/res/国家大剧院.jpg',
+  heroImage: '/res/保利剧院.jpg',
   description: {
     zh: [
       '保利剧院作为国内顶级的艺术演出场所，对电力系统的稳定性、安静性和灵活性要求极高。AIWASON为其设计的智能配电系统采用了低噪声耐火母线技术，全面覆盖了舞台、前台和录播系统，支持快速情景切换和多元化演出需求。',

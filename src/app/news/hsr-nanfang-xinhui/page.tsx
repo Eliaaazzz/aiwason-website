@@ -23,7 +23,7 @@ const projectData: ProjectDetail = {
     zh: '高速铁路制造',
     en: 'High-speed Rail Manufacturing',
   },
-  heroImage: '/res/高铁南站.jpg',
+  heroImage: '/res/高铁（南方新会工厂）.jpg',
   description: {
     zh: [
       '南方新会工厂作为高速动车组制造的重要基地，位于近海地区，面临着潮湿、盐雾和高震动等恒列环境挑战。AIWASON为其设计的智能配电系统采用了船级封装与减震设计，结合AI诊断技术，为高精度制造提供了可靠的电力保障。',

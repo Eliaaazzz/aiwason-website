@@ -142,8 +142,8 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     cards: [
       { id: 'urban-dongguan-1', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸.jpg' },
       { id: 'urban-dongguan-2', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED.jpg' },
-      { id: 'urban-dongguan-3', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-      { id: 'urban-dongguan-4', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸LEED证书.jpg' },
+      
+
     ],
   },
   {
@@ -166,7 +166,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     intro: ['Dual redundancy with biometric interlocks secures trading floors and vault branches.'],
     bullets: ['Biometric-controlled critical tap-offs', '2-hour fire-rated vault branches with thermal sensing'],
     cta: { href: '/news/shenzhen-ccb-tower', label: 'CCB Tower' },
-    cards: [{ id: 'bank-ccb', title: '', href: '/news/shenzhen-ccb-tower', img: '/res/浦发银行总部大厦.jpg' }],
+    cards: [{ id: 'bank-ccb', title: '', href: '/news/shenzhen-ccb-tower', img: '/res/深圳建行大厦项目.jpg' }],
   },
   {
     id: 'residential',
@@ -209,7 +209,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     intro: ['Marine-grade, vibration-damped busways with AI diagnostics for coastal environments.'],
     bullets: ['Weatherproof, vibration-damped encapsulation', 'AI-assisted work orders from fiber data'],
     cta: { href: '/news/hsr-nanfang-xinhui', label: 'Railway Factory' },
-    cards: [{ id: 'hsr-project', title: '', href: '/news/hsr-nanfang-xinhui', img: '/res/高铁南站.jpg' }],
+    cards: [{ id: 'hsr-project', title: '', href: '/news/hsr-nanfang-xinhui', img: '/res/高铁（南方新会工厂）.jpg' }],
   },
   {
     id: 'culture',
@@ -219,7 +219,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     bullets: ['Isolated feeds for audio, lighting and rigging', 'Zone-level metering for event settlement'],
     cta: { href: '/news/poly-theater', label: 'Poly Theater Showcase' },
     cards: [
-      { id: 'poly-theater-exterior', title: '', href: '/news/poly-theater', img: '/res/国家大剧院.jpg' },
+      { id: 'poly-theater-exterior', title: '', href: '/news/poly-theater', img: '/res/保利剧院.jpg' },
       { id: 'poly-theater-hall', title: '', href: '/news/poly-theater', img: '/res/gallery-39.jpg' },
     ],
   },
@@ -328,7 +328,6 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
       { id: 'urban-dongguan-1', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸.jpg' },
       { id: 'urban-dongguan-2', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED.jpg' },
       { id: 'urban-dongguan-3', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-      { id: 'urban-dongguan-4', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸LEED证书.jpg' },
     ],
   },
   {
@@ -351,7 +350,7 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
     intro: ['双路冗余并结合生物识别联动，保障交易大厅与金库支路的安全与连续性。'],
     bullets: ['关键分接点生物识别联动', '金库支路 2 小时耐火并带温度监测'],
     cta: { href: '/news/shenzhen-ccb-tower', label: '深圳建行大厦' },
-    cards: [{ id: 'bank-ccb', title: '', href: '/news/shenzhen-ccb-tower', img: '/res/浦发银行总部大厦.jpg' }],
+    cards: [{ id: 'bank-ccb', title: '', href: '/news/shenzhen-ccb-tower', img: '/res/深圳建行大厦项目.jpg' }],
   },
   {
     id: 'residential',
@@ -394,7 +393,7 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
     intro: ['船级封装与减振设计适应近海环境，辅以 AI 诊断提升检修效率。'],
     bullets: ['耐候减振封装', '基于光纤数据的工单辅助'],
     cta: { href: '/news/hsr-nanfang-xinhui', label: '高铁南方工厂案例' },
-    cards: [{ id: 'hsr-project', title: '', href: '/news/hsr-nanfang-xinhui', img: '/res/高铁南站.jpg' }],
+    cards: [{ id: 'hsr-project', title: '', href: '/news/hsr-nanfang-xinhui', img: '/res/高铁（南方新会工厂）.jpg' }],
   },
   {
     id: 'culture',
@@ -404,8 +403,7 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
     bullets: ['音频/灯光/吊装分路隔离', '分区计量便于演出结算'],
     cta: { href: '/news/poly-theater', label: '保利剧院案例' },
     cards: [
-      { id: 'poly-theater-exterior', title: '', href: '/news/poly-theater', img: '/res/国家大剧院.jpg' },
-      { id: 'poly-theater-hall', title: '', href: '/news/poly-theater', img: '/res/gallery-39.jpg' },
+      { id: 'poly-theater-exterior', title: '', href: '/news/poly-theater', img: '/res/保利剧院.jpg' },
     ],
   },
 ]

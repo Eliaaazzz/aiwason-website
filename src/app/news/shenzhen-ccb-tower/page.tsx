@@ -23,7 +23,7 @@ const projectData: ProjectDetail = {
     zh: '金融建筑',
     en: 'Financial Building',
   },
-  heroImage: '/res/浦发银行总部大厦.jpg',
+  heroImage: '/res/深圳建行大厦.jpg',
   description: {
     zh: [
       '深圳建行大厦作为中国建设银行在深圳的重要金融中心，对电力系统的安全性和可靠性要求极高。AIWASON为其设计的双路冗余配电系统，结合生物识别联动技术，为交易大厅和金库支路提供了最高级别的安全保障。',
