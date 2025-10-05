@@ -119,7 +119,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     cta: { href: '/news/qianhai-holding-investment', label: 'Explore Case' },
     cards: [
       { id: 'urban-qhih-1', title: '', href: '/news/qianhai-holding-investment', img: '/res/前海投控大厦.jpg' },
-      { id: 'urban-qhih-2', title: '', href: '/news/qianhai-holding-investment', img: '/res/qianhai-investment-prize.jpg' },
+      { id: 'urban-qhih-2', title: '', href: '/news/qianhai-holding-investment', img: '/res/qianhai-investment-prize.png' },
     ],
   },
   {
@@ -162,11 +162,11 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
   {
     id: 'banking',
     heading: 'Banking',
-    sub: 'SPDB Headquarters',
+    sub: 'Shenzhen China Construction Bank Tower',
     intro: ['Dual redundancy with biometric interlocks secures trading floors and vault branches.'],
     bullets: ['Biometric-controlled critical tap-offs', '2-hour fire-rated vault branches with thermal sensing'],
-    cta: { href: '/news/spdb-headquarters', label: 'SPDB Headquarters' },
-    cards: [{ id: 'bank-spdb', title: '', href: '/news/spdb-headquarters', img: '/res/浦发银行总部大厦.jpg' }],
+    cta: { href: '/news/shenzhen-ccb-tower', label: 'CCB Tower' },
+    cards: [{ id: 'bank-ccb', title: '', href: '/news/shenzhen-ccb-tower', img: '/res/浦发银行总部大厦.jpg' }],
   },
   {
     id: 'residential',
@@ -184,7 +184,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
   {
     id: 'airports',
     heading: 'Airports',
-    sub: 'Shenzhen Bao'an International Airport',
+    sub: 'Shenzhen Bao\'an International Airport',
     intro: ['Fire-rated busways link terminals, data rooms and baggage systems for 24/7 operation.'],
     bullets: ['Terminal and airside redundancy', 'Condition monitoring of critical loads'],
     cta: { href: '/news/airport-upgrade', label: 'Airport Upgrade' },
@@ -205,22 +205,22 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
   {
     id: 'hsr',
     heading: 'High-speed Rail',
-    sub: 'Guangzhou South Station',
+    sub: 'High-speed Rail (Nanfang Xinhui Factory)',
     intro: ['Marine-grade, vibration-damped busways with AI diagnostics for coastal environments.'],
     bullets: ['Weatherproof, vibration-damped encapsulation', 'AI-assisted work orders from fiber data'],
-    cta: { href: '/news/south-railway-station', label: 'Railway Station' },
-    cards: [{ id: 'hsr-project', title: '', href: '/news/south-railway-station', img: '/res/高铁南站.jpg' }],
+    cta: { href: '/news/hsr-nanfang-xinhui', label: 'Railway Factory' },
+    cards: [{ id: 'hsr-project', title: '', href: '/news/hsr-nanfang-xinhui', img: '/res/高铁南站.jpg' }],
   },
   {
     id: 'culture',
     heading: 'Cultural Facilities',
-    sub: 'National Grand Theater',
+    sub: 'Poly Theater',
     intro: ['Low-noise, fire-rated backbone serving stage power, FOH and broadcast with quick turnarounds.'],
     bullets: ['Isolated feeds for audio, lighting and rigging', 'Zone-level metering for event settlement'],
-    cta: { href: '/news/national-grand-theater', label: 'Grand Theater Showcase' },
+    cta: { href: '/news/poly-theater', label: 'Poly Theater Showcase' },
     cards: [
-      { id: 'grand-theater-exterior', title: '', href: '/news/national-grand-theater', img: '/res/国家大剧院.jpg' },
-      { id: 'grand-theater-hall', title: '', href: '/news/national-grand-theater', img: '/res/gallery-39.jpg' },
+      { id: 'poly-theater-exterior', title: '', href: '/news/poly-theater', img: '/res/国家大剧院.jpg' },
+      { id: 'poly-theater-hall', title: '', href: '/news/poly-theater', img: '/res/gallery-39.jpg' },
     ],
   },
 ]
@@ -310,7 +310,7 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
   {
     id: 'urban-guangzhou',
     heading: '大型城市综合体',
-    sub: '广州新一代技术信息产业园',
+    sub: '广州智慧园区',
     intro: ['园区级母线支撑实验室与办公灵活布局，能耗数据可视可用。'],
     cta: { href: '/news/guangzhou-smart-park', label: '查看项目' },
     cards: [
@@ -347,11 +347,11 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
   {
     id: 'banking',
     heading: '银行系统',
-    sub: '浦发银行总部大厦',
+    sub: '深圳建行大厦',
     intro: ['双路冗余并结合生物识别联动，保障交易大厅与金库支路的安全与连续性。'],
     bullets: ['关键分接点生物识别联动', '金库支路 2 小时耐火并带温度监测'],
-    cta: { href: '/news/spdb-headquarters', label: '浦发银行总部' },
-    cards: [{ id: 'bank-spdb', title: '', href: '/news/spdb-headquarters', img: '/res/浦发银行总部大厦.jpg' }],
+    cta: { href: '/news/shenzhen-ccb-tower', label: '深圳建行大厦' },
+    cards: [{ id: 'bank-ccb', title: '', href: '/news/shenzhen-ccb-tower', img: '/res/浦发银行总部大厦.jpg' }],
   },
   {
     id: 'residential',
@@ -390,22 +390,22 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
   {
     id: 'hsr',
     heading: '高铁',
-    sub: '高铁南站',
+    sub: '高铁（南方新会工厂）',
     intro: ['船级封装与减振设计适应近海环境，辅以 AI 诊断提升检修效率。'],
     bullets: ['耐候减振封装', '基于光纤数据的工单辅助'],
-    cta: { href: '/news/south-railway-station', label: '高铁南站案例' },
-    cards: [{ id: 'hsr-project', title: '', href: '/news/south-railway-station', img: '/res/高铁南站.jpg' }],
+    cta: { href: '/news/hsr-nanfang-xinhui', label: '高铁南方工厂案例' },
+    cards: [{ id: 'hsr-project', title: '', href: '/news/hsr-nanfang-xinhui', img: '/res/高铁南站.jpg' }],
   },
   {
     id: 'culture',
     heading: '文化设施',
-    sub: '国家大剧院',
+    sub: '保利剧院',
     intro: ['面向演出与排练的低噪声耐火母线，覆盖舞台、前场与录播系统，支持快速切换。'],
     bullets: ['音频/灯光/吊装分路隔离', '分区计量便于演出结算'],
-    cta: { href: '/news/national-grand-theater', label: '国家大剧院案例' },
+    cta: { href: '/news/poly-theater', label: '保利剧院案例' },
     cards: [
-      { id: 'grand-theater-exterior', title: '', href: '/news/national-grand-theater', img: '/res/国家大剧院.jpg' },
-      { id: 'grand-theater-hall', title: '', href: '/news/national-grand-theater', img: '/res/gallery-39.jpg' },
+      { id: 'poly-theater-exterior', title: '', href: '/news/poly-theater', img: '/res/国家大剧院.jpg' },
+      { id: 'poly-theater-hall', title: '', href: '/news/poly-theater', img: '/res/gallery-39.jpg' },
     ],
   },
 ]
