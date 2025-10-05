@@ -51,7 +51,7 @@ export async function getNewsData(): Promise<NewsPayload> {
     {
       id: 'n-sina',
       title: { en: 'AIWASON Featured by Sina Technology', zh: '新浪科技报道艾默森' },
-      source: 'sinaImg',
+      source: '新浪科技',
       link: 'https://finance.sina.com.cn/jjxw/2025-05-12/doc-inewhnwe8190331.shtml',
       date: '2025-05-12',
       description: { en: 'Breakthrough fire-resistant intelligent busbar tech.', zh: '耐火智能母线科技突破。' },
@@ -60,7 +60,7 @@ export async function getNewsData(): Promise<NewsPayload> {
     {
       id: 'n-chinadaily',
       title: { en: 'China Daily Covers AIWASON', zh: '中国日报报道艾默森' },
-      source: 'chinaDailyImg',
+      source: '中国日报',
       link: 'https://caijing.chinadaily.com.cn/a/202505/13/WS6822ea40a310205377032daa.html',
       date: '2025-05-13',
       description: { en: 'Technology leadership in intelligent busbars.', zh: '智能母线科技引领未来。' },
