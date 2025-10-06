@@ -142,8 +142,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     cards: [
       { id: 'urban-dongguan-1', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸.jpg' },
       { id: 'urban-dongguan-2', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED.jpg' },
-      
-
+      { id: 'urban-dongguan-3', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED2.jpg' },
     ],
   },
   {
@@ -152,10 +151,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     sub: 'The MixC Flagship Complex',
     intro: ['Flagship site designed for weekend peaks and efficient weekday operations.'],
     cta: { href: '/news/mixc-complex', label: 'Explore Case' },
-    cards: [
-      { id: 'urban-mixc-1', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' },
-      { id: 'urban-mixc-2', title: '', href: '/news/mixc-complex', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-    ],
+    cards: [{ id: 'urban-mixc-1', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' }],
   },
 
   // Others
@@ -336,10 +332,7 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
     sub: '万象旗舰综合体',
     intro: ['面向周末客流峰值与工作日效率的双目标设计，保障运营与能效。'],
     cta: { href: '/news/mixc-complex', label: '查看项目' },
-    cards: [
-      { id: 'urban-mixc-1', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' },
-      { id: 'urban-mixc-2', title: '', href: '/news/mixc-complex', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-    ],
+    cards: [{ id: 'urban-mixc-1', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' }],
   },
 
   // 其他
