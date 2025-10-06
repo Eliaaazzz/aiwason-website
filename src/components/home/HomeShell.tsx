@@ -34,7 +34,7 @@ const OBJECT_POSITION_OVERRIDES: Record<string, string> = {
   // 例：'urban-qhih-1': 'top',
 }
 
-// 识别“奖项/证书”用的正则
+// 识别"奖项/证书"用的正则
 const IS_AWARD = /award|prize|LEED|证书|获奖/i
 
 // ---------------- EN (refined, professional) ----------------
@@ -88,7 +88,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     ],
   },
 
-  // 6 个子项目（每个都是“大图轮播”，一次只显示一张）
+  // 6 个子项目（每个都是"大图轮播"，一次只显示一张）
   {
     id: 'urban-zhongshan',
     heading: 'Large Urban Complexes',
@@ -119,7 +119,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     cta: { href: '/news/qianhai-holding-investment', label: 'Explore Case' },
     cards: [
       { id: 'urban-qhih-1', title: '', href: '/news/qianhai-holding-investment', img: '/res/前海投控大厦.jpg' },
-      { id: 'urban-qhih-2', title: '', href: '/news/qianhai-holding-investment', img: '/res/qianhai-investment-prize.jpg' },
+      { id: 'urban-qhih-2', title: '', href: '/news/qianhai-holding-investment', img: '/res/qianhai-investment-prize.png' },
     ],
   },
   {
@@ -142,8 +142,8 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     cards: [
       { id: 'urban-dongguan-1', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸.jpg' },
       { id: 'urban-dongguan-2', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED.jpg' },
-      { id: 'urban-dongguan-3', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-      { id: 'urban-dongguan-4', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸LEED证书.jpg' },
+      
+
     ],
   },
   {
@@ -151,10 +151,10 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     heading: 'Large Urban Complexes',
     sub: 'The MixC Flagship Complex',
     intro: ['Flagship site designed for weekend peaks and efficient weekday operations.'],
-    cta: { href: '/news/mixc-flagship', label: 'Explore Case' },
+    cta: { href: '/news/mixc-complex', label: 'Explore Case' },
     cards: [
-      { id: 'urban-mixc-1', title: '', href: '/news/mixc-flagship', img: '/res/万象汇.jpeg' },
-      { id: 'urban-mixc-2', title: '', href: '/news/mixc-flagship', img: '/res/东莞民盈国贸美国LEED2.jpg' },
+      { id: 'urban-mixc-1', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' },
+      { id: 'urban-mixc-2', title: '', href: '/news/mixc-complex', img: '/res/东莞民盈国贸美国LEED2.jpg' },
     ],
   },
 
@@ -162,11 +162,11 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
   {
     id: 'banking',
     heading: 'Banking',
-    sub: 'CCB Shenzhen HQ',
+    sub: 'Shenzhen China Construction Bank Tower',
     intro: ['Dual redundancy with biometric interlocks secures trading floors and vault branches.'],
     bullets: ['Biometric-controlled critical tap-offs', '2-hour fire-rated vault branches with thermal sensing'],
-    cta: { href: '/news/ccb-smart-campus', label: 'CCB Shenzhen HQ' },
-    cards: [{ id: 'bank-ccb', title: '', href: '/news/ccb-smart-campus', img: '/res/深圳建行大厦项目.jpg' }],
+    cta: { href: '/news/shenzhen-ccb-tower', label: 'CCB Tower' },
+    cards: [{ id: 'bank-ccb', title: '', href: '/news/shenzhen-ccb-tower', img: '/res/深圳建行大厦项目.jpg' }],
   },
   {
     id: 'residential',
@@ -184,7 +184,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
   {
     id: 'airports',
     heading: 'Airports',
-    sub: 'Shenzhen Bao’an International Airport',
+    sub: 'Shenzhen Bao\'an International Airport',
     intro: ['Fire-rated busways link terminals, data rooms and baggage systems for 24/7 operation.'],
     bullets: ['Terminal and airside redundancy', 'Condition monitoring of critical loads'],
     cta: { href: '/news/airport-upgrade', label: 'Airport Upgrade' },
@@ -205,22 +205,22 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
   {
     id: 'hsr',
     heading: 'High-speed Rail',
-    sub: 'Coastal Depot Power Backbone',
+    sub: 'High-speed Rail (Nanfang Xinhui Factory)',
     intro: ['Marine-grade, vibration-damped busways with AI diagnostics for coastal environments.'],
     bullets: ['Weatherproof, vibration-damped encapsulation', 'AI-assisted work orders from fiber data'],
-    cta: { href: '/news/rail-transit-power', label: 'Rail Power' },
-    cards: [{ id: 'hsr-project', title: '', href: '/news/rail-transit-power', img: '/res/高铁（南方新会工厂）.jpg' }],
+    cta: { href: '/news/hsr-nanfang-xinhui', label: 'Railway Factory' },
+    cards: [{ id: 'hsr-project', title: '', href: '/news/hsr-nanfang-xinhui', img: '/res/高铁（南方新会工厂）.jpg' }],
   },
   {
     id: 'culture',
     heading: 'Cultural Facilities',
-    sub: 'Shenzhen Poly Theatre',
+    sub: 'Poly Theater',
     intro: ['Low-noise, fire-rated backbone serving stage power, FOH and broadcast with quick turnarounds.'],
     bullets: ['Isolated feeds for audio, lighting and rigging', 'Zone-level metering for event settlement'],
-    cta: { href: '/news/library-showcase', label: 'Poly Theatre Showcase' },
+    cta: { href: '/news/poly-theater', label: 'Poly Theater Showcase' },
     cards: [
-      { id: 'poly-theatre-exterior', title: '', href: '/news/library-showcase', img: '/res/保利剧院.jpg' },
-      { id: 'poly-theatre-hall', title: '', href: '/news/library-showcase', img: '/res/gallery-39.jpg' },
+      { id: 'poly-theater-exterior', title: '', href: '/news/poly-theater', img: '/res/保利剧院.jpg' },
+      { id: 'poly-theater-hall', title: '', href: '/news/poly-theater', img: '/res/gallery-39.jpg' },
     ],
   },
 ]
@@ -310,7 +310,7 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
   {
     id: 'urban-guangzhou',
     heading: '大型城市综合体',
-    sub: '广州新一代技术信息产业园',
+    sub: '广州智慧园区',
     intro: ['园区级母线支撑实验室与办公灵活布局，能耗数据可视可用。'],
     cta: { href: '/news/guangzhou-smart-park', label: '查看项目' },
     cards: [
@@ -328,7 +328,6 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
       { id: 'urban-dongguan-1', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸.jpg' },
       { id: 'urban-dongguan-2', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED.jpg' },
       { id: 'urban-dongguan-3', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-      { id: 'urban-dongguan-4', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸LEED证书.jpg' },
     ],
   },
   {
@@ -336,10 +335,10 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
     heading: '大型城市综合体',
     sub: '万象旗舰综合体',
     intro: ['面向周末客流峰值与工作日效率的双目标设计，保障运营与能效。'],
-    cta: { href: '/news/mixc-flagship', label: '查看项目' },
+    cta: { href: '/news/mixc-complex', label: '查看项目' },
     cards: [
-      { id: 'urban-mixc-1', title: '', href: '/news/mixc-flagship', img: '/res/万象汇.jpeg' },
-      { id: 'urban-mixc-2', title: '', href: '/news/mixc-flagship', img: '/res/东莞民盈国贸美国LEED2.jpg' },
+      { id: 'urban-mixc-1', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' },
+      { id: 'urban-mixc-2', title: '', href: '/news/mixc-complex', img: '/res/东莞民盈国贸美国LEED2.jpg' },
     ],
   },
 
@@ -347,11 +346,11 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
   {
     id: 'banking',
     heading: '银行系统',
-    sub: '建行深圳大厦',
+    sub: '深圳建行大厦',
     intro: ['双路冗余并结合生物识别联动，保障交易大厅与金库支路的安全与连续性。'],
     bullets: ['关键分接点生物识别联动', '金库支路 2 小时耐火并带温度监测'],
-    cta: { href: '/news/ccb-smart-campus', label: '建行深圳大厦' },
-    cards: [{ id: 'bank-ccb', title: '', href: '/news/ccb-smart-campus', img: '/res/深圳建行大厦项目.jpg' }],
+    cta: { href: '/news/shenzhen-ccb-tower', label: '深圳建行大厦' },
+    cards: [{ id: 'bank-ccb', title: '', href: '/news/shenzhen-ccb-tower', img: '/res/深圳建行大厦项目.jpg' }],
   },
   {
     id: 'residential',
@@ -390,22 +389,21 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
   {
     id: 'hsr',
     heading: '高铁',
-    sub: '沿海动车段供配电骨干',
+    sub: '高铁（南方新会工厂）',
     intro: ['船级封装与减振设计适应近海环境，辅以 AI 诊断提升检修效率。'],
     bullets: ['耐候减振封装', '基于光纤数据的工单辅助'],
-    cta: { href: '/news/rail-transit-power', label: '高铁供电案例' },
-    cards: [{ id: 'hsr-project', title: '', href: '/news/rail-transit-power', img: '/res/高铁（南方新会工厂）.jpg' }],
+    cta: { href: '/news/hsr-nanfang-xinhui', label: '高铁南方工厂案例' },
+    cards: [{ id: 'hsr-project', title: '', href: '/news/hsr-nanfang-xinhui', img: '/res/高铁（南方新会工厂）.jpg' }],
   },
   {
     id: 'culture',
     heading: '文化设施',
-    sub: '深圳保利剧院',
+    sub: '保利剧院',
     intro: ['面向演出与排练的低噪声耐火母线，覆盖舞台、前场与录播系统，支持快速切换。'],
     bullets: ['音频/灯光/吊装分路隔离', '分区计量便于演出结算'],
-    cta: { href: '/news/library-showcase', label: '保利剧院案例' },
+    cta: { href: '/news/poly-theater', label: '保利剧院案例' },
     cards: [
-      { id: 'poly-theatre-exterior', title: '', href: '/news/library-showcase', img: '/res/保利剧院.jpg' },
-      { id: 'poly-theatre-hall', title: '', href: '/news/library-showcase', img: '/res/gallery-39.jpg' },
+      { id: 'poly-theater-exterior', title: '', href: '/news/poly-theater', img: '/res/保利剧院.jpg' },
     ],
   },
 ]
@@ -543,7 +541,7 @@ export default function HomeShell() {
   const modelSections: ModelSection[] = useMemo(() => MODEL_SECTIONS[language] ?? MODEL_SECTIONS.en, [language])
   const newsGroups: NewsGroup[] = useMemo(() => [], [language])
 
-  // 把奖图标记为 contain，项目图 cover；容器高度统一为“大图”
+  // 把奖图标记为 contain，项目图 cover；容器高度统一为"大图"
   const prepareCards = useCallback((cards: MediaCard[]): MediaCard[] => {
     return cards.map((c) => {
       const srcText = typeof c.img === 'string' ? c.img : (c.img as any)?.src ?? ''
@@ -665,7 +663,7 @@ export default function HomeShell() {
                         <div className="pt-2">
                           <Link
                             href={`${section.cta.href}?lang=${language}`}
-                            className="inline-flex items-center gap-2 rounded-lg bg-[#76B900] px-5 py-3 text-sm font-semibold text黑 shadow hover:brightness-110 transition"
+                            className="inline-flex items-center gap-2 rounded-lg bg-[#76B900] px-5 py-3 text-sm font-semibold text-white shadow hover:brightness-110 transition"
                           >
                             {section.cta.label}
                           </Link>
@@ -684,7 +682,7 @@ export default function HomeShell() {
                         hideHeader
                         controlsOverlay
                         controlsVariant="brand"
-                        // 恢复为“大图”视觉（容器高度统一）
+                        // 恢复为"大图"视觉（容器高度统一）
                         imageHeightClass="h-[560px] md:h-[640px] lg:h-[740px]"
                         cardWidthClass="min-w-[88vw] sm:min-w-[70vw] lg:min-w-[820px] lg:max-w-[820px]"
                         roundedClass=""
