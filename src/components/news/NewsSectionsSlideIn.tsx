@@ -230,6 +230,7 @@ function VideoLightbox({
   onClose: () => void
 }) {
   const closeRef = useRef<HTMLButtonElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -240,6 +241,19 @@ function VideoLightbox({
     setTimeout(() => closeRef.current?.focus(), 0)
     return () => document.removeEventListener('keydown', onKey)
   }, [onClose])
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    video.currentTime = 0
+    video.load()
+    const playPromise = video.play()
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {
+        // 浏览器可能阻止自动播放，用户仍可手动点击播放。
+      })
+    }
+  }, [sources])
 
   return (
     <div
@@ -270,9 +284,11 @@ function VideoLightbox({
             <video
               controls
               playsInline
-              preload="none"
+              preload="metadata"
               poster={poster}
               className="h-full w-full object-contain bg-black"
+              ref={videoRef}
+              key={sources.map((s) => s.src).join('|')}
             >
               {sources.map((s) => (
                 <source key={s.src} src={s.src} type={s.type} />

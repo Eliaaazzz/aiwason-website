@@ -20,6 +20,7 @@ export default function VideoLightbox({
   sources,
 }: VideoLightboxProps) {
   const closeRef = React.useRef<HTMLButtonElement>(null)
+  const videoRef = React.useRef<HTMLVideoElement>(null)
 
   React.useEffect(() => {
     if (!open) return
@@ -33,6 +34,20 @@ export default function VideoLightbox({
       window.clearTimeout(id)
     }
   }, [open, onClose])
+
+  React.useEffect(() => {
+    if (!open) return
+    const video = videoRef.current
+    if (!video) return
+    video.currentTime = 0
+    video.load()
+    const playPromise = video.play()
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {
+        // Autoplay may be blocked; controls remain available for manual playback.
+      })
+    }
+  }, [open, sources])
 
   if (!open) return null
 
@@ -64,9 +79,11 @@ export default function VideoLightbox({
             <video
               controls
               playsInline
-              preload="none"
+              preload="metadata"
               poster={poster}
               className="h-full w-full object-contain bg-black"
+              ref={videoRef}
+              key={sources.map((s) => s.src).join('|')}
             >
               {sources.map((s) => (
                 <source key={s.src} src={s.src} type={s.type} />
