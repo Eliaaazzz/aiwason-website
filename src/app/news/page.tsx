@@ -34,7 +34,7 @@ const Separator = () => (
 export default async function NewsPage({ searchParams }: PageProps) {
   // ✅ await searchParams，修复你控制台的报错
   const sp = await searchParams
-  const lang = (sp?.lang === 'en' ? 'en' : 'zh') as 'en' | 'zh'
+  const lang = (sp?.lang === 'zh' ? 'zh' : 'en') as 'en' | 'zh'
 
   const { videos, news } = await getNewsData()
 

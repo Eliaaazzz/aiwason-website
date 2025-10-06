@@ -13,7 +13,7 @@ type Props = {
   tone?: 'light' | 'dark'
 }
 
-export default function LanguageSwitch({ className = '', defaultLang = 'zh', labels, tone = 'light' }: Props) {
+export default function LanguageSwitch({ className = '', defaultLang = 'en', labels, tone = 'light' }: Props) {
   const router = useRouter()
   const pathname = usePathname()
   const [lang, setLang] = useState<Lang>(defaultLang)

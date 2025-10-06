@@ -47,7 +47,7 @@ const heroCopy: Localised<{ title: string; subtitle: string; cta: string }> = {
 
 // 统一素材映射（支持 string 或 StaticImageData）
 const solutionVisuals = {
-  hero: heroPng,
+  hero: '/res/factory.jpg',
   assetDashboard: heroPng,
   analyticsHeatmap: analyticsHeatmapPng,
   alertDispatch: alertDispatchPng,
@@ -323,17 +323,20 @@ export default async function SolutionsPage({
 }) {
   const sp = await searchParams
   const langParam = sp?.lang
-  const lang: Lang = langParam === 'en' || langParam === 'zh' ? (langParam as Lang) : 'zh'
+  const lang: Lang = langParam === 'en' || langParam === 'zh' ? (langParam as Lang) : 'en'
 
   return (
     <main className="bg-white text-gray-900 min-h-screen">
       {/* HERO */}
-      <section id="overview" className="relative min-h-[70vh] border-b border-[#cde9aa] overflow-hidden">
+      <section
+        id="overview"
+        className="relative min-h-[70vh] border-b border-[#cde9aa] overflow-hidden bg-black"
+      >
         <Image
           src={heroVisual}
           alt={lang === 'en' ? 'AIWASON intelligent busbar system' : 'AIWASON 智能母线系统'}
           fill
-          className="absolute inset-0 object-cover"
+          className="absolute inset-0 object-contain object-center"
           priority
         />
         <div className="absolute inset-0 bg-black/55" aria-hidden="true" />

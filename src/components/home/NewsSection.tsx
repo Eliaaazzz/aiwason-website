@@ -23,7 +23,7 @@ interface NewsSectionProps {
 }
 
 export default function NewsSection({
-  langDefault = 'zh',
+  langDefault = 'en',
   videos = [],
   newsItems = [],
   wechatPosts = [],

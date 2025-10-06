@@ -449,7 +449,7 @@ type HomeShellProps = {
   defaultLanguage?: Lang
 }
 
-export default function HomeShell({ defaultLanguage = 'zh' }: HomeShellProps) {
+export default function HomeShell({ defaultLanguage = 'en' }: HomeShellProps) {
   const router = useRouter()
   const pathname = usePathname()
   const [language, setLanguage] = useState<Lang>(defaultLanguage)
@@ -516,7 +516,7 @@ export default function HomeShell({ defaultLanguage = 'zh' }: HomeShellProps) {
         id: 4,
         lines: language === 'en' ? ['SMART', 'BUILDINGS', 'READY'] : ['面向', '智能建筑', '应用'],
         subtitle: language === 'en' ? 'Designed for IoT-enabled facilities with intelligent building management.' : '为物联网与智能楼控系统而生。',
-        img: '/res/skyscraper.jpg',
+        img: '/res/gallery-10.jpeg',
         bg: BACKGROUND_IMG,
       },
     ],
