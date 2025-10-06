@@ -7,14 +7,9 @@ import NewsSectionsSlideIn, { type NewsGroup } from '@/components/news/NewsSecti
 // import MediaCarousel from '@/components/news/MediaCarousel'
 import MediaReportRail from '@/components/news/MediaReportRail'
 
-import sina from '@/assets/News/新浪.png'
-import china from '@/assets/News/中华网.png'
-import dayang from '@/assets/News/大洋.png'
 import coverCEEC from '@/assets/News/中欧企业对接会.png'
-import coverNobel from '@/assets/News/诺贝尔创新工作站.png'
 import coverNobelMeet from '@/assets/News/会面诺奖教授.png'
 import coverCCTV1 from '@/assets/News/央视采访1.png'
-import coverCCTV2 from '@/assets/News/央视采访2.png'
 import wechatBanner from '@/assets/News/Wechat.png'
 import wechatQrcode from '@/assets/News/Wechat-QRcode.png'
 import creditChinaPoster from '@/assets/News/credit-china-poster.png'
@@ -31,15 +26,6 @@ export const metadata: Metadata = {
 type PageProps = { searchParams: Promise<{ lang?: string }> }
 
 type Localised<T> = { en: T; zh: T }
-
-const mediaImageMap = {
-  'n-sina': sina,
-  'n-zhonghua': china,
-  'n-dayang': dayang,
-  'n-znj': coverNobel,
-  'n-qyjr': coverCCTV1,
-  'n-energy': coverCCTV2,
-} as const
 
 const Separator = () => (
   <div className="h-2 w-full bg-gradient-to-r from-white via-[#aee28b] to-white" aria-hidden="true" />
@@ -182,8 +168,7 @@ export default async function NewsPage({ searchParams }: PageProps) {
     desc: item.description ? item.description[lang] : localise(copy.mediaTagline),
     subline: item.source,
     href: item.link,
-    // ✅ 明确 fallback，别再用未定义的 media1
-    img: mediaImageMap[item.id as keyof typeof mediaImageMap] ?? coverCCTV1,
+    img: item.image || coverCCTV1,
     date: item.date,
     source: item.source,
   }))

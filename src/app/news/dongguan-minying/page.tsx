@@ -91,11 +91,13 @@ const projectData: ProjectDetail = {
       name: { zh: '美国LEED金级认证', en: 'US LEED Gold Certification' },
       year: '2023',
       description: { zh: '绿色建筑领域的最高荣誉', en: 'Highest honor in green building field' },
+      image: '/res/东莞民盈国贸美国LEED.jpg',
     },
     {
       name: { zh: '绿色建筑创新奖', en: 'Green Building Innovation Award' },
       year: '2023',
       description: { zh: '在绿色建筑技术创新方面的杰出贡献', en: 'Outstanding contribution to green building technology innovation' },
+      image: '/res/东莞民盈国贸美国LEED2.jpg',
     },
   ],
   relatedLinks: [

@@ -488,7 +488,7 @@ export default function HomeShell() {
         id: 2,
         lines: language === 'en' ? ['ULTRA-HIGH', 'EFFICIENCY', 'RELIABILITY'] : ['超高', '效率', '可靠性'],
         subtitle: t.features.highEfficiency.description,
-        img: '/res/company.jpg',
+        img: '/res/factory.jpg',
         bg: BACKGROUND_IMG,
       },
       {
@@ -502,7 +502,7 @@ export default function HomeShell() {
         id: 4,
         lines: language === 'en' ? ['SMART', 'BUILDINGS', 'READY'] : ['面向', '智能建筑', '应用'],
         subtitle: language === 'en' ? 'Designed for IoT-enabled facilities with intelligent building management.' : '为物联网与智能楼控系统而生。',
-        img: '/res/company.jpg',
+        img: '/res/skyscraper.jpg',
         bg: BACKGROUND_IMG,
       },
     ],
@@ -663,9 +663,9 @@ export default function HomeShell() {
                         <div className="pt-2">
                           <Link
                             href={`${section.cta.href}?lang=${language}`}
-                            className="inline-flex items-center gap-2 rounded-lg bg-[#76B900] px-5 py-3 text-sm font-semibold text-white shadow hover:brightness-110 transition"
+                            className="inline-flex items-center gap-2 rounded-lg bg-[#9BE15D] px-5 py-3 text-sm font-semibold text-[#0f2100] shadow hover:bg-[#88d84a] transition"
                           >
-                            {section.cta.label}
+                            {language === 'en' ? 'Learn More' : '了解详情'}
                           </Link>
                         </div>
                       </header>

@@ -2,8 +2,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
+import clsx from 'clsx'
 import { ArrowLeft, Globe, ExternalLink, Calendar, MapPin, Award } from 'lucide-react'
 import LanguageSwitch from './LanguageSwitch'
 
@@ -15,6 +16,7 @@ export type ProjectDetail = {
   completionDate: string
   category: { zh: string; en: string }
   heroImage: string
+  heroFit?: 'cover' | 'contain'
   description: {
     zh: string[]
     en: string[]
@@ -31,6 +33,7 @@ export type ProjectDetail = {
     name: { zh: string; en: string }
     year: string
     description?: { zh: string; en: string }
+    image?: string | StaticImageData
   }[]
   relatedLinks?: {
     label: { zh: string; en: string }
@@ -72,6 +75,7 @@ export default function ProjectDetailLayout({ project, lang }: ProjectDetailLayo
   }
 
   const content = t[lang]
+  const heroFit = project.heroFit ?? 'cover'
 
   return (
     <main className="bg-white text-gray-900">
@@ -142,14 +146,19 @@ export default function ProjectDetailLayout({ project, lang }: ProjectDetailLayo
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full"
+          className={clsx(
+            'relative h-[400px] md:h-[500px] lg:h-[600px] w-full',
+            heroFit === 'contain' ? 'bg-gray-50' : '',
+          )}
         >
           <Image
             src={project.heroImage}
             alt={project.title[lang]}
             fill
             priority
-            className="object-cover"
+            className={clsx(
+              heroFit === 'contain' ? 'object-contain object-center p-6 md:p-10' : 'object-cover',
+            )}
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -235,14 +244,28 @@ export default function ProjectDetailLayout({ project, lang }: ProjectDetailLayo
                     <Award className="w-5 h-5 text-[#76B900]" />
                     {content.awards}
                   </h3>
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     {project.awards.map((award, index) => (
-                      <div key={index} className="space-y-1">
-                        <div className="font-medium text-gray-900">{award.name[lang]}</div>
-                        <div className="text-sm text-gray-600">{award.year}</div>
-                        {award.description && (
-                          <div className="text-sm text-gray-600">{award.description[lang]}</div>
+                      <div key={index} className="space-y-3">
+                        {award.image && (
+                          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-white shadow-sm">
+                            <Image
+                              src={award.image}
+                              alt={award.name[lang]}
+                              fill
+                              sizes="(min-width:1024px) 280px, 100vw"
+                              className="object-contain p-4"
+                            />
+                            <div className="pointer-events-none absolute inset-0 ring-1 ring-black/5 rounded-[inherit]" />
+                          </div>
                         )}
+                        <div className="space-y-1">
+                          <div className="font-medium text-gray-900">{award.name[lang]}</div>
+                          <div className="text-sm text-gray-600">{award.year}</div>
+                          {award.description && (
+                            <div className="text-sm text-gray-600">{award.description[lang]}</div>
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>

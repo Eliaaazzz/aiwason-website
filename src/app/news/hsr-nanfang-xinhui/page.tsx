@@ -91,11 +91,13 @@ const projectData: ProjectDetail = {
       name: { zh: '智能制造技本创新奖', en: 'Intelligent Manufacturing Technology Innovation Award' },
       year: '2023',
       description: { zh: '在高速铁路制造领域的技术突破', en: 'Technological breakthrough in high-speed rail manufacturing field' },
+      image: '/res/高铁（南方新会工厂）.jpg',
     },
     {
       name: { zh: '海洋环境适应性认证', en: 'Marine Environment Adaptability Certification' },
       year: '2023',
       description: { zh: '通过严格的海洋环境测试认证', en: 'Passed rigorous marine environment testing certification' },
+      image: '/res/gallery-46.jpg',
     },
   ],
   relatedLinks: [

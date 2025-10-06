@@ -23,22 +23,14 @@ export default function NavButton({
       onClick={onClick}
       disabled={disabled}
       className={[
-        // shape
-        'h-10 w-10 grid place-items-center rounded-[3px]',
-        // NVIDIA green (fixed color whether disabled or not)
-        'bg-[#32CD32] text-black',
-        // border & elevation
-        'border border-black/10 shadow-[0_1px_0_rgba(0,0,0,0.08),0_6px_12px_rgba(0,0,0,0.10)]',
-        // transitions
+        'h-10 w-10 grid place-items-center rounded-[8px]',
+        'bg-[#9BE15D] text-[#0f2100]',
+        'border border-black/10 shadow-[0_1px_0_rgba(0,0,0,0.06),0_8px_16px_rgba(0,0,0,0.10)]',
         'transition-[background,box-shadow,transform] duration-150',
-        // only when enabled do we change on hover/active
-        'enabled:hover:bg-[#32CD32] enabled:hover:shadow-[0_1px_0_rgba(0,0,0,0.08),0_10px_18px_rgba(0,0,0,0.14)]',
-        'enabled:active:translate-y-[1px] enabled:active:shadow-[0_0px_0_rgba(0,0,0,0.08),0_6px_12px_rgba(0,0,0,0.12)]',
-        // focus ring only when enabled (disabled keeps same color)
-        'enabled:focus:outline-none enabled:focus-visible:ring-2 enabled:focus-visible:ring-[#76B900]/40 enabled:focus-visible:ring-offset-2 enabled:focus-visible:ring-offset-white',
-        // disabled: keep color, just block interaction/cursor
-        'disabled:cursor-not-allowed',
-        // motion reduce
+        'enabled:hover:bg-[#88d84a] enabled:hover:shadow-[0_2px_6px_rgba(0,0,0,0.08),0_12px_22px_rgba(0,0,0,0.14)]',
+        'enabled:active:translate-y-[1px] enabled:active:shadow-[0_0px_0_rgba(0,0,0,0.08),0_6px_14px_rgba(0,0,0,0.12)]',
+        'enabled:focus:outline-none enabled:focus-visible:ring-2 enabled:focus-visible:ring-[#4ca233]/45 enabled:focus-visible:ring-offset-2 enabled:focus-visible:ring-offset-white',
+        'disabled:cursor-not-allowed disabled:opacity-60',
         'motion-reduce:transition-none motion-reduce:hover:translate-y-0',
         className,
       ].join(' ')}

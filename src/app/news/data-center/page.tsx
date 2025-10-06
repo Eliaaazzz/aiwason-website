@@ -96,6 +96,7 @@ const projectData: ProjectDetail = {
       name: { zh: '数据中心优秀工程奖', en: 'Data Center Excellence Award' },
       year: '2024',
       description: { zh: '获得行业认可的数据中心基础设施建设优秀项目', en: 'Industry-recognized excellence in data center infrastructure construction' },
+      image: '/res/数据中心获奖.png',
     },
   ],
   relatedLinks: [
