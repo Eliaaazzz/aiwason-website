@@ -336,7 +336,7 @@ export default async function SolutionsPage({
           src={heroVisual}
           alt={lang === 'en' ? 'AIWASON intelligent busbar system' : 'AIWASON 智能母线系统'}
           fill
-          className="absolute inset-0 object-contain object-center"
+          className="absolute inset-0 h-full w-full object-cover object-center"
           priority
         />
         <div className="absolute inset-0 bg-black/55" aria-hidden="true" />
