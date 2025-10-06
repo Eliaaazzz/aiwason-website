@@ -40,14 +40,14 @@ const heroCopy: Localised<{ title: string; subtitle: string; cta: string }> = {
   },
   zh: {
     title: 'AIWASON 智能母线整体解决方案',
-    subtitle: '融合云平台监控、预测性运维与高可靠硬件，为关键基础设施打造安全稳固的供配电体系。',
+    subtitle: '融合云平台监控、预测性运维与高可靠硬件，为关键基础设施打造安全稳固的输配电体系。',
     cta: '联系方案顾问',
   },
 }
 
 // 统一素材映射（支持 string 或 StaticImageData）
 const solutionVisuals = {
-  hero: '/res/gallery-35.jpeg',
+  hero: heroPng,
   assetDashboard: heroPng,
   analyticsHeatmap: analyticsHeatmapPng,
   alertDispatch: alertDispatchPng,

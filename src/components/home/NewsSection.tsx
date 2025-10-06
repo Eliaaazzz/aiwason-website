@@ -10,6 +10,7 @@ import { useCallback, useMemo, useRef, useState, useEffect } from 'react'
 import NavButton from '@/components/common/NavButton'
 import CardImage from '@/components/common/CardImage'
 import clsx from 'clsx'
+import VideoLightbox from '@/components/common/VideoLightbox'
 
 const getImageSrc = (input: string | StaticImageData) => (typeof input === 'string' ? input : input.src)
 
@@ -29,6 +30,7 @@ export default function NewsSection({
   wechatAccount,
 }: NewsSectionProps) {
   const language = langDefault
+  const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null)
 
   const t = {
     zh: {
@@ -169,10 +171,9 @@ export default function NewsSection({
                   </span>
                 </div>
               </div>
-              <a
-                href={video.videoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={() => setActiveVideo(video)}
                 className="absolute inset-0"
                 aria-label={content.watchVideo}
               />
@@ -350,7 +351,7 @@ export default function NewsSection({
           <>
             <div className="h-4" />
             <div className="space-y-3">
-              {wechatPosts.slice(0, 3).map((post) => (
+             {wechatPosts.slice(0, 3).map((post) => (
                 <div key={post.id} className="group relative">
                   <div className="flex gap-3">
                     <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-white">
@@ -374,19 +375,22 @@ export default function NewsSection({
                       <span className="text-xs text-gray-500 mt-1 block">{post.date}</span>
                     </div>
                   </div>
-                  <a
-                    href={post.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute inset-0"
-                    aria-label={post.title[language]}
-                  />
                 </div>
               ))}
             </div>
           </>
         ) : null}
       </motion.div>
+
+      {activeVideo ? (
+        <VideoLightbox
+          open
+          onClose={() => setActiveVideo(null)}
+          title={activeVideo.title[language]}
+          poster={getImageSrc(activeVideo.thumbnail)}
+          sources={[{ src: activeVideo.videoUrl, type: 'video/mp4' }]}
+        />
+      ) : null}
     </div>
   )
 }
