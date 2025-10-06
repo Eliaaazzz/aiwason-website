@@ -47,7 +47,7 @@ const heroCopy: Localised<{ title: string; subtitle: string; cta: string }> = {
 
 // 统一素材映射（支持 string 或 StaticImageData）
 const solutionVisuals = {
-  hero: heroPng,
+  hero: '/res/gallery-35.jpeg',
   assetDashboard: heroPng,
   analyticsHeatmap: analyticsHeatmapPng,
   alertDispatch: alertDispatchPng,
@@ -357,7 +357,7 @@ export default async function SolutionsPage({
           <div className="mt-10 flex flex-wrap gap-4">
             <Link
               href={`/products?lang=${lang}`}
-              className="inline-flex items-center gap-2 rounded-lg bg-[#76B900] px-5 py-3 text-sm font-semibold text-black shadow hover:brightness-110 transition"
+              className="inline-flex items-center gap-2 rounded-lg bg-[#9BE15D] px-5 py-3 text-sm font-semibold text-[#0f2100] shadow hover:bg-[#88d84a] transition"
             >
               {lang === 'en' ? 'Explore Product Portfolio' : '查看产品矩阵'}
             </Link>

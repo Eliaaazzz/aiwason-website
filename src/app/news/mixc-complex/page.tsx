@@ -96,11 +96,13 @@ const projectData: ProjectDetail = {
       name: { zh: '中国商业建筑奖', en: 'China Commercial Architecture Award' },
       year: '2019',
       description: { zh: '商业建筑设计与技术应用创新奖', en: 'Innovation award for commercial building design and technology application' },
+      image: '/res/万象汇.jpeg',
     },
     {
       name: { zh: '深圳市绿色建筑奖', en: 'Shenzhen Green Building Award' },
       year: '2019',
       description: { zh: '节能环保技术应用优秀项目', en: 'Excellence in energy-saving and environmental protection technology application' },
+      image: '/res/东莞民盈国贸美国LEED2.jpg',
     },
   ],
   relatedLinks: [

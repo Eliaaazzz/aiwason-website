@@ -2,7 +2,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 import { Play, ExternalLink } from 'lucide-react'
 import type { VideoItem, NewsItem, WeChatPost, WeChatAccount } from '@/lib/types/news'
@@ -10,6 +10,8 @@ import { useCallback, useMemo, useRef, useState, useEffect } from 'react'
 import NavButton from '@/components/common/NavButton'
 import CardImage from '@/components/common/CardImage'
 import clsx from 'clsx'
+
+const getImageSrc = (input: string | StaticImageData) => (typeof input === 'string' ? input : input.src)
 
 interface NewsSectionProps {
   langDefault: 'zh' | 'en'
@@ -46,7 +48,6 @@ export default function NewsSection({
     en: {
       newsTitle: 'News & Updates',
       videoSection: 'Video Center',
-      // 这块按你的要求写成“Media Report”并加粗显示
       mediaSection: 'Media Report',
       wechatSection: 'WeChat Official',
       standardVideos: 'Standard Videos',
@@ -58,25 +59,24 @@ export default function NewsSection({
       officialAccount: 'Official Account',
       scanToFollow: 'Scan to follow',
     },
-  }
+  } as const
   const content = t[language]
 
-  // —— 媒体报道小卡数据（用 CardImage） —— //
+  // Normalize here (now image is a STRING already, thanks to the data layer)
   const mediaCards = useMemo(
     () =>
       newsItems.slice(0, 12).map((n) => ({
         id: n.id,
         title: n.title[language],
         href: n.link,
-        img: typeof n.image === 'string' ? n.image : n.image.src,
+        img: getImageSrc(n.image),
         date: n.date,
-        source: n.source,
+        source: n.source, // now a human label, not "sinaImg"
         desc: n.description?.[language],
       })),
     [newsItems, language]
   )
 
-  // 横向滚动控制（按钮与标题同行、对齐）
   const scrollerRef = useRef<HTMLDivElement | null>(null)
   const [canPrev, setCanPrev] = useState(false)
   const [canNext, setCanNext] = useState(true)
@@ -99,11 +99,14 @@ export default function NewsSection({
 
   useEffect(() => {
     updateButtons()
+    const onResize = () => updateButtons()
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
   }, [mediaCards.length, updateButtons])
 
   return (
     <div className="w-full max-w-md space-y-8">
-      {/* 主区块标题（保持不变） */}
+      {/* Title */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -115,7 +118,7 @@ export default function NewsSection({
         <div className="w-16 h-0.5 bg-green-400 mx-auto" />
       </motion.div>
 
-      {/* 视频专区（保持不变） */}
+      {/* Videos */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -141,7 +144,7 @@ export default function NewsSection({
               <div className="flex gap-3">
                 <div className="relative w-20 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-white">
                   <Image
-                    src={video.thumbnail}
+                    src={getImageSrc(video.thumbnail)}
                     alt={video.title[language]}
                     fill
                     sizes="80px"
@@ -185,7 +188,7 @@ export default function NewsSection({
         </Link>
       </motion.div>
 
-      {/* 媒体报道：大号粗体标题 + 右上 NavButton（与标题同一行对齐） + 小卡横向滚动（CardImage、完整展示） */}
+      {/* Media Report */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -193,7 +196,6 @@ export default function NewsSection({
         transition={{ duration: 0.6, delay: 0.2 }}
         className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-white/10"
       >
-        {/* ✅ 粗体大标题，和右上按钮对齐（不覆盖在图片上） */}
         <div className="mb-4 flex items-center justify-between">
           <h3 className="text-2xl md:text-3xl font-extrabold text-white flex items-center gap-3">
             <ExternalLink className="w-6 h-6 text-green-400" />
@@ -215,7 +217,6 @@ export default function NewsSection({
           </div>
         </div>
 
-        {/* ✅ 小卡横向滚动：卡片之间加更大间距，图片用 contain 完整展示，白底 + 细描边 */}
         {mediaCards.length > 0 ? (
           <div
             ref={scrollerRef}
@@ -225,7 +226,7 @@ export default function NewsSection({
               'flex gap-6 scroll-smooth snap-x snap-mandatory',
               '[-ms-overflow-style:none] [scrollbar-width:none]',
               '[&::-webkit-scrollbar]:hidden',
-              'px-1 pb-1' // 给容器留一点内边距，避免贴边
+              'px-1 pb-1'
             )}
             aria-label={language === 'en' ? 'Media report carousel' : '媒体报道横向滚动'}
           >
@@ -237,30 +238,35 @@ export default function NewsSection({
                 rel="noopener noreferrer"
                 className={clsx(
                   'group shrink-0 snap-start focus:outline-none',
-                  // 小卡尺寸（新闻用），不要影响首页 model projects 的大图
                   'min-w-[68vw] sm:min-w-[52vw] md:min-w-[380px] lg:min-w-[360px] lg:max-w-[360px]'
                 )}
                 aria-label={item.title}
               >
                 <CardImage
+                  // now always a STRING
                   src={item.img}
                   alt={item.title}
                   ratio="16/9"
-                  fit="contain"               // 完整展示
+                  fit="contain"
                   roundedClassName="rounded-xl"
                   sizes="(min-width:1024px) 360px, (min-width:768px) 380px, (min-width:640px) 52vw, 68vw"
                   priority={false}
                   loading="lazy"
                   fetchPriority="low"
-                  bgClassName="bg-white"      // 白底衬托
+                  bgClassName="bg-white"
                   showRing
                 />
-                <div className="mt-2">
+                <div className="mt-2 text-center">
                   <h4 className="text-sm font-medium text-white line-clamp-2 group-hover:text-green-300 transition-colors">
                     {item.title}
                   </h4>
-                  <div className="mt-1 text-xs text-gray-500 flex items-center gap-2">
-                    <span>{new Date(item.date).toLocaleDateString(language === 'en' ? 'en-US' : 'zh-CN')}</span>
+                  <div className="mt-1 text-xs text-gray-500 flex items-center justify-center gap-2">
+                    <span>
+                      {new Date(item.date).toLocaleDateString(
+                        language === 'en' ? 'en-US' : 'zh-CN',
+                        { year: 'numeric', month: '2-digit', day: '2-digit' }
+                      )}
+                    </span>
                     <span className="opacity-60">·</span>
                     <span className="truncate">{item.source}</span>
                   </div>
@@ -270,7 +276,7 @@ export default function NewsSection({
           </div>
         ) : null}
 
-        {/* 文本列表保留（不改） */}
+        {/* Text list (unchanged) */}
         <div className="space-y-4 mt-4">
           {newsItems.slice(0, 10).map((news, index) => (
             <motion.div
@@ -307,7 +313,7 @@ export default function NewsSection({
         </div>
       </motion.div>
 
-      {/* 微信区（保持不变） */}
+      {/* WeChat section */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -320,7 +326,7 @@ export default function NewsSection({
         <div className="flex items-center gap-4">
           <div className="relative w-28 h-28 rounded-lg overflow-hidden border border-white/10 bg-white">
             <Image
-              src={wechatAccount.qr}
+              src={getImageSrc(wechatAccount.qr)}
               alt={content.scanToFollow}
               fill
               sizes="112px"
@@ -349,7 +355,7 @@ export default function NewsSection({
                   <div className="flex gap-3">
                     <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-white">
                       <Image
-                        src={post.thumbnail}
+                        src={getImageSrc(post.thumbnail)}
                         alt={post.title[language]}
                         fill
                         sizes="64px"

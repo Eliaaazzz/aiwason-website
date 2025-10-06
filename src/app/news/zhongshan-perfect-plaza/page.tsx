@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
+import perfectPlazaPrize from '@/assets/images/perfectPlazaPrize.png'
 
 export const metadata: Metadata = {
   title: 'Zhongshan Perfect Golden Eagle Plaza | AIWASON',
@@ -91,11 +92,13 @@ const projectData: ProjectDetail = {
       name: { zh: '优秀工程设计奖', en: 'Excellence in Engineering Design Award' },
       year: '2023',
       description: { zh: '城市综合体电力系统设计优秀项目', en: 'Excellence in urban complex power system design' },
+      image: '/res/中山完美金鹰广场.jpg',
     },
     {
       name: { zh: '绿色建筑三星认证', en: 'Green Building Three-Star Certification' },
       year: '2022',
       description: { zh: '在节能环保方面的突出表现', en: 'Outstanding performance in energy conservation and environmental protection' },
+      image: perfectPlazaPrize,
     },
   ],
   relatedLinks: [

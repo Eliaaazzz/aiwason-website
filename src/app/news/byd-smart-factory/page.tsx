@@ -96,6 +96,7 @@ const projectData: ProjectDetail = {
       name: { zh: '智能制造优秀案例奖', en: 'Intelligent Manufacturing Excellence Award' },
       year: '2024',
       description: { zh: '新能源汽车制造领域智能配电系统标杆项目', en: 'Benchmark project for intelligent power distribution systems in new energy vehicle manufacturing' },
+      image: '/res/深圳比亚迪—A.jpg',
     },
   ],
   relatedLinks: [

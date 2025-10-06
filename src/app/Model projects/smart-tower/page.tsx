@@ -9,9 +9,11 @@ export const metadata = {
 }
 
 type SearchParams = { [key: string]: string | string[] | undefined }
+type PageProps = { searchParams?: Promise<SearchParams> }
 
-export default function Page({ searchParams }: { searchParams?: SearchParams }) {
-  const lang = (searchParams?.lang as 'zh' | 'en') || 'zh'
+export default async function Page({ searchParams }: PageProps) {
+  const resolved = searchParams ? await searchParams : undefined
+  const lang = (resolved?.lang as 'zh' | 'en') || 'zh'
 
   const detailCopy: Record<'zh' | 'en', string[]> = {
     en: [

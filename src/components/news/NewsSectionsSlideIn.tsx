@@ -7,6 +7,9 @@ import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 import MediaCarousel, { type MediaCard } from './MediaCarousel'
 
+const toImageSrc = (img: string | StaticImageData | undefined) =>
+  typeof img === 'string' ? img : img?.src ?? ''
+
 export type VideoSource = { src: string; type: string }
 
 export type NewsItem = {
@@ -201,7 +204,7 @@ export default function NewsSectionsSlideIn({
         <VideoLightbox
           lang={lang}
           title={openVideo.video?.title || openVideo.title}
-          poster={openVideo.video?.poster || openVideo.img}
+          poster={toImageSrc(openVideo.video?.poster || openVideo.img)}
           sources={openVideo.video!.sources}
           onClose={() => setOpenVideo(null)}
         />

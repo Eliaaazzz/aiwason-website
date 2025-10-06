@@ -91,6 +91,7 @@ const projectData: ProjectDetail = {
       name: { zh: '金融建筑智能化优秀奖', en: 'Financial Building Intelligence Excellence Award' },
       year: '2023',
       description: { zh: '在金融建筑智能化建设方面的杰出贡献', en: 'Outstanding contribution to financial building intelligence construction' },
+      image: '/res/深圳建行大厦项目.jpg',
     },
     {
       name: { zh: '电力系统安全认证', en: 'Power System Security Certification' },

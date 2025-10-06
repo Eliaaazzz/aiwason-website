@@ -91,11 +91,13 @@ const projectData: ProjectDetail = {
       name: { zh: 'BIM应用优秀奖', en: 'BIM Application Excellence Award' },
       year: '2023',
       description: { zh: '在住宅项目BIM应用方面的创新成果', en: 'Innovation in BIM application for residential projects' },
+      image: '/res/前海玲珑湾获奖.png',
     },
     {
       name: { zh: '钢结构金奖', en: 'Steel Structure Gold Award' },
       year: '2023',
       description: { zh: '钢结构建筑领域的技术卓越', en: 'Technical excellence in steel structure construction' },
+      image: '/res/前海玲珑湾结构金奖.png',
     },
   ],
   relatedLinks: [

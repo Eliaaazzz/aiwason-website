@@ -91,6 +91,7 @@ const projectData: ProjectDetail = {
       name: { zh: '世界智慧城市大奖', en: 'World Smart Cities Award' },
       year: '2024',
       description: { zh: '智慧园区建设的杰出成就', en: 'Outstanding achievement in smart park construction' },
+      image: '/res/世界智慧城市大奖.jpg',
     },
     {
       name: { zh: '绿色园区认证', en: 'Green Park Certification' },

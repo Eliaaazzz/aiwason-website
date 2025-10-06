@@ -96,11 +96,13 @@ const projectData: ProjectDetail = {
       name: { zh: '中国建筑工程鲁班奖', en: 'China Construction Engineering Luban Award' },
       year: '2021',
       description: { zh: '中国建筑行业工程质量最高荣誉', en: 'The highest honor for engineering quality in China\'s construction industry' },
+      image: '/res/横琴口岸鲁班奖.png',
     },
     {
       name: { zh: '国家优质工程奖', en: 'National Quality Engineering Award' },
       year: '2021',
       description: { zh: '交通基础设施建设优秀项目', en: 'Excellence in transportation infrastructure construction' },
+      image: '/res/横琴口岸综合交通枢纽.jpg',
     },
   ],
   relatedLinks: [

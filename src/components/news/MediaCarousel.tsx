@@ -3,7 +3,7 @@
 
 import Link from 'next/link'
 import Image, { type StaticImageData } from 'next/image'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import clsx from 'clsx'
 import NavButton from '@/components/common/NavButton'
 
@@ -74,40 +74,79 @@ export default function MediaCarousel({
   expose,
 }: Props) {
   const scrollerRef = useRef<HTMLDivElement | null>(null)
-  const [canPrev, setCanPrev] = useState(false)
-  const [canNext, setCanNext] = useState(true)
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([])
+  const [activeIndex, setActiveIndex] = useState(0)
 
-  const updateButtons = useCallback(() => {
-    const el = scrollerRef.current
-    if (!el) return
-    const { scrollLeft, scrollWidth, clientWidth } = el
-    const max = scrollWidth - clientWidth - 2
-    setCanPrev(scrollLeft > 1)
-    setCanNext(scrollLeft < max)
+  const sizesHint = useMemo(() => sizesFromWidthClass(cardWidthClass), [cardWidthClass])
+
+  const scrollToCard = useCallback(
+    (index: number, behavior: ScrollBehavior = 'smooth') => {
+      if (index < 0 || index >= cardRefs.current.length) return
+      const container = scrollerRef.current
+      const targetCard = cardRefs.current[index]
+      if (!container || !targetCard) return
+
+      const cardCenter = targetCard.offsetLeft + targetCard.clientWidth / 2
+      const desired = cardCenter - container.clientWidth / 2
+      const max = Math.max(0, container.scrollWidth - container.clientWidth)
+      const nextLeft = Math.max(0, Math.min(desired, max))
+      container.scrollTo({ left: nextLeft, behavior })
+      setActiveIndex(index)
+    },
+    [],
+  )
+
+  const handleScroll = useCallback(() => {
+    const container = scrollerRef.current
+    if (!container || !cardRefs.current.length) return
+
+    const containerCenter = container.scrollLeft + container.clientWidth / 2
+    let closestIndex = 0
+    let minDistance = Number.POSITIVE_INFINITY
+
+    cardRefs.current.forEach((card, idx) => {
+      if (!card) return
+      const cardCenter = card.offsetLeft + card.clientWidth / 2
+      const distance = Math.abs(cardCenter - containerCenter)
+      if (distance < minDistance) {
+        minDistance = distance
+        closestIndex = idx
+      }
+    })
+
+    setActiveIndex(closestIndex)
   }, [])
-
-  const scrollByDir = useCallback((dir: -1 | 1) => {
-    const el = scrollerRef.current
-    if (!el) return
-    const delta = el.clientWidth * 0.98 * dir
-    el.scrollBy({ left: delta, behavior: 'smooth' })
-  }, [])
-
-  const prev = useCallback(() => scrollByDir(-1), [scrollByDir])
-  const next = useCallback(() => scrollByDir(1), [scrollByDir])
 
   useEffect(() => {
-    updateButtons()
-  }, [items.length, updateButtons])
+    handleScroll()
+  }, [items.length, handleScroll])
 
-  const onScroll = useCallback(() => updateButtons(), [updateButtons])
+  useEffect(() => {
+    cardRefs.current = cardRefs.current.slice(0, items.length)
+    if (!items.length) {
+      setActiveIndex(0)
+      return
+    }
+    scrollToCard(0, 'auto')
+  }, [items.length, scrollToCard])
+
+  const canPrev = activeIndex > 0
+  const canNext = activeIndex < items.length - 1
+
+  const prev = useCallback(() => {
+    if (!canPrev) return
+    scrollToCard(activeIndex - 1)
+  }, [activeIndex, canPrev, scrollToCard])
+
+  const next = useCallback(() => {
+    if (!canNext) return
+    scrollToCard(activeIndex + 1)
+  }, [activeIndex, canNext, scrollToCard])
 
   // 每次状态变化时，把控制权暴露给外部（新闻区的 Header 按钮使用）
   useEffect(() => {
     expose?.({ prev, next, canPrev, canNext })
   }, [expose, prev, next, canPrev, canNext])
-
-  const sizesHint = useMemo(() => sizesFromWidthClass(cardWidthClass), [cardWidthClass])
 
   const overlay = controlsOverlay ? (
     <div className="pointer-events-none absolute right-3 top-3 z-10">
@@ -147,7 +186,7 @@ export default function MediaCarousel({
         {/* 横向滚动区域 */}
         <div
           ref={scrollerRef}
-          onScroll={onScroll}
+          onScroll={handleScroll}
           className={clsx(
             'h-full w-full overflow-x-auto overflow-y-hidden',
             'flex gap-4 scroll-smooth snap-x snap-mandatory',
@@ -156,33 +195,71 @@ export default function MediaCarousel({
           )}
           aria-label={lang === 'en' ? 'Image carousel' : '图片轮播'}
         >
-          {items.map((card) => {
+          {items.map((card, index) => {
             const fit = card.fit ?? 'cover'
+            const isContain = fit === 'contain'
             const objectPos = card.objectPosition ? { objectPosition: card.objectPosition } : undefined
-            const cardNode = (
+            const imageAlt = card.title ?? (imageOnly ? (lang === 'en' ? 'Project visual' : '项目视觉') : card.id)
+            const imageStyle: CSSProperties = {
+              ...(objectPos ?? {}),
+            }
+            const cardClass = clsx(
+              'relative shrink-0 snap-center bg-white flex items-center justify-center overflow-hidden',
+              isContain ? 'shadow-sm' : null,
+              cardWidthClass,
+              imageHeightClass,
+              roundedClass,
+            )
+
+            const content = (
+              <>
+                <div className={clsx('absolute inset-0', isContain ? 'px-6 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-12' : '')}>
+                  <div className="relative h-full w-full">
+                    <Image
+                      src={card.img}
+                      alt={imageAlt}
+                      fill
+                      priority={index === 0}
+                      quality={isContain ? 95 : undefined}
+                      sizes={sizesHint}
+                      className={clsx(
+                        isContain ? 'object-contain select-none' : 'object-cover select-none',
+                      )}
+                      style={imageStyle}
+                    />
+                  </div>
+                </div>
+                <div className="pointer-events-none absolute inset-0 ring-1 ring-black/5 rounded-[inherit]" />
+              </>
+            )
+
+            if (card.href) {
+              return (
+                <Link href={card.href} key={card.id} className="focus:outline-none block shrink-0">
+                  <div
+                    ref={(node) => {
+                      cardRefs.current[index] = node
+                    }}
+                    className={cardClass}
+                    style={maxVHStyle}
+                  >
+                    {content}
+                  </div>
+                </Link>
+              )
+            }
+
+            return (
               <div
                 key={card.id}
-                className={clsx('relative shrink-0 snap-start bg-white', cardWidthClass, imageHeightClass, roundedClass)}
+                ref={(node) => {
+                  cardRefs.current[index] = node
+                }}
+                className={clsx('shrink-0', cardClass)}
                 style={maxVHStyle}
               >
-                <Image
-                  src={card.img}
-                  alt={card.title ?? ''}
-                  fill
-                  priority={true}
-                  sizes={sizesHint}
-                  className={clsx(fit === 'contain' ? 'object-contain' : 'object-cover', 'select-none')}
-                  style={objectPos}
-                />
-                <div className="pointer-events-none absolute inset-0 ring-1 ring-black/5 rounded-[inherit]" />
+                {content}
               </div>
-            )
-            return card.href ? (
-              <Link href={card.href} key={card.id} className="focus:outline-none">
-                {cardNode}
-              </Link>
-            ) : (
-              cardNode
             )
           })}
         </div>

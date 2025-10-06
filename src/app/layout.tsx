@@ -6,6 +6,7 @@ export const metadata: Metadata = {
     default: 'AIWASON',
     template: '%s | AIWASON',
   },
+  metadataBase: new URL('https://www.aiwason.com'),
   description:
     'AIWASON — 深圳智能芯片中心 · 耐火智能光电母线系统 | Fire-resistant intelligent optoelectronic busbars for data centers and smart buildings.',
   applicationName: 'AIWASON',
@@ -39,7 +40,6 @@ export const metadata: Metadata = {
       zh: '/?lang=zh',
     },
   },
-  themeColor: '#000000',
 }
 
 export const viewport: Viewport = {

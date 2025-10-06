@@ -2,6 +2,8 @@
 import type { StaticImageData } from 'next/image'
 
 export type Localised<T> = { en: T; zh: T }
+export type Locale = 'en' | 'zh'
+export type LocalizedText = Localised<string>
 
 export type VideoItem = {
   id: string
@@ -22,6 +24,11 @@ export type NewsItem = {
   link: string
   date: string
   image: string | StaticImageData
+  cover?: string | StaticImageData
+  url?: string
+  summary?: Localised<string> | string
+  slug?: string
+  tags?: string[]
 }
 
 export type WeChatPost = {
@@ -45,4 +52,19 @@ export type NewsPayload = {
   news: NewsItem[]
   wechat: WeChatPost[]
   wechatAccount: WeChatAccount
+}
+
+export type NewsListParams = {
+  locale?: Locale
+  limit?: number
+  tag?: string
+  page?: number
+  pageSize?: number
+}
+
+export type NewsListResult = {
+  items: NewsItem[]
+  total: number
+  page: number
+  pageSize: number
 }

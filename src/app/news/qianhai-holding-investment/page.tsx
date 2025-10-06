@@ -91,6 +91,7 @@ const projectData: ProjectDetail = {
       name: { zh: '智能建筑系统创新奖', en: 'Intelligent Building System Innovation Award' },
       year: '2023',
       description: { zh: '在企业总部智能化建设方面的优秀表现', en: 'Excellence in corporate headquarters intelligent construction' },
+      image: '/res/qianhai-investment-prize.png',
     },
   ],
   relatedLinks: [

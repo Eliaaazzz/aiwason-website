@@ -6,7 +6,7 @@ import { Globe } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 // hero 静态图
 import monitoringSlide from '@/assets/products/ai-monitoring-terminal.png'
@@ -142,8 +142,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     cards: [
       { id: 'urban-dongguan-1', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸.jpg' },
       { id: 'urban-dongguan-2', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED.jpg' },
-      
-
+      { id: 'urban-dongguan-3', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED2.jpg' },
     ],
   },
   {
@@ -152,10 +151,7 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     sub: 'The MixC Flagship Complex',
     intro: ['Flagship site designed for weekend peaks and efficient weekday operations.'],
     cta: { href: '/news/mixc-complex', label: 'Explore Case' },
-    cards: [
-      { id: 'urban-mixc-1', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' },
-      { id: 'urban-mixc-2', title: '', href: '/news/mixc-complex', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-    ],
+    cards: [{ id: 'urban-mixc-1', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' }],
   },
 
   // Others
@@ -336,10 +332,7 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
     sub: '万象旗舰综合体',
     intro: ['面向周末客流峰值与工作日效率的双目标设计，保障运营与能效。'],
     cta: { href: '/news/mixc-complex', label: '查看项目' },
-    cards: [
-      { id: 'urban-mixc-1', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' },
-      { id: 'urban-mixc-2', title: '', href: '/news/mixc-complex', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-    ],
+    cards: [{ id: 'urban-mixc-1', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' }],
   },
 
   // 其他
@@ -452,19 +445,40 @@ const translations = {
 
 type Lang = keyof typeof translations
 
-export default function HomeShell() {
-  const router = useRouter()
-  const sp = useSearchParams()
-  const pathname = usePathname()
+type HomeShellProps = {
+  defaultLanguage?: Lang
+}
 
-  const language: Lang = (sp.get('lang') as Lang) || 'zh'
+export default function HomeShell({ defaultLanguage = 'zh' }: HomeShellProps) {
+  const router = useRouter()
+  const pathname = usePathname()
+  const [language, setLanguage] = useState<Lang>(defaultLanguage)
+
+  const syncLanguageFromUrl = useCallback(() => {
+    if (typeof window === 'undefined') return
+    const param = new URLSearchParams(window.location.search).get('lang')
+    if (param === 'en' || param === 'zh') {
+      setLanguage(param)
+    } else {
+      setLanguage(defaultLanguage)
+    }
+  }, [defaultLanguage])
+
+  useEffect(() => {
+    syncLanguageFromUrl()
+    if (typeof window === 'undefined') return
+    window.addEventListener('popstate', syncLanguageFromUrl)
+    return () => window.removeEventListener('popstate', syncLanguageFromUrl)
+  }, [syncLanguageFromUrl])
+
   const t = translations[language]
 
   const toggleLanguage = () => {
     const next: Lang = language === 'en' ? 'zh' : 'en'
-    const params = new URLSearchParams(sp.toString())
+    const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
     params.set('lang', next)
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    setLanguage(next)
   }
 
   // hero slides
@@ -488,7 +502,7 @@ export default function HomeShell() {
         id: 2,
         lines: language === 'en' ? ['ULTRA-HIGH', 'EFFICIENCY', 'RELIABILITY'] : ['超高', '效率', '可靠性'],
         subtitle: t.features.highEfficiency.description,
-        img: '/res/company.jpg',
+        img: '/res/factory.jpg',
         bg: BACKGROUND_IMG,
       },
       {
@@ -502,7 +516,7 @@ export default function HomeShell() {
         id: 4,
         lines: language === 'en' ? ['SMART', 'BUILDINGS', 'READY'] : ['面向', '智能建筑', '应用'],
         subtitle: language === 'en' ? 'Designed for IoT-enabled facilities with intelligent building management.' : '为物联网与智能楼控系统而生。',
-        img: '/res/company.jpg',
+        img: '/res/skyscraper.jpg',
         bg: BACKGROUND_IMG,
       },
     ],
@@ -535,24 +549,25 @@ export default function HomeShell() {
       about: `/about?lang=${language}`,
       contact: `/contact?lang=${language}`,
     }),
-    [language]
+    [language],
   )
 
   const modelSections: ModelSection[] = useMemo(() => MODEL_SECTIONS[language] ?? MODEL_SECTIONS.en, [language])
-  const newsGroups: NewsGroup[] = useMemo(() => [], [language])
+  const newsGroups: NewsGroup[] = []
 
   // 把奖图标记为 contain，项目图 cover；容器高度统一为"大图"
   const prepareCards = useCallback((cards: MediaCard[]): MediaCard[] => {
-    return cards.map((c) => {
-      const srcText = typeof c.img === 'string' ? c.img : (c.img as any)?.src ?? ''
-      const isAward = IS_AWARD.test(`${c.id} ${srcText}`)
-      const objectPosition = OBJECT_POSITION_OVERRIDES[c.id]
-      return {
-        ...c,
+    return cards.map((card) => {
+      const srcText = typeof card.img === 'string' ? card.img : card.img.src
+      const isAward = IS_AWARD.test(`${card.id} ${srcText}`)
+      const objectPosition = OBJECT_POSITION_OVERRIDES[card.id]
+      const normalized: MediaCard = {
+        ...card,
         title: '',
         fit: isAward ? 'contain' : 'cover',
         ...(objectPosition ? { objectPosition } : {}),
-      } as MediaCard
+      }
+      return normalized
     })
   }, [])
 
@@ -569,15 +584,9 @@ export default function HomeShell() {
             </Link>
 
             <div className="hidden md:flex items-center space-x-8">
-              {Object.entries(t.nav).map(([key, label], index) => {
-                const map = {
-                  news: navHref.news,
-                  products: navHref.products,
-                  solutions: navHref.solutions,
-                  about: navHref.about,
-                  contact: navHref.contact,
-                } as const
-                const href = (map as any)[key] ?? '#'
+              {(['news', 'products', 'solutions', 'about', 'contact'] as const).map((key, index) => {
+                const label = t.nav[key]
+                const href = navHref[key] ?? '#'
                 return (
                   <motion.div key={key} whileHover={{ scale: 1.05 }} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08 }}>
                     <Link href={href} className="text-gray-700 hover:text-[#76B900] font-medium tracking-wide text-sm relative group transition-all duration-300">
@@ -663,9 +672,9 @@ export default function HomeShell() {
                         <div className="pt-2">
                           <Link
                             href={`${section.cta.href}?lang=${language}`}
-                            className="inline-flex items-center gap-2 rounded-lg bg-[#76B900] px-5 py-3 text-sm font-semibold text-white shadow hover:brightness-110 transition"
+                            className="inline-flex items-center gap-2 rounded-lg bg-[#9BE15D] px-5 py-3 text-sm font-semibold text-[#0f2100] shadow hover:bg-[#88d84a] transition"
                           >
-                            {section.cta.label}
+                            {language === 'en' ? 'Learn More' : '了解详情'}
                           </Link>
                         </div>
                       </header>

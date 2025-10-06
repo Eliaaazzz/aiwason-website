@@ -3,6 +3,7 @@
 
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import type { StaticImageData } from 'next/image'
 import { ExternalLink } from 'lucide-react'
 import NavButton from '@/components/common/NavButton'
 import CardImage from '@/components/common/CardImage'
@@ -12,7 +13,7 @@ export type MediaReportItem = {
   id: string
   title: string
   href: string
-  img: any
+  img: string | StaticImageData
   date?: string
   source?: string
 }
@@ -104,12 +105,12 @@ export default function MediaReportRail({
                 bgClassName="bg-white"
                 showRing
               />
-              <div className="mt-2">
+              <div className="mt-2 text-center">
                 <h4 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-[#76B900] transition-colors">
                   {item.title}
                 </h4>
                 {(item.date || item.source) && (
-                  <div className="mt-1 text-xs text-gray-500 flex items-center gap-2">
+                  <div className="mt-1 text-xs text-gray-500 flex items-center justify-center gap-2">
                     {item.date && <span>{new Date(item.date).toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-CN')}</span>}
                     {item.date && item.source && <span className="opacity-60">·</span>}
                     {item.source && <span className="truncate">{item.source}</span>}

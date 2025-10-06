@@ -96,6 +96,7 @@ const projectData: ProjectDetail = {
       name: { zh: '半导体行业技术创新奖', en: 'Semiconductor Industry Technology Innovation Award' },
       year: '2024',
       description: { zh: '在半导体制造配电技术领域的重大创新突破', en: 'Major innovation breakthrough in semiconductor manufacturing power distribution technology' },
+      image: '/res/深圳全球智能芯片中心.jpg',
     },
   ],
   relatedLinks: [

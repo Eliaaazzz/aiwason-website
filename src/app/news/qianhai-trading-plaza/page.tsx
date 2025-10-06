@@ -91,6 +91,7 @@ const projectData: ProjectDetail = {
       name: { zh: '金融建筑电力系统优秀奖', en: 'Financial Building Power System Excellence Award' },
       year: '2023',
       description: { zh: '在保障金融交易连续性方面的杰出贡献', en: 'Outstanding contribution to ensuring financial trading continuity' },
+      image: '/res/前海交易广场获奖.jpg',
     },
   ],
   relatedLinks: [

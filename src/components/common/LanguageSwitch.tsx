@@ -1,8 +1,8 @@
 'use client'
 
 import { Globe } from 'lucide-react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useMemo } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { useCallback, useEffect, useState } from 'react'
 
 type Lang = 'en' | 'zh'
 
@@ -16,18 +16,31 @@ type Props = {
 export default function LanguageSwitch({ className = '', defaultLang = 'zh', labels, tone = 'light' }: Props) {
   const router = useRouter()
   const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const [lang, setLang] = useState<Lang>(defaultLang)
 
-  const lang = useMemo(() => {
-    const param = searchParams.get('lang')
-    return (param === 'en' || param === 'zh' ? param : defaultLang) as Lang
-  }, [searchParams, defaultLang])
+  const syncFromUrl = useCallback(() => {
+    if (typeof window === 'undefined') return
+    const param = new URLSearchParams(window.location.search).get('lang')
+    if (param === 'en' || param === 'zh') {
+      setLang(param)
+    } else {
+      setLang(defaultLang)
+    }
+  }, [defaultLang])
+
+  useEffect(() => {
+    syncFromUrl()
+    if (typeof window === 'undefined') return
+    window.addEventListener('popstate', syncFromUrl)
+    return () => window.removeEventListener('popstate', syncFromUrl)
+  }, [syncFromUrl])
 
   const toggle = () => {
     const next: Lang = lang === 'en' ? 'zh' : 'en'
-    const params = new URLSearchParams(searchParams.toString())
+    const params = new URLSearchParams(window.location.search)
     params.set('lang', next)
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    setLang(next)
   }
 
   const text = labels ?? { en: 'EN', zh: '中文' }

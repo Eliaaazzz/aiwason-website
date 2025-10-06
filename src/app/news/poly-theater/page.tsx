@@ -91,6 +91,7 @@ const projectData: ProjectDetail = {
       name: { zh: '文化建筑电力系统优秀奖', en: 'Cultural Building Power System Excellence Award' },
       year: '2023',
       description: { zh: '在文化艺术场所电力系统设计方面的杰出贡献', en: 'Outstanding contribution to power system design for cultural arts venues' },
+      image: '/res/保利剧院.jpg',
     },
     {
       name: { zh: '低噪声技术创新奖', en: 'Low-noise Technology Innovation Award' },
