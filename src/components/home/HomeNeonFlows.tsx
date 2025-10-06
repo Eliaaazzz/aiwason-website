@@ -20,7 +20,7 @@ type Props = {
 }
 
 export default function HomeNeonFlows({
-  lang = 'zh',
+  lang = 'en',
   imageSrc,
   titleLines,
   description,

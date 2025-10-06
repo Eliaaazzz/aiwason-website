@@ -21,7 +21,7 @@ export type MediaReportItem = {
 export default function MediaReportRail({
   title,
   items,
-  lang = 'zh',
+  lang = 'en',
 }: {
   title: string
   items: MediaReportItem[]

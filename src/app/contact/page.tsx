@@ -23,7 +23,7 @@ export default async function ContactPage({
 }) {
   const sp = await searchParams
   const langParam = sp?.lang
-  const lang: Lang = langParam === 'en' || langParam === 'zh' ? (langParam as Lang) : 'zh'
+  const lang: Lang = langParam === 'en' || langParam === 'zh' ? (langParam as Lang) : 'en'
   const isEN = lang === 'en'
 
   // 修复：补充语言切换链接

@@ -40,7 +40,7 @@ export type NewsGroup = {
 }
 
 export default function NewsSectionsSlideIn({
-  lang = 'zh',
+  lang = 'en',
   anchorId = 'news',
   groups,
   showMetaLabel = true,

@@ -10,6 +10,6 @@ export default async function Page({
   searchParams: Promise<SearchParams>
 }) {
   const sp = await searchParams
-  const lang: Lang = sp?.lang === 'en' ? 'en' : 'zh'
+  const lang: Lang = sp?.lang === 'zh' ? 'zh' : 'en'
   return <HomeShell defaultLanguage={lang} />
 }

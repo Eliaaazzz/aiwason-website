@@ -60,7 +60,7 @@ function sizesFromWidthClass(cardWidthClass: string | undefined) {
 export default function MediaCarousel({
   title = '',
   items,
-  lang = 'zh',
+  lang = 'en',
   imageOnly = true,
   frameless = true,
   hideHeader = true,

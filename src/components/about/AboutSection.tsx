@@ -61,7 +61,7 @@ const COPY: Record<Lang, {
     title: 'About Us',
     strap: 'Hard-tech power distribution for critical infrastructure worldwide.',
     paragraphs: [
-      'Zhongshan AIWASON Electric focuses on intelligent, safe, and efficient power distribution across data centers, transport hubs, commercial complexes, and campuses.',
+      'Guangdong AIWASON Technology focuses on intelligent, safe, and efficient power distribution across data centers, transport hubs, commercial complexes, and campuses.',
       'We keep investing in R&D for fire-resistant busways, smart monitoring, and cloud-native O&M platforms.',
       'With “customer focus and reliable engineering” as our mission, we build greener and safer infrastructure for the digital era.',
     ],
@@ -77,7 +77,7 @@ const COPY: Record<Lang, {
     title: '关于我们',
     strap: '以硬核科技赋能关键基础设施。',
     paragraphs: [
-      '中山艾默森电器有限公司坐落在美丽富饶的粤港澳大湾区核心商圈前海西岸，深中通道首站。“科技点亮光明，实干成就梦想”———艾默森秉承硬科技造福社会、赢得未来的经营理念。“千淘万漉虽辛苦，吹尽狂沙始到金”，经过十五年的发展，已成为一家集耐高温新材料、光电智能母线、微电网系统为一体的高科技企业，产品服务遍及中国及欧洲多个国家地区，用户多达1200多个，在行业具有领先地位。',
+      '广东艾默森科技有限公司坐落在美丽富饶的粤港澳大湾区核心商圈前海西岸，深中通道首站。“科技点亮光明，实干成就梦想”———艾默森秉承硬科技造福社会、赢得未来的经营理念。“千淘万漉虽辛苦，吹尽狂沙始到金”，经过十五年的发展，已成为一家集耐高温新材料、光电智能母线、微电网系统为一体的高科技企业，产品服务遍及中国及欧洲多个国家地区，用户多达1200多个，在行业具有领先地位。',
       '艾默森长期坚持开放进取，勇于探索，自强不息，艰苦奋斗的精神，持续加强研发投入，布局顶尖优秀研发资源，在国内构建三大研发中心，专利成果二百多项，发明专利行业第一，在（基础科学）新材料、光电技术、智能微电网系统三大板块自主研发，精准突破，软硬互联，不断创新升级新产品。',
       '“聚焦客户痛点，为客户提供最优解决方案，全心全意为客户服务”是我们肩负的责任与使命。不管时代如何变迁，市场竞争如何激烈，艾默森始终专注于硬科技发展，排除一切诱惑及困难，为用户提供最安全、绿色智能的系统解决方案，让安全稳如磐石、让节能无处不在、让智能无所不及。',
     ],

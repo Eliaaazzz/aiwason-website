@@ -34,7 +34,7 @@ const Separator = () => (
 export default async function NewsPage({ searchParams }: PageProps) {
   // ✅ await searchParams，修复你控制台的报错
   const sp = await searchParams
-  const lang = (sp?.lang === 'en' ? 'en' : 'zh') as 'en' | 'zh'
+  const lang = (sp?.lang === 'zh' ? 'zh' : 'en') as 'en' | 'zh'
 
   const { videos, news } = await getNewsData()
 
@@ -44,8 +44,8 @@ export default async function NewsPage({ searchParams }: PageProps) {
       zh: '新闻与媒体中心',
     },
     pageIntro: {
-      en: 'Stay current with AIWASON highlights: in-depth videos, strategic collaborations, and media coverage that shape the intelligent busbar industry.',
-      zh: '聚焦 AIWASON 最新动态：纵览视频专栏、战略协同与主流媒体报道，洞察耐火智能母线行业新趋势。',
+      en: 'Stay current with AIWASON highlights: in-depth videos, strategic collaborations, and media coverage that reveal fresh trends across the power industry.',
+      zh: '聚焦 AIWASON 最新动态：纵览视频专栏、战略协同与主流媒体报道，洞察电力行业新趋势。',
     },
     headings: {
       videoCenter: { en: 'Video Center', zh: '视频专区' },
@@ -180,13 +180,12 @@ export default async function NewsPage({ searchParams }: PageProps) {
       {
         id: 'wechat-intro',
         title: localise({ en: 'Official Account Highlights', zh: '公众号精选内容' }),
-        desc: localise({
-          en: 'Follow AIWASON Official for project milestones, solution deep-dives, and industry insights covering intelligent busbars.',
-          zh: '关注 AIWASON 官方公众号，获取项目进展、方案详解与智能母线行业洞察。',
+       desc: localise({
+          en: 'Follow AIWASON Official for project milestones, solution deep-dives, and power industry insights.',
+          zh: '关注 AIWASON 官方公众号，获取项目进展、方案详解与电力行业洞察。',
         }),
         img: wechatBanner,
         imageFit: 'contain',
-        href: 'https://mp.weixin.qq.com/...',
       },
       {
         id: 'wechat-qr',
@@ -197,7 +196,6 @@ export default async function NewsPage({ searchParams }: PageProps) {
         }),
         img: wechatQrcode,
         imageFit: 'contain',
-        href: 'https://mp.weixin.qq.com/...',
       },
     ],
   }

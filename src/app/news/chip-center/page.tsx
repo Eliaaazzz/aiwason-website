@@ -113,7 +113,7 @@ const projectData: ProjectDetail = {
 
 export default async function ChipCenterPage({ searchParams }: PageProps) {
   const sp = await searchParams
-  const lang = (sp?.lang === 'en' ? 'en' : 'zh') as 'en' | 'zh'
+  const lang = (sp?.lang === 'zh' ? 'zh' : 'en') as 'en' | 'zh'
 
   return <ProjectDetailLayout project={projectData} lang={lang} />
 }

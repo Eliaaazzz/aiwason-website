@@ -1,8 +1,8 @@
 // src/lib/i18n.ts
 import type { Locale } from './types/news';
 
-export const DEFAULT_LOCALE: Locale = 'zh';
-export const SUPPORTED_LOCALES = ['zh', 'en'] as const;
+export const DEFAULT_LOCALE: Locale = 'en';
+export const SUPPORTED_LOCALES = ['en', 'zh'] as const;
 
 /** Type guard */
 export function isLocale(x: unknown): x is Locale {

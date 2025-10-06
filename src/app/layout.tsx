@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL('https://www.aiwason.com'),
   description:
-    'AIWASON — 深圳智能芯片中心 · 耐火智能光电母线系统 | Fire-resistant intelligent optoelectronic busbars for data centers and smart buildings.',
+    'AIWASON — 耐火智能光电母线系统 | Fire-resistant intelligent optoelectronic busbars for data centers and smart buildings.',
   applicationName: 'AIWASON',
   keywords: [
     'AIWASON',
