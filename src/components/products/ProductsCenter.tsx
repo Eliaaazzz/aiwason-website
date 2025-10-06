@@ -3,9 +3,9 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { MouseEvent } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Globe } from 'lucide-react'
 
 // Correctly import the new data, types, and helper function
@@ -16,20 +16,37 @@ import {
   type Product,
 } from '@/data/productsContent'
 
-export default function ProductsCenter({ lang = 'en' as Lang }) {
+type ProductsCenterProps = {
+  defaultLang?: Lang
+}
+
+export default function ProductsCenter({ defaultLang = 'en' }: ProductsCenterProps) {
   const router = useRouter()
-  const sp = useSearchParams()
   const pathname = usePathname()
 
-  // Default to English unless ?lang=zh is explicitly present
-  const initialLang = (sp.get('lang') as Lang) || lang || 'en'
-  const [curLang, setCurLang] = useState<Lang>(initialLang)
+  const [curLang, setCurLang] = useState<Lang>(defaultLang)
+  const syncLanguageFromUrl = useCallback(() => {
+    if (typeof window === 'undefined') return
+    const param = new URLSearchParams(window.location.search).get('lang')
+    if (param === 'zh' || param === 'en') {
+      setCurLang(param)
+    } else {
+      setCurLang(defaultLang)
+    }
+  }, [defaultLang])
+
+  useEffect(() => {
+    syncLanguageFromUrl()
+    if (typeof window === 'undefined') return
+    window.addEventListener('popstate', syncLanguageFromUrl)
+    return () => window.removeEventListener('popstate', syncLanguageFromUrl)
+  }, [syncLanguageFromUrl])
   const isEN = curLang === 'en'
 
   const toggleLang = () => {
     const next: Lang = isEN ? 'zh' : 'en'
     setCurLang(next)
-    const params = new URLSearchParams(sp.toString())
+    const params = new URLSearchParams(window.location.search)
     params.set('lang', next)
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
   }

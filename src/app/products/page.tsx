@@ -9,6 +9,6 @@ export default async function ProductsPage({
   searchParams: Promise<SearchParams>
 }) {
   const sp = await searchParams
-  const lang: Lang = sp?.lang === 'zh' ? 'zh' : 'en' 
-  return <ProductsCenter lang={lang} />
+  const lang: Lang = sp?.lang === 'zh' ? 'zh' : 'en'
+  return <ProductsCenter defaultLang={lang} />
 }

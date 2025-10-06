@@ -6,7 +6,7 @@ import { Globe } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 // hero 静态图
 import monitoringSlide from '@/assets/products/ai-monitoring-terminal.png'
@@ -452,19 +452,40 @@ const translations = {
 
 type Lang = keyof typeof translations
 
-export default function HomeShell() {
-  const router = useRouter()
-  const sp = useSearchParams()
-  const pathname = usePathname()
+type HomeShellProps = {
+  defaultLanguage?: Lang
+}
 
-  const language: Lang = (sp.get('lang') as Lang) || 'zh'
+export default function HomeShell({ defaultLanguage = 'zh' }: HomeShellProps) {
+  const router = useRouter()
+  const pathname = usePathname()
+  const [language, setLanguage] = useState<Lang>(defaultLanguage)
+
+  const syncLanguageFromUrl = useCallback(() => {
+    if (typeof window === 'undefined') return
+    const param = new URLSearchParams(window.location.search).get('lang')
+    if (param === 'en' || param === 'zh') {
+      setLanguage(param)
+    } else {
+      setLanguage(defaultLanguage)
+    }
+  }, [defaultLanguage])
+
+  useEffect(() => {
+    syncLanguageFromUrl()
+    if (typeof window === 'undefined') return
+    window.addEventListener('popstate', syncLanguageFromUrl)
+    return () => window.removeEventListener('popstate', syncLanguageFromUrl)
+  }, [syncLanguageFromUrl])
+
   const t = translations[language]
 
   const toggleLanguage = () => {
     const next: Lang = language === 'en' ? 'zh' : 'en'
-    const params = new URLSearchParams(sp.toString())
+    const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
     params.set('lang', next)
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    setLanguage(next)
   }
 
   // hero slides

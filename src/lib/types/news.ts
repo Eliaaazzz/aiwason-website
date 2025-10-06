@@ -65,4 +65,6 @@ export type NewsListParams = {
 export type NewsListResult = {
   items: NewsItem[]
   total: number
+  page: number
+  pageSize: number
 }
