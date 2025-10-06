@@ -535,24 +535,25 @@ export default function HomeShell() {
       about: `/about?lang=${language}`,
       contact: `/contact?lang=${language}`,
     }),
-    [language]
+    [language],
   )
 
   const modelSections: ModelSection[] = useMemo(() => MODEL_SECTIONS[language] ?? MODEL_SECTIONS.en, [language])
-  const newsGroups: NewsGroup[] = useMemo(() => [], [language])
+  const newsGroups: NewsGroup[] = []
 
   // 把奖图标记为 contain，项目图 cover；容器高度统一为"大图"
   const prepareCards = useCallback((cards: MediaCard[]): MediaCard[] => {
-    return cards.map((c) => {
-      const srcText = typeof c.img === 'string' ? c.img : (c.img as any)?.src ?? ''
-      const isAward = IS_AWARD.test(`${c.id} ${srcText}`)
-      const objectPosition = OBJECT_POSITION_OVERRIDES[c.id]
-      return {
-        ...c,
+    return cards.map((card) => {
+      const srcText = typeof card.img === 'string' ? card.img : card.img.src
+      const isAward = IS_AWARD.test(`${card.id} ${srcText}`)
+      const objectPosition = OBJECT_POSITION_OVERRIDES[card.id]
+      const normalized: MediaCard = {
+        ...card,
         title: '',
         fit: isAward ? 'contain' : 'cover',
         ...(objectPosition ? { objectPosition } : {}),
-      } as MediaCard
+      }
+      return normalized
     })
   }, [])
 
@@ -569,15 +570,9 @@ export default function HomeShell() {
             </Link>
 
             <div className="hidden md:flex items-center space-x-8">
-              {Object.entries(t.nav).map(([key, label], index) => {
-                const map = {
-                  news: navHref.news,
-                  products: navHref.products,
-                  solutions: navHref.solutions,
-                  about: navHref.about,
-                  contact: navHref.contact,
-                } as const
-                const href = (map as any)[key] ?? '#'
+              {(['news', 'products', 'solutions', 'about', 'contact'] as const).map((key, index) => {
+                const label = t.nav[key]
+                const href = navHref[key] ?? '#'
                 return (
                   <motion.div key={key} whileHover={{ scale: 1.05 }} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08 }}>
                     <Link href={href} className="text-gray-700 hover:text-[#76B900] font-medium tracking-wide text-sm relative group transition-all duration-300">

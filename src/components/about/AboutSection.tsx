@@ -1,6 +1,7 @@
 'use client'
 
 import React, { Suspense, useEffect, useMemo, useState } from 'react'
+import Image from 'next/image'
 import { Globe } from 'lucide-react'
 
 type Lang = 'en' | 'zh'
@@ -95,9 +96,19 @@ const normalizeLang = (raw: string | null): Lang =>
   raw && raw.toLowerCase().startsWith('zh') ? 'zh' : 'en'
 
 class PageError extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
-  constructor(p: any) { super(p); this.state = { hasError: false } }
-  static getDerivedStateFromError() { return { hasError: true } }
-  componentDidCatch(e: any, info: any) { console.error('AboutSection crashed:', e, info) }
+  constructor(props: { children: React.ReactNode }) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
+    console.error('AboutSection crashed:', error, info)
+  }
+
   render() {
     if (this.state.hasError) {
       return (
@@ -107,7 +118,7 @@ class PageError extends React.Component<{ children: React.ReactNode }, { hasErro
         </main>
       )
     }
-    return this.props.children as any
+    return this.props.children
   }
 }
 
@@ -117,6 +128,7 @@ function SmartImg({
 }: { src: string; alt: string; width: number; height: number; eager: boolean; fit: 'cover' | 'contain' }) {
   const [loaded, setLoaded] = useState(false)
   const [failed, setFailed] = useState(false)
+  const sizeHint = Math.max(width, height)
 
   return (
     <div
@@ -137,27 +149,20 @@ function SmartImg({
       )}
 
       {!failed ? (
-        <img
+        <Image
           src={src}
           alt={alt}
-          width={width}
-          height={height}
-          loading={eager ? 'eager' : 'lazy'}
-          decoding="async"
-          fetchPriority={eager ? 'high' : 'low'}
-          onLoad={() => setLoaded(true)}
-          onError={() => { setFailed(true); setLoaded(false) }}
-          draggable={false}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: fit,
-            display: 'block',
-            transform: 'translate3d(0,0,0)',
-            willChange: 'transform',
-            backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden',
+          fill
+          priority={eager}
+          loading={eager ? undefined : 'lazy'}
+          sizes={`${sizeHint}px`}
+          onLoadingComplete={() => setLoaded(true)}
+          onError={() => {
+            setFailed(true)
+            setLoaded(false)
           }}
+          draggable={false}
+          className={fit === 'contain' ? 'object-contain' : 'object-cover'}
         />
       ) : (
         <div
@@ -274,7 +279,7 @@ function Core() {
 
   const tx = COPY[lang]
   const showcase = useMemo(() => SHOWCASE_ITEMS, [])
-  const patents  = useMemo(() => PATENT_ITEMS, [])
+  const patents = useMemo(() => PATENT_ITEMS, [])
 
   const toggleLang = () => {
     const next: Lang = lang === 'en' ? 'zh' : 'en'
@@ -355,7 +360,7 @@ function Core() {
             <h2 className="text-3xl lg:text-4xl font-extrabold text-gray-900">{lang === 'en' ? 'Patent Achievements' : '专利成果'}</h2>
             <p className="text-gray-600">{lang === 'en' ? 'Selected intellectual property that underpins our core technologies.' : '支撑核心技术的代表性知识产权。'}</p>
           </div>
-          <InfiniteScroller items={PATENT_ITEMS} lang={lang} fit="contain" eagerCount={PATENT_EAGER} />
+          <InfiniteScroller items={patents} lang={lang} fit="contain" eagerCount={PATENT_EAGER} />
         </div>
       </section>
     </main>

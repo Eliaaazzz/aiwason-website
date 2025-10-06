@@ -2,7 +2,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 import { Play, ExternalLink } from 'lucide-react'
 import type { VideoItem, NewsItem, WeChatPost, WeChatAccount } from '@/lib/types/news'
@@ -10,6 +10,8 @@ import { useCallback, useMemo, useRef, useState, useEffect } from 'react'
 import NavButton from '@/components/common/NavButton'
 import CardImage from '@/components/common/CardImage'
 import clsx from 'clsx'
+
+const getImageSrc = (input: string | StaticImageData) => (typeof input === 'string' ? input : input.src)
 
 interface NewsSectionProps {
   langDefault: 'zh' | 'en'
@@ -67,7 +69,7 @@ export default function NewsSection({
         id: n.id,
         title: n.title[language],
         href: n.link,
-        img: typeof n.image === 'string' ? n.image : (n.image as any)?.src, // still resilient
+        img: getImageSrc(n.image),
         date: n.date,
         source: n.source, // now a human label, not "sinaImg"
         desc: n.description?.[language],
@@ -142,7 +144,7 @@ export default function NewsSection({
               <div className="flex gap-3">
                 <div className="relative w-20 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-white">
                   <Image
-                    src={typeof video.thumbnail === 'string' ? video.thumbnail : (video.thumbnail as any).src}
+                    src={getImageSrc(video.thumbnail)}
                     alt={video.title[language]}
                     fill
                     sizes="80px"
@@ -324,7 +326,7 @@ export default function NewsSection({
         <div className="flex items-center gap-4">
           <div className="relative w-28 h-28 rounded-lg overflow-hidden border border-white/10 bg-white">
             <Image
-              src={typeof wechatAccount.qr === 'string' ? wechatAccount.qr : (wechatAccount.qr as any).src}
+              src={getImageSrc(wechatAccount.qr)}
               alt={content.scanToFollow}
               fill
               sizes="112px"
@@ -353,7 +355,7 @@ export default function NewsSection({
                   <div className="flex gap-3">
                     <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-white">
                       <Image
-                        src={typeof post.thumbnail === 'string' ? post.thumbnail : (post.thumbnail as any).src}
+                        src={getImageSrc(post.thumbnail)}
                         alt={post.title[language]}
                         fill
                         sizes="64px"

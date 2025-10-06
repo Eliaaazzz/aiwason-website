@@ -3,6 +3,7 @@
 
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import type { StaticImageData } from 'next/image'
 import { ExternalLink } from 'lucide-react'
 import NavButton from '@/components/common/NavButton'
 import CardImage from '@/components/common/CardImage'
@@ -12,7 +13,7 @@ export type MediaReportItem = {
   id: string
   title: string
   href: string
-  img: any
+  img: string | StaticImageData
   date?: string
   source?: string
 }

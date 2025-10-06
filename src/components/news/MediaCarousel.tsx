@@ -3,7 +3,7 @@
 
 import Link from 'next/link'
 import Image, { type StaticImageData } from 'next/image'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import clsx from 'clsx'
 import NavButton from '@/components/common/NavButton'
 
@@ -199,6 +199,10 @@ export default function MediaCarousel({
             const fit = card.fit ?? 'cover'
             const isContain = fit === 'contain'
             const objectPos = card.objectPosition ? { objectPosition: card.objectPosition } : undefined
+            const imageAlt = card.title ?? (imageOnly ? (lang === 'en' ? 'Project visual' : '项目视觉') : card.id)
+            const imageStyle: CSSProperties = {
+              ...(objectPos ?? {}),
+            }
             const cardClass = clsx(
               'relative shrink-0 snap-center bg-white flex items-center justify-center overflow-hidden',
               isContain ? 'shadow-sm' : null,
@@ -213,7 +217,7 @@ export default function MediaCarousel({
                   <div className="relative h-full w-full">
                     <Image
                       src={card.img}
-                      alt={card.title ?? ''}
+                      alt={imageAlt}
                       fill
                       priority={index === 0}
                       quality={isContain ? 95 : undefined}
@@ -221,10 +225,7 @@ export default function MediaCarousel({
                       className={clsx(
                         isContain ? 'object-contain select-none' : 'object-cover select-none',
                       )}
-                      style={{
-                        ...(objectPos ?? {}),
-                        imageRendering: isContain ? ('-webkit-optimize-contrast' as any) : undefined,
-                      }}
+                      style={imageStyle}
                     />
                   </div>
                 </div>
