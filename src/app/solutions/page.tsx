@@ -8,6 +8,7 @@ import frBusduct from '@/assets/products/fr-busduct.png'
 
 // Add these static imports at the top of the file
 import heroPng from '@/assets/solutions/aiwason-solution-hero.png'
+import factoryHero from '@/assets/solutions/factory-hero.jpg'
 import analyticsHeatmapPng from '@/assets/solutions/aiwason-analytics-heatmap.png'
 import alertDispatchPng from '@/assets/solutions/aiwason-alert-dispatch.png'
 import modularBuswayPng from '@/assets/solutions/aiwason-modular-busway.png'
@@ -47,7 +48,7 @@ const heroCopy: Localised<{ title: string; subtitle: string; cta: string }> = {
 
 // 统一素材映射（支持 string 或 StaticImageData）
 const solutionVisuals = {
-  hero: '/res/factory.jpg',
+  hero: factoryHero,
   assetDashboard: heroPng,
   analyticsHeatmap: analyticsHeatmapPng,
   alertDispatch: alertDispatchPng,
