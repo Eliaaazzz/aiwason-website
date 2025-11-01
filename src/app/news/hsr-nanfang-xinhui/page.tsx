@@ -88,15 +88,21 @@ const projectData: ProjectDetail = {
   ],
   awards: [
     {
-      name: { zh: '智能制造技本创新奖', en: 'Intelligent Manufacturing Technology Innovation Award' },
+      name: { zh: '南方新会工厂生产基地', en: 'Nanfang Xinhui Manufacturing Campus' },
       year: '2023',
-      description: { zh: '在高速铁路制造领域的技术突破', en: 'Technological breakthrough in high-speed rail manufacturing field' },
+      description: {
+        zh: '高速列车制造基地总装车间实景，展示耐火母线在生产线中的部署。',
+        en: 'On-site view of the high-speed train assembly hall with the fire-resistant busway in service.',
+      },
       image: '/res/高铁（南方新会工厂）.jpg',
     },
     {
-      name: { zh: '海洋环境适应性认证', en: 'Marine Environment Adaptability Certification' },
+      name: { zh: '检修与联调通道', en: 'Testing and Commissioning Corridor' },
       year: '2023',
-      description: { zh: '通过严格的海洋环境测试认证', en: 'Passed rigorous marine environment testing certification' },
+      description: {
+        zh: '成品列车与检修通道现场照片，体现多线路供电的可靠性。',
+        en: 'Photo of the finished train staging corridor highlighting redundant power distribution.',
+      },
       image: '/res/gallery-46.jpg',
     },
   ],

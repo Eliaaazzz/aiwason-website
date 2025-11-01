@@ -89,9 +89,12 @@ const projectData: ProjectDetail = {
   ],
   awards: [
     {
-      name: { zh: '优秀工程设计奖', en: 'Excellence in Engineering Design Award' },
+      name: { zh: '项目外立面实景', en: 'Project Exterior View' },
       year: '2023',
-      description: { zh: '城市综合体电力系统设计优秀项目', en: 'Excellence in urban complex power system design' },
+      description: {
+        zh: '展示完美金鹰广场商业、办公与酒店一体化的外部景观。',
+        en: 'Exterior photo highlighting the integrated commercial, office, and hotel functions.',
+      },
       image: '/res/中山完美金鹰广场.jpg',
     },
     {

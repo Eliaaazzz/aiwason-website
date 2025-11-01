@@ -6,7 +6,6 @@ import CardImage from '@/components/common/CardImage'
 
 import frBusduct from '@/assets/products/fr-busduct.png'
 
-// Add these static imports at the top of the file
 import heroPng from '@/assets/solutions/aiwason-solution-hero.png'
 import analyticsHeatmapPng from '@/assets/solutions/aiwason-analytics-heatmap.png'
 import alertDispatchPng from '@/assets/solutions/aiwason-alert-dispatch.png'
@@ -18,8 +17,12 @@ import historicalAnalyticsPng from '@/assets/solutions/aiwason-historical-analyt
 
 import conductorPng from '@/assets/solutions/bus-conductor.png'
 import insulationSleevePng from '@/assets/solutions/insulation-sleeve.png'
-import dataCenterJpeg from '@/assets/solutions/dataCenter.jpeg'
 import reportManagementPng from '@/assets/solutions/report-management.png'
+
+import dataCenterHeroImg from '@/../public/res/数据中心/WechatIMG271.jpeg'
+import dataCenterHallImg from '@/../public/res/数据中心/WechatIMG272.jpeg'
+import productionLineImg from '@/../public/res/数据中心/WechatIMG274.jpeg'
+import dataCenterDiagramImg from '@/../public/res/数据中心/Screenshot 2025-10-16 at 16.12.13.png'
 
 
 export const metadata = {
@@ -33,21 +36,21 @@ type Localised<T> = { en: T; zh: T }
 
 const heroCopy: Localised<{ title: string; subtitle: string; cta: string }> = {
   en: {
-    title: 'AIWASON Intelligent Busbar Solutions',
+    title: 'Data Center & Critical Infrastructure Solutions',
     subtitle:
-      'Combine cloud-native monitoring, predictive maintenance, and high-reliability hardware to secure mission-critical power distribution.',
-    cta: 'Talk to our team',
+      'Fire-resistant busways, intelligent monitoring, and prefabricated delivery to power AI-era campuses without compromise.',
+    cta: 'Plan Your Data Center Power',
   },
   zh: {
-    title: 'AIWASON 智能母线整体解决方案',
-    subtitle: '融合云平台监控、预测性运维与高可靠硬件，为关键基础设施打造安全稳固的输配电体系。',
-    cta: '联系方案顾问',
+    title: '数据中心与关键基础设施整体方案',
+    subtitle: '耐火母线、智能监测与预制化交付，全面支撑 AI 时代的数据中心与关键场馆供配电。',
+    cta: '获取数据中心方案',
   },
 }
 
 // 统一素材映射（支持 string 或 StaticImageData）
 const solutionVisuals = {
-  hero: '/res/factory.jpg',
+  hero: dataCenterHeroImg,
   assetDashboard: heroPng,
   analyticsHeatmap: analyticsHeatmapPng,
   alertDispatch: alertDispatchPng,
@@ -60,7 +63,9 @@ const solutionVisuals = {
   operationManagement: operationMgmtPng,
   planManagement: planMgmtPng,
   historicalAnalysis: historicalAnalyticsPng,
-  dataCenter: dataCenterJpeg,
+  dataCenter: dataCenterDiagramImg,
+  dataHall: dataCenterHallImg,
+  production: productionLineImg,
 } as const
 
 const heroVisual = solutionVisuals.hero
@@ -207,6 +212,109 @@ const DC_FEATURES: Array<{
   },
 ]
 
+const DC_DELIVERY_STAGES: Array<{
+  id: string
+  title: Localised<string>
+  bullets: Localised<string[]>
+  image: string | StaticImageData
+}> = [
+  {
+    id: 'topology',
+    title: { en: 'Topology Simulation & Load Planning', zh: '拓扑仿真与负载规划' },
+    bullets: {
+      en: [
+        '3D topology and redundancy simulation to validate 2N / 3+1 schemes before fabrication.',
+        'Liquid-cooling, AI cluster and battery rooms modelled for future growth scenarios.',
+        'Cable ladder, riser space and maintenance clearances resolved during digital rehearsal.',
+      ],
+      zh: [
+        '通过 3D 拓扑与冗余仿真，在加工前验证 2N / 3+1 方案的可靠性。',
+        '演练液冷、AI 集群、电池间等未来扩展场景，提前预留容量。',
+        '在数字排演阶段完成桥架、竖井与检修空间的冲突校核。',
+      ],
+    },
+    image: '/res/数据中心/Screenshot 2025-10-16 at 16.11.18.png',
+  },
+  {
+    id: 'prefab',
+    title: { en: 'Prefabrication & Factory Acceptance Test', zh: '预制化生产与出厂测试' },
+    bullets: {
+      en: [
+        'Segment fabrication with QR-coded genealogy for every extrusion and connector.',
+        'Thermal soak, insulation, and partial discharge tests conducted before shipment.',
+        'Factory acceptance integrates cloud platform provisioning for day-zero onboarding.',
+      ],
+      zh: [
+        '段件加工全程绑定二维码，实现挤压件、连接件的全生命周期追溯。',
+        '出厂完成热循环、绝缘与局放测试，确保到场即具备运行可靠性。',
+        '同步开通云平台资产，现场交付即可完成系统上线。',
+      ],
+    },
+    image: '/res/数据中心/WechatIMG267.jpeg',
+  },
+  {
+    id: 'installation',
+    title: { en: 'On-site Installation & Commissioning', zh: '现场安装与调试' },
+    bullets: {
+      en: [
+        'Modular supports and laser alignment keep long-span trunks level with minimal labour.',
+        'Smart tap-offs are hot-swapped and paired via NFC to register with the monitoring cloud.',
+        'Progress tracked in BIM viewer so stakeholders see live status of each zone.',
+      ],
+      zh: [
+        '模块化支架配合激光校准，长跨干线保持水平，大幅减少人工。',
+        '智能分接箱支持带电插拔，并通过 NFC 绑定上云，实现即插即用。',
+        '施工进度与检验信息同步回写 BIM，可视化掌握各区域状态。',
+      ],
+    },
+    image: '/res/数据中心/WechatIMG274.jpeg',
+  },
+  {
+    id: 'operations-analytics',
+    title: { en: 'Operations Analytics & Lifecycle Optimisation', zh: '运维分析与全生命周期优化' },
+    bullets: {
+      en: [
+        'Unified dashboards correlate thermal hotspots with branch loads for proactive balancing.',
+        'AI algorithms forecast stress on connectors and recommend maintenance windows.',
+        'Automated reports capture ESG metrics and uptime SLA evidence for stakeholders.',
+      ],
+      zh: [
+        '统一看板关联温度热点与支路负载，实现前瞻性均衡调度。',
+        'AI 算法预测连接器受力与老化趋势，智能推荐检修窗口。',
+        '自动报表沉淀 ESG 指标与 SLA 证明材料，支撑多方协同。',
+      ],
+    },
+    image: '/res/数据中心/Screenshot 2025-10-16 at 16.12.54.png',
+  },
+]
+
+const DC_GALLERY: Array<{
+  id: string
+  caption: Localised<string>
+  image: string | StaticImageData
+}> = [
+  {
+    id: 'gallery-overview',
+    caption: { en: 'Dual-bus dashboard for multiple halls', zh: '多机房双母线运行看板' },
+    image: '/res/数据中心/Screenshot 2025-10-16 at 16.12.02.png',
+  },
+  {
+    id: 'gallery-alarms',
+    caption: { en: 'Alarm center with traceable root cause', zh: '告警中心与溯源分析' },
+    image: '/res/数据中心/Screenshot 2025-10-16 at 16.13.02.png',
+  },
+  {
+    id: 'gallery-energy',
+    caption: { en: 'Energy insight & branch loading', zh: '能耗洞察与支路负载分析' },
+    image: '/res/数据中心/Screenshot 2025-10-16 at 16.13.16.png',
+  },
+  {
+    id: 'gallery-maint',
+    caption: { en: 'Maintenance scheduling & work orders', zh: '运维排程与工单闭环' },
+    image: '/res/数据中心/Screenshot 2025-10-16 at 16.13.24.png',
+  },
+]
+
 const STRUCTURE_ITEMS = [
   {
     id: 'busway-shell',
@@ -339,7 +447,7 @@ export default async function SolutionsPage({
           className="absolute inset-0 h-full w-full object-cover object-center"
           priority
         />
-        <div className="absolute inset-0 bg-black/55" aria-hidden="true" />
+        <div className="absolute inset-0 bg-black/70 sm:bg-gradient-to-r sm:from-black/80 sm:via-black/65 sm:to-black/20" aria-hidden="true" />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-12 py-20 lg:py-32 flex flex-col min-h-[70vh] text-white">
           <div className="flex flex-wrap items-start justify-between gap-4">
@@ -487,39 +595,197 @@ export default async function SolutionsPage({
       {/* Data Center Overview */}
       <section id="dc-overview" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="space-y-12">
-          <div className="space-y-6 max-w-3xl">
-            <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
-              {lang === 'en' ? 'Data Center' : '数据中心'}
-            </p>
-            <h2 className="text-3xl lg:text-4xl font-extrabold">{interpret(DC_INTRO, lang).title}</h2>
-            <p className="text-gray-600 leading-relaxed text-base md:text-lg">
-              {interpret(DC_INTRO, lang).overview}
-            </p>
+          <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+            <div className="space-y-6">
+              <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
+                {lang === 'en' ? 'Data Center' : '数据中心'}
+              </p>
+              <h2 className="text-3xl lg:text-4xl font-extrabold">{interpret(DC_INTRO, lang).title}</h2>
+              <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+                {interpret(DC_INTRO, lang).overview}
+              </p>
 
-            <div className="relative h-72 w-full rounded-3xl border border-[#76B900]/20 bg-white shadow-sm overflow-hidden">
-              <Image
-                src={solutionVisuals.dataCenter}
-                alt={lang === 'en' ? 'Busbar deployment diagram' : '母线部署示意图'}
-                fill
-                className="object-cover"
-                priority={false}
-              />
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Link
+                  href={`/products?lang=${lang}#dc-backbone`}
+                  className="inline-flex items-center rounded-lg border border-[#76B900]/40 px-4 py-2 text-sm font-semibold text-[#1b2d07] shadow-sm hover:bg-[#f2f9e6] transition"
+                >
+                  {lang === 'en' ? 'View Data Center Product Line' : '查看数据中心产品线'}
+                </Link>
+                <Link
+                  href={`mailto:Elialiu760317@outlook.com?subject=${encodeURIComponent(lang === 'en' ? 'Data Center Power Solution Consultation' : '咨询数据中心供配电方案')}`}
+                  className="inline-flex items-center rounded-lg bg-[#76B900] px-4 py-2 text-sm font-semibold text-white shadow hover:bg-[#68a500] transition"
+                >
+                  {lang === 'en' ? 'Book a Technical Workshop' : '预约技术交流'}
+                </Link>
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-3xl border border-[#76B900]/30 bg-black/40 shadow-lg">
+                <Image
+                  src={solutionVisuals.dataCenter}
+                  alt={lang === 'en' ? 'Data center busway topology diagram' : '数据中心母线拓扑图'}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1280px) 45vw, 100vw"
+                  priority={false}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" aria-hidden="true" />
+                <span className="absolute bottom-3 left-3 rounded-full border border-white/30 bg-white/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/90">
+                  {lang === 'en' ? 'Topology' : '拓扑示意'}
+                </span>
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-[#76B900]/25 bg-black/30 shadow-sm">
+                  <Image
+                    src={solutionVisuals.dataHall}
+                    alt={lang === 'en' ? 'Data hall live deployment' : '数据机房实景'}
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 1280px) 22vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" aria-hidden="true" />
+                  <span className="absolute bottom-3 left-3 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-white/90">
+                    {lang === 'en' ? 'Data Hall' : '机房现场'}
+                  </span>
+                </div>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-[#76B900]/25 bg-black/30 shadow-sm">
+                  <Image
+                    src={solutionVisuals.production}
+                    alt={lang === 'en' ? 'Production line delivery' : '生产线交付'}
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 1280px) 22vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" aria-hidden="true" />
+                  <span className="absolute bottom-3 left-3 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-white/90">
+                    {lang === 'en' ? 'Production' : '生产交付'}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="space-y-8">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {DC_FEATURES.map((feature) => (
-              <div key={feature.id} id={feature.id} className="rounded-2xl border border-[#76B900]/20 bg-white p-6 lg:p-10 shadow-sm">
+              <article
+                key={feature.id}
+                id={feature.id}
+                className="flex h-full flex-col rounded-2xl border border-[#76B900]/20 bg-white/90 p-6 lg:p-8 shadow-sm backdrop-blur"
+              >
                 <h3 className="text-2xl font-semibold text-gray-900">{interpret(feature.title, lang)}</h3>
                 <ul className="mt-4 space-y-3 text-base text-gray-600 leading-relaxed">
                   {interpret(feature.bullets, lang).map((item) => (
                     <li key={item} className="flex gap-3">
-                      <span className="mt-1 h-2 w-2 rounded-full bg-[#76B900]" aria-hidden="true" />
+                      <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#76B900]" aria-hidden="true" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
-              </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="h-1 w-full bg-[#cde9aa]" aria-hidden="true" />
+
+      {/* Data Center Delivery */}
+      <section id="dc-delivery" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
+        <div className="space-y-10">
+          <div className="max-w-3xl space-y-4">
+            <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
+              {lang === 'en' ? 'Delivery' : '交付流程'}
+            </p>
+            <h2 className="text-3xl lg:text-4xl font-extrabold">
+              {lang === 'en' ? 'End-to-End Delivery Playbook' : '端到端交付流程'}
+            </h2>
+            <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+              {lang === 'en'
+                ? 'From topology simulation to long-term operations, each stage is digitised and linked with prefabrication, ensuring predictable quality for critical data centers.'
+                : '从拓扑仿真到运维优化，流程各阶段均实现数字化联动与预制化交付，确保关键数据中心的质量与可预测性。'}
+            </p>
+          </div>
+
+          <div className="grid gap-8 lg:grid-cols-2">
+            {DC_DELIVERY_STAGES.map((stage, idx) => (
+              <article
+                key={stage.id}
+                className="flex flex-col overflow-hidden rounded-3xl border border-[#76B900]/20 bg-white/95 shadow-sm"
+              >
+                <CardImage
+                  src={stage.image}
+                  alt={interpret(stage.title, lang)}
+                  ratio={null}
+                  height="240px"
+                  fit="cover"
+                  bgClassName="bg-black"
+                  roundedClassName="rounded-none"
+                  showRing={false}
+                  priority={idx === 0}
+                  loading={idx === 0 ? 'eager' : 'lazy'}
+                  fetchPriority={idx === 0 ? 'high' : 'auto'}
+                  className="h-full"
+                  sizes="(min-width:1024px) 45vw, 100vw"
+                />
+                <div className="flex-1 p-6 lg:p-8 space-y-4">
+                  <h3 className="text-xl lg:text-2xl font-semibold text-gray-900">
+                    {interpret(stage.title, lang)}
+                  </h3>
+                  <ul className="space-y-3 text-sm md:text-base text-gray-600 leading-relaxed">
+                    {interpret(stage.bullets, lang).map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#76B900]" aria-hidden="true" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="h-1 w-full bg-[#cde9aa]" aria-hidden="true" />
+
+      {/* Data Center Gallery */}
+      <section id="dc-gallery" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20">
+        <div className="space-y-8">
+          <div className="max-w-3xl space-y-4">
+            <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
+              {lang === 'en' ? 'Operations Gallery' : '运维场景'}
+            </p>
+            <h2 className="text-3xl lg:text-4xl font-extrabold">
+              {lang === 'en' ? 'Realtime Insight Snapshots' : '实时洞察界面速览'}
+            </h2>
+            <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+              {lang === 'en'
+                ? 'Screens from the AMS platform highlight how operators oversee power distribution, alarms, energy metrics, and work orders in one console.'
+                : 'AMS 平台界面展示运维团队如何在同一控制台内掌握配电、告警、能耗与工单态势。'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            {DC_GALLERY.map((item, idx) => (
+              <figure
+                key={item.id}
+                className="group relative overflow-hidden rounded-3xl border border-[#76B900]/20 bg-black shadow-sm"
+              >
+                <Image
+                  src={item.image}
+                  alt={interpret(item.caption, lang)}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
+                  priority={idx === 0}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" aria-hidden="true" />
+                <figcaption className="absolute bottom-3 left-3 right-3 text-sm font-medium text-white leading-snug drop-shadow">
+                  {interpret(item.caption, lang)}
+                </figcaption>
+              </figure>
             ))}
           </div>
         </div>

@@ -99,9 +99,12 @@ const projectData: ProjectDetail = {
       image: '/res/横琴口岸鲁班奖.png',
     },
     {
-      name: { zh: '国家优质工程奖', en: 'National Quality Engineering Award' },
+      name: { zh: '横琴口岸综合交通枢纽实景', en: 'Hengqin Port Integrated Transport Hub View' },
       year: '2021',
-      description: { zh: '交通基础设施建设优秀项目', en: 'Excellence in transportation infrastructure construction' },
+      description: {
+        zh: '项目整体鸟瞰图，展示口岸、地铁与公交一体化枢纽的运行场景。',
+        en: 'Aerial view of the hub showing the integrated port, metro, and bus transport campus.',
+      },
       image: '/res/横琴口岸综合交通枢纽.jpg',
     },
   ],

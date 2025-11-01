@@ -88,15 +88,21 @@ const projectData: ProjectDetail = {
   ],
   awards: [
     {
-      name: { zh: '金融建筑智能化优秀奖', en: 'Financial Building Intelligence Excellence Award' },
+      name: { zh: '深圳建行大厦实景', en: 'Shenzhen CCB Tower View' },
       year: '2023',
-      description: { zh: '在金融建筑智能化建设方面的杰出贡献', en: 'Outstanding contribution to financial building intelligence construction' },
+      description: {
+        zh: '项目外立面与灯光系统照片，展示双路冗余供电后的总部形象。',
+        en: 'Exterior photo of the headquarters showing the dual-redundant power system in operation.',
+      },
       image: '/res/深圳建行大厦项目.jpg',
     },
     {
-      name: { zh: '电力系统安全认证', en: 'Power System Security Certification' },
+      name: { zh: '金融行业安全运行总结', en: 'Financial Sector Safety Summary' },
       year: '2023',
-      description: { zh: '通过金融行业最高安全标准认证', en: 'Passed the highest security standard certification in financial industry' },
+      description: {
+        zh: '记录项目通过多项安全与冗余测试的认证成果。',
+        en: 'Highlights the project’s safety and redundancy test results for financial operations.',
+      },
     },
   ],
   relatedLinks: [

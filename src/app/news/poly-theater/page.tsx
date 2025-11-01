@@ -88,15 +88,21 @@ const projectData: ProjectDetail = {
   ],
   awards: [
     {
-      name: { zh: '文化建筑电力系统优秀奖', en: 'Cultural Building Power System Excellence Award' },
+      name: { zh: '保利大剧院实景', en: 'Poly Theater On-site View' },
       year: '2023',
-      description: { zh: '在文化艺术场所电力系统设计方面的杰出贡献', en: 'Outstanding contribution to power system design for cultural arts venues' },
+      description: {
+        zh: '剧院外立面与广场夜景，呈现低噪声母线供电后的运营状态。',
+        en: 'Exterior night view of the theater and plaza after the low-noise busway upgrade.',
+      },
       image: '/res/保利剧院.jpg',
     },
     {
-      name: { zh: '低噪声技术创新奖', en: 'Low-noise Technology Innovation Award' },
+      name: { zh: '低噪声技术成果', en: 'Low-noise Technology Showcase' },
       year: '2023',
-      description: { zh: '在低噪声电力设备技术方面的突破', en: 'Breakthrough in low-noise power equipment technology' },
+      description: {
+        zh: '项目内采用低噪声供电设备的展示与测试结果。',
+        en: 'Summary of the low-noise power equipment implementation inside the venue.',
+      },
     },
   ],
   relatedLinks: [
