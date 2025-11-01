@@ -388,7 +388,12 @@ export default function NewsSection({
           onClose={() => setActiveVideo(null)}
           title={activeVideo.title[language]}
           poster={getImageSrc(activeVideo.thumbnail)}
-          sources={[{ src: activeVideo.videoUrl, type: 'video/mp4' }]}
+          embedUrl={activeVideo.embedUrl}
+          sources={
+            activeVideo.embedUrl || !activeVideo.videoUrl
+              ? undefined
+              : [{ src: activeVideo.videoUrl!, type: 'video/mp4' }]
+          }
         />
       ) : null}
     </div>

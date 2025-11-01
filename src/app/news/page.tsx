@@ -117,7 +117,11 @@ export default async function NewsPage({ searchParams }: PageProps) {
     desc: video.description?.[lang] ?? '',
     date: video.date,
     poster: index === 0 ? homeHeroPoster : creditChinaPoster,
-    sources: [{ src: video.videoUrl, type: 'video/mp4' }],
+    embedUrl: video.embedUrl,
+    sources:
+      video.embedUrl || !video.videoUrl
+        ? undefined
+        : [{ src: video.videoUrl!, type: 'video/mp4' }],
   }))
 
   const groupVideos: NewsGroup = {
@@ -132,6 +136,7 @@ export default async function NewsPage({ searchParams }: PageProps) {
         title: entry.title,
         poster: entry.poster,
         sources: entry.sources,
+        embedUrl: entry.embedUrl,
       },
     })),
   }

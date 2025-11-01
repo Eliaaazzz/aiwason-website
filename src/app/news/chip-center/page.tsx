@@ -93,9 +93,12 @@ const projectData: ProjectDetail = {
   ],
   awards: [
     {
-      name: { zh: '半导体行业技术创新奖', en: 'Semiconductor Industry Technology Innovation Award' },
+      name: { zh: '深圳全球智能芯片中心实景', en: 'Shenzhen Global Intelligent Chip Center Exterior' },
       year: '2024',
-      description: { zh: '在半导体制造配电技术领域的重大创新突破', en: 'Major innovation breakthrough in semiconductor manufacturing power distribution technology' },
+      description: {
+        zh: '园区主体建筑与智能母线配电改造后的整体风貌。',
+        en: 'Exterior view of the campus highlighting the upgraded intelligent busway backbone.',
+      },
       image: '/res/深圳全球智能芯片中心.jpg',
     },
   ],

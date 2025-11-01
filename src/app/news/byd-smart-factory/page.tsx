@@ -93,9 +93,12 @@ const projectData: ProjectDetail = {
   ],
   awards: [
     {
-      name: { zh: '智能制造优秀案例奖', en: 'Intelligent Manufacturing Excellence Award' },
+      name: { zh: '比亚迪制造园区实景', en: 'BYD Manufacturing Campus On-site View' },
       year: '2024',
-      description: { zh: '新能源汽车制造领域智能配电系统标杆项目', en: 'Benchmark project for intelligent power distribution systems in new energy vehicle manufacturing' },
+      description: {
+        zh: '展示深圳比亚迪生产基地的总装车间与升级后的耐火母线系统部署场景。',
+        en: 'Shows the Shenzhen BYD manufacturing campus with the upgraded fire-resistant busway serving final assembly lines.',
+      },
       image: '/res/深圳比亚迪—A.jpg',
     },
   ],

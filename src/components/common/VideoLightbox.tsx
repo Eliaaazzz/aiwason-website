@@ -9,7 +9,8 @@ export interface VideoLightboxProps {
   onClose: () => void
   title?: string
   poster: string
-  sources: VideoSrc[]
+  sources?: VideoSrc[]
+  embedUrl?: string
 }
 
 export default function VideoLightbox({
@@ -18,6 +19,7 @@ export default function VideoLightbox({
   title = 'Video',
   poster,
   sources,
+  embedUrl,
 }: VideoLightboxProps) {
   const closeRef = React.useRef<HTMLButtonElement>(null)
   const videoRef = React.useRef<HTMLVideoElement>(null)
@@ -37,6 +39,7 @@ export default function VideoLightbox({
 
   React.useEffect(() => {
     if (!open) return
+    if (!sources?.length) return
     const video = videoRef.current
     if (!video) return
     video.currentTime = 0
@@ -76,20 +79,35 @@ export default function VideoLightbox({
 
         <div className="px-4 pb-4">
           <div className="relative w-full aspect-video overflow-hidden rounded-lg bg-black">
-            <video
-              controls
-              playsInline
-              preload="metadata"
-              poster={poster}
-              className="h-full w-full object-contain bg-black"
-              ref={videoRef}
-              key={sources.map((s) => s.src).join('|')}
-            >
-              {sources.map((s) => (
-                <source key={s.src} src={s.src} type={s.type} />
-              ))}
-              Sorry, your browser doesn’t support HTML5 video.
-            </video>
+            {embedUrl ? (
+              <iframe
+                key={embedUrl}
+                src={embedUrl}
+                title={title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="h-full w-full"
+              />
+            ) : sources?.length ? (
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster={poster}
+                className="h-full w-full object-contain bg-black"
+                ref={videoRef}
+                key={sources.map((s) => s.src).join('|')}
+              >
+                {sources.map((s) => (
+                  <source key={s.src} src={s.src} type={s.type} />
+                ))}
+                Sorry, your browser doesn’t support HTML5 video.
+              </video>
+            ) : (
+              <div className="flex h-full w-full items-center justify-center text-sm text-white/70">
+                Video source unavailable.
+              </div>
+            )}
           </div>
         </div>
       </div>

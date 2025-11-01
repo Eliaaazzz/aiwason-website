@@ -11,7 +11,10 @@ export type VideoItem = {
   title: Localised<string>
   description?: Localised<string>
   thumbnail: string | StaticImageData
-  videoUrl: string
+  /** Local file path (e.g. /video/demo.mp4). Optional if using external provider. */
+  videoUrl?: string
+  /** External embed URL (e.g. https://www.youtube.com/embed/...). */
+  embedUrl?: string
   date?: string
   duration?: string
 }

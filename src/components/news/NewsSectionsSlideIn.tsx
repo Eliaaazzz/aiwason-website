@@ -28,7 +28,8 @@ export type NewsItem = {
   video?: {
     title?: string
     poster?: string | StaticImageData
-    sources: VideoSource[] // 至少 1 个，如 {src:'/video/home-hero.mp4', type:'video/mp4'}
+    sources?: VideoSource[] // 至少 1 个，如 {src:'/video/home-hero.mp4', type:'video/mp4'}
+    embedUrl?: string
   }
 }
 
@@ -74,7 +75,9 @@ export default function NewsSectionsSlideIn({
             {/* Items */}
             <div className="space-y-16">
               {group.items.map((it, idx) => {
-                const isVideo = !!it.video && it.video.sources?.length > 0
+                const hasVideoSources = it.video?.sources && it.video.sources.length > 0
+                const hasEmbed = !!it.video?.embedUrl
+                const isVideo = !!it.video && (hasVideoSources || hasEmbed)
                 const poster = it.video?.poster || it.img
                 const gallery = it.gallery?.length ? it.gallery : undefined
                 const imageFit = it.imageFit || (it.video ? 'cover' : 'cover')
@@ -205,7 +208,8 @@ export default function NewsSectionsSlideIn({
           lang={lang}
           title={openVideo.video?.title || openVideo.title}
           poster={toImageSrc(openVideo.video?.poster || openVideo.img)}
-          sources={openVideo.video!.sources}
+          sources={openVideo.video?.embedUrl ? undefined : openVideo.video?.sources}
+          embedUrl={openVideo.video?.embedUrl}
           onClose={() => setOpenVideo(null)}
         />
       )}
@@ -221,12 +225,14 @@ function VideoLightbox({
   title,
   poster,
   sources,
+  embedUrl,
   onClose,
 }: {
   lang: 'zh' | 'en'
   title: string
   poster: string
-  sources: VideoSource[]
+  sources?: VideoSource[]
+  embedUrl?: string
   onClose: () => void
 }) {
   const closeRef = useRef<HTMLButtonElement>(null)
@@ -243,6 +249,8 @@ function VideoLightbox({
   }, [onClose])
 
   useEffect(() => {
+    if (embedUrl) return
+    if (!sources?.length) return
     const video = videoRef.current
     if (!video) return
     video.currentTime = 0
@@ -253,7 +261,7 @@ function VideoLightbox({
         // 浏览器可能阻止自动播放，用户仍可手动点击播放。
       })
     }
-  }, [sources])
+  }, [embedUrl, sources])
 
   return (
     <div
@@ -281,22 +289,37 @@ function VideoLightbox({
 
         <div className="px-4 pb-4">
           <div className="relative w-full aspect-video overflow-hidden rounded-lg bg-black">
-            <video
-              controls
-              playsInline
-              preload="metadata"
-              poster={poster}
-              className="h-full w-full object-contain bg-black"
-              ref={videoRef}
-              key={sources.map((s) => s.src).join('|')}
-            >
-              {sources.map((s) => (
-                <source key={s.src} src={s.src} type={s.type} />
-              ))}
-              {lang === 'en'
-                ? "Sorry, your browser doesn't support HTML5 video."
-                : '抱歉，您的浏览器不支持 HTML5 视频。'}
-            </video>
+            {embedUrl ? (
+              <iframe
+                key={embedUrl}
+                src={embedUrl}
+                title={title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="h-full w-full"
+              />
+            ) : sources?.length ? (
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster={poster}
+                className="h-full w-full object-contain bg-black"
+                ref={videoRef}
+                key={sources.map((s) => s.src).join('|')}
+              >
+                {sources.map((s) => (
+                  <source key={s.src} src={s.src} type={s.type} />
+                ))}
+                {lang === 'en'
+                  ? "Sorry, your browser doesn't support HTML5 video."
+                  : '抱歉，您的浏览器不支持 HTML5 视频。'}
+              </video>
+            ) : (
+              <div className="flex h-full w-full items-center justify-center text-sm text-white/70">
+                {lang === 'en' ? 'Video source unavailable.' : '视频资源不可用'}
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -93,16 +93,13 @@ const projectData: ProjectDetail = {
   ],
   awards: [
     {
-      name: { zh: '中国商业建筑奖', en: 'China Commercial Architecture Award' },
+      name: { zh: '万象汇商业综合体夜景', en: 'The MixC Flagship Night View' },
       year: '2019',
-      description: { zh: '商业建筑设计与技术应用创新奖', en: 'Innovation award for commercial building design and technology application' },
+      description: {
+        zh: '展示综合体夜间运营场景以及母线系统覆盖的主楼与下沉式广场。',
+        en: 'Night-time view of the complex showing the plaza and towers served by the busway system.',
+      },
       image: '/res/万象汇.jpeg',
-    },
-    {
-      name: { zh: '深圳市绿色建筑奖', en: 'Shenzhen Green Building Award' },
-      year: '2019',
-      description: { zh: '节能环保技术应用优秀项目', en: 'Excellence in energy-saving and environmental protection technology application' },
-      image: '/res/东莞民盈国贸美国LEED2.jpg',
     },
   ],
   relatedLinks: [

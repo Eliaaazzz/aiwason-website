@@ -12,7 +12,6 @@ import { usePathname, useRouter } from 'next/navigation'
 import monitoringSlide from '@/assets/products/ai-monitoring-terminal.png'
 
 // ✅ 完美金鹰广场证书静态导入（防止高度跳变）
-import perfectPlazaPrize from '@/assets/images/perfectPlazaPrize.png'
 
 import MediaCarousel, { type MediaCard } from '../news/MediaCarousel'
 import NewsSectionsSlideIn, { type NewsGroup } from '../news/NewsSectionsSlideIn'
@@ -83,75 +82,35 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     bullets: ['Multi-hall looped redundancy', 'Scene presets with smart tap-offs', 'Maintainability without service interruption'],
     cta: { href: '/events/datacenter-summit', label: 'Meet Global Leaders' },
     cards: [
-      { id: 'conference-project', title: '', href: '/events/datacenter-summit', img: '/res/conference.jpg' },
+      { id: 'conference-project', title: '', href: '/events/datacenter-summit', img: '/res/前海国际会议中心.jpg' },
       { id: 'conference-award', title: '', href: '/events/datacenter-summit', img: '/res/横琴口岸鲁班奖.png' },
     ],
   },
 
-  // 6 个子项目（每个都是"大图轮播"，一次只显示一张）
+  // Featured large urban complexes
   {
-    id: 'urban-zhongshan',
+    id: 'urban-jindi',
     heading: 'Large Urban Complexes',
-    sub: 'Zhongshan Perfect Golden Eagle Plaza',
-    intro: ['Fire-rated ring bus serves mall, offices and hotel with maintenance possible under load.'],
-    cta: { href: '/news/zhongshan-perfect-plaza', label: 'Explore Case' },
+    sub: 'Gemdale The Grand MixC',
+    intro: [
+      'Flagship TOD integrating retail, office, and leisure powered by high-capacity intelligent busways.',
+    ],
+    cta: { href: '/contact', label: 'Discuss Urban Complex Projects' },
     cards: [
-      { id: 'urban-zhongshan-1', title: '', href: '/news/zhongshan-perfect-plaza', img: '/res/zhonshan%20perfect%20plaza.jpg' },
-      { id: 'urban-zhongshan-2', title: '', href: '/news/zhongshan-perfect-plaza', img: perfectPlazaPrize },
+      { id: 'urban-jindi-1', title: '', href: '/contact', img: '/res/金地大百汇.jpg' },
     ],
   },
   {
-    id: 'urban-qianhai-exchange',
+    id: 'urban-meiyuan',
     heading: 'Large Urban Complexes',
-    sub: 'Qianhai Exchange Plaza',
-    intro: ['Backbone retrofit delivered in phases while trading floors remained in service.'],
-    cta: { href: '/news/qianhai-trading-plaza', label: 'Explore Case' },
-    cards: [
-      { id: 'urban-qianhai-1', title: '', href: '/news/qianhai-trading-plaza', img: '/res/前海交易广场.jpg' },
-      { id: 'urban-qianhai-2', title: '', href: '/news/qianhai-trading-plaza', img: '/res/前海交易广场获奖.jpg' },
+    sub: 'Shenzhen Chengjian Meiyuan Renewal',
+    intro: [
+      'Urban renewal cluster using resilient dual-loop distribution to support culture, retail, and residential functions.',
     ],
-  },
-  {
-    id: 'urban-qhih',
-    heading: 'Large Urban Complexes',
-    sub: 'Qianhai Holding Investment Tower',
-    intro: ['Intelligent ring supports HQ offices and cultural venues with reserved capacity for future fit-outs.'],
-    cta: { href: '/news/qianhai-holding-investment', label: 'Explore Case' },
+    cta: { href: '/contact', label: 'Discuss Urban Complex Projects' },
     cards: [
-      { id: 'urban-qhih-1', title: '', href: '/news/qianhai-holding-investment', img: '/res/前海投控大厦.jpg' },
-      { id: 'urban-qhih-2', title: '', href: '/news/qianhai-holding-investment', img: '/res/qianhai-investment-prize.png' },
+      { id: 'urban-meiyuan-1', title: '', href: '/contact', img: '/res/深圳城建梅园城市更新单元.jpg' },
     ],
-  },
-  {
-    id: 'urban-guangzhou',
-    heading: 'Large Urban Complexes',
-    sub: 'Guangzhou Smart Park',
-    intro: ['Campus busways enable flexible lab and office layouts with transparent energy data.'],
-    cta: { href: '/news/guangzhou-smart-park', label: 'Explore Case' },
-    cards: [
-      { id: 'urban-guangzhou-1', title: '', href: '/news/guangzhou-smart-park', img: '/res/广州新一代技术信息产业园.jpg' },
-      { id: 'urban-guangzhou-2', title: '', href: '/news/guangzhou-smart-park', img: '/res/世界智慧城市大奖.jpg' },
-    ],
-  },
-  {
-    id: 'urban-dongguan',
-    heading: 'Large Urban Complexes',
-    sub: 'Dongguan Minying International Trade Center',
-    intro: ['LEED-aligned upgrade with circuit-level metering and modular capacity additions.'],
-    cta: { href: '/news/dongguan-minying', label: 'Explore Case' },
-    cards: [
-      { id: 'urban-dongguan-1', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸.jpg' },
-      { id: 'urban-dongguan-2', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED.jpg' },
-      { id: 'urban-dongguan-3', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-    ],
-  },
-  {
-    id: 'urban-mixc',
-    heading: 'Large Urban Complexes',
-    sub: 'The MixC Flagship Complex',
-    intro: ['Flagship site designed for weekend peaks and efficient weekday operations.'],
-    cta: { href: '/news/mixc-complex', label: 'Explore Case' },
-    cards: [{ id: 'urban-mixc-1', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' }],
   },
 
   // Others
@@ -163,6 +122,15 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     bullets: ['Biometric-controlled critical tap-offs', '2-hour fire-rated vault branches with thermal sensing'],
     cta: { href: '/news/shenzhen-ccb-tower', label: 'CCB Tower' },
     cards: [{ id: 'bank-ccb', title: '', href: '/news/shenzhen-ccb-tower', img: '/res/深圳建行大厦项目.jpg' }],
+  },
+  {
+    id: 'banking-jmrccb',
+    heading: 'Banking',
+    sub: 'Jiangmen Rural Commercial Bank HQ',
+    intro: ['Dual-level redundancy with branch-ready distribution supporting the bank’s new digital operations hub.'],
+    bullets: ['Tiered backbone for retail + data center loads', 'Fire-rated risers with smart metering at each branch node'],
+    cta: { href: '/news', label: 'Explore Banking Builds' },
+    cards: [{ id: 'bank-jmrccb', title: '', href: '/news', img: '/res/江门农商银行新总部大楼.jpg' }],
   },
   {
     id: 'residential',
@@ -263,76 +231,31 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
     bullets: ['多会场环网冗余', '情景化智能分接与预案', '检修可不中断供电'],
     cta: { href: '/events/datacenter-summit', label: '走进行业峰会' },
     cards: [
-      { id: 'conference-project', title: '', href: '/events/datacenter-summit', img: '/res/conference.jpg' },
+      { id: 'conference-project', title: '', href: '/events/datacenter-summit', img: '/res/前海国际会议中心.jpg' },
       { id: 'conference-award', title: '', href: '/events/datacenter-summit', img: '/res/横琴口岸鲁班奖.png' },
     ],
   },
 
-
-  // 六个子项目
+  // 大型城市综合体精选项目
   {
-    id: 'urban-zhongshan',
+    id: 'urban-jindi',
     heading: '大型城市综合体',
-    sub: '中山完美金鹰广场',
-    intro: ['耐火环网覆盖商业、办公与酒店，具备带电检修能力。'],
-    cta: { href: '/news/zhongshan-perfect-plaza', label: '查看项目' },
+    sub: '金地大百汇',
+    intro: ['TOD 综合体，商业、办公、休闲一体化，高容量智能母线保障高峰客流。'],
+    cta: { href: '/contact', label: '咨询城市综合体方案' },
     cards: [
-      { id: 'urban-zhongshan-1', title: '', href: '/news/zhongshan-perfect-plaza', img: '/res/zhonshan%20perfect%20plaza.jpg' },
-      { id: 'urban-zhongshan-2', title: '', href: '/news/zhongshan-perfect-plaza', img: perfectPlazaPrize },
+      { id: 'urban-jindi-1', title: '', href: '/contact', img: '/res/金地大百汇.jpg' },
     ],
   },
   {
-    id: 'urban-qianhai-exchange',
+    id: 'urban-meiyuan',
     heading: '大型城市综合体',
-    sub: '前海交易广场',
-    intro: ['分期实施主干改造，交易功能全程保持对外运营。'],
-    cta: { href: '/news/qianhai-trading-plaza', label: '查看项目' },
+    sub: '深圳城建梅园城市更新单元',
+    intro: ['以双回路智能母线支撑文化、商业与居住功能，满足城市更新的可靠供配电需求。'],
+    cta: { href: '/contact', label: '咨询城市综合体方案' },
     cards: [
-      { id: 'urban-qianhai-1', title: '', href: '/news/qianhai-trading-plaza', img: '/res/前海交易广场.jpg' },
-      { id: 'urban-qianhai-2', title: '', href: '/news/qianhai-trading-plaza', img: '/res/前海交易广场获奖.jpg' },
+      { id: 'urban-meiyuan-1', title: '', href: '/contact', img: '/res/深圳城建梅园城市更新单元.jpg' },
     ],
-  },
-  {
-    id: 'urban-qhih',
-    heading: '大型城市综合体',
-    sub: '前海投控大厦',
-    intro: ['智能环网服务总部空间，预留扩展容量，切换无感知。'],
-    cta: { href: '/news/qianhai-holding-investment', label: '查看项目' },
-    cards: [
-      { id: 'urban-qhih-1', title: '', href: '/news/qianhai-holding-investment', img: '/res/前海投控大厦.jpg' },
-      { id: 'urban-qhih-2', title: '', href: '/news/qianhai-holding-investment', img: '/res/qianhai-investment-prize.png' },
-    ],
-  },
-  {
-    id: 'urban-guangzhou',
-    heading: '大型城市综合体',
-    sub: '广州智慧园区',
-    intro: ['园区级母线支撑实验室与办公灵活布局，能耗数据可视可用。'],
-    cta: { href: '/news/guangzhou-smart-park', label: '查看项目' },
-    cards: [
-      { id: 'urban-guangzhou-1', title: '', href: '/news/guangzhou-smart-park', img: '/res/广州新一代技术信息产业园.jpg' },
-      { id: 'urban-guangzhou-2', title: '', href: '/news/guangzhou-smart-park', img: '/res/世界智慧城市大奖.jpg' },
-    ],
-  },
-  {
-    id: 'urban-dongguan',
-    heading: '大型城市综合体',
-    sub: '东莞民盈国贸中心',
-    intro: ['按美国LEED 理念进行电力升级：回路级计量，模块化扩容路径清晰。'],
-    cta: { href: '/news/dongguan-minying', label: '查看项目' },
-    cards: [
-      { id: 'urban-dongguan-1', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸.jpg' },
-      { id: 'urban-dongguan-2', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED.jpg' },
-      { id: 'urban-dongguan-3', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-    ],
-  },
-  {
-    id: 'urban-mixc',
-    heading: '大型城市综合体',
-    sub: '万象旗舰综合体',
-    intro: ['面向周末客流峰值与工作日效率的双目标设计，保障运营与能效。'],
-    cta: { href: '/news/mixc-complex', label: '查看项目' },
-    cards: [{ id: 'urban-mixc-1', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' }],
   },
 
   // 其他
@@ -344,6 +267,15 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
     bullets: ['关键分接点生物识别联动', '金库支路 2 小时耐火并带温度监测'],
     cta: { href: '/news/shenzhen-ccb-tower', label: '深圳建行大厦' },
     cards: [{ id: 'bank-ccb', title: '', href: '/news/shenzhen-ccb-tower', img: '/res/深圳建行大厦项目.jpg' }],
+  },
+  {
+    id: 'banking-jmrccb',
+    heading: '银行系统',
+    sub: '江门农商银行总部大楼',
+    intro: ['双回路干线贯通营业、研发与数据中心空间，兼顾分行支路的远程管理。'],
+    bullets: ['分层干线支撑零售+数据中心负载', '耐火竖井结合智能计量覆盖各支行节点'],
+    cta: { href: '/news', label: '查看更多银行项目' },
+    cards: [{ id: 'bank-jmrccb', title: '', href: '/news', img: '/res/江门农商银行新总部大楼.jpg' }],
   },
   {
     id: 'residential',
