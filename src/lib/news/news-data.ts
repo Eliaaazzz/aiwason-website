@@ -29,7 +29,7 @@ export async function getNewsData(): Promise<NewsPayload> {
       title: { en: 'AIWASON Smart Busbar Technology', zh: 'AIWASON 智能母线科技' },
       description: { en: 'Explore innovations.', zh: '探索我们的创新。' },
       thumbnail: homeHeroPoster, // static import is fine here; used within the same RSC boundary
-      embedUrl: 'https://www.youtube.com/embed/R9g6xvXA9j4'
+      embedUrl: 'https://www.youtube.com/embed/R9g6xvXA9j4',
       date: '2025-09-20',
       duration: '02:34',
     },
