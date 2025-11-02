@@ -12,8 +12,6 @@ import coverNobelMeet from '@/assets/News/诺奖教授个人.png'
 import coverCCTV1 from '@/assets/News/央视采访1.png'
 import wechatBanner from '@/assets/News/Wechat.png'
 import wechatQrcode from '@/assets/News/Wechat-QRcode.png'
-import creditChinaPoster from '@/assets/News/credit-china-poster.png'
-import homeHeroPoster from '../../../public/res/home-hero-poster.jpg'
 
 export const revalidate = 3600
 
@@ -111,12 +109,12 @@ export default async function NewsPage({ searchParams }: PageProps) {
   const localise = <T,>(value: Localised<T>) => value[lang]
 
   // 视频组
-  const videoEntries = videos.slice(0, 2).map((video, index) => ({
+  const videoEntries = videos.slice(0, 2).map((video) => ({
     id: video.id,
     title: video.title[lang],
     desc: video.description?.[lang] ?? '',
     date: video.date,
-    poster: index === 0 ? homeHeroPoster : creditChinaPoster,
+    poster: video.thumbnail,
     embedUrl: video.embedUrl,
     sources:
       video.embedUrl || !video.videoUrl
