@@ -8,7 +8,7 @@ import NewsSectionsSlideIn, { type NewsGroup } from '@/components/news/NewsSecti
 import MediaReportRail from '@/components/news/MediaReportRail'
 
 import coverCEEC from '@/assets/News/中欧企业对接会.png'
-import coverNobelMeet from '@/assets/News/会面诺奖教授.png'
+import coverNobelMeet from '@/assets/News/诺奖教授个人.png'
 import coverCCTV1 from '@/assets/News/央视采访1.png'
 import wechatBanner from '@/assets/News/Wechat.png'
 import wechatQrcode from '@/assets/News/Wechat-QRcode.png'

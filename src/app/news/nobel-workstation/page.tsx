@@ -77,7 +77,7 @@ const projectData: ProjectDetail = {
   ],
   awards: [
     {
-      name: { zh: '深圳市重点科研平台', en: 'Shenzhen Key Research Platform' },
+      name: { zh: '诺贝尔创新工作站', en: 'Nobel Innovation Workstation' },
       year: '2024',
       description: {
         zh: '在智能输配电创新方向的引领作用',

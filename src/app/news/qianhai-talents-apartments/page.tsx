@@ -23,7 +23,7 @@ const projectData: ProjectDetail = {
     zh: '住宅社区',
     en: 'Residential Community',
   },
-  heroImage: '/res/gallery-53.jpg',
+  heroImage: '/res/前海珑湾国际人才公寓.jpg',
   description: {
     zh: [
       '前海人才公寓作为高品质人才社区，对居住环境的舒适性和便利性要求极高。AIWASON设计的配电系统采用低损耗、低噪声技术，为住户提供了安静、稳定的电力环境。',
