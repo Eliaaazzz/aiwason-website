@@ -106,6 +106,30 @@ const MODEL_SECTIONS_EN: ModelSection[] = [
     ],
   },
   {
+    id: 'urban-gemdale',
+    heading: 'Large Urban Complexes',
+    sub: 'Gemdale The Grand MixC',
+    intro: [
+      'TOD complex with retail, offices, and leisure powered by high-capacity smart busways.',
+    ],
+    cta: { href: '/contact', label: 'Discuss Urban Complex Projects' },
+    cards: [
+      { id: 'urban-gemdale-project', title: '', href: '/contact', img: '/res/金地大百汇.jpg' },
+    ],
+  },
+  {
+    id: 'urban-meiyuan',
+    heading: 'Large Urban Complexes',
+    sub: 'Shenzhen Chengjian Meiyuan Renewal',
+    intro: [
+      'Urban renewal cluster using dual-loop distribution to support culture, retail, and residential programs.',
+    ],
+    cta: { href: '/contact', label: 'Discuss Urban Complex Projects' },
+    cards: [
+      { id: 'urban-meiyuan-project', title: '', href: '/contact', img: '/res/深圳城建梅园城市更新单元.jpg' },
+    ],
+  },
+  {
     id: 'urban-guangzhou',
     heading: 'Large Urban Complexes',
     sub: 'Guangzhou Smart Park',
@@ -297,6 +321,26 @@ const MODEL_SECTIONS_ZH: ModelSection[] = [
     cards: [
       { id: 'urban-mixc-project', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' },
       { id: 'urban-mixc-award', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' },
+    ],
+  },
+  {
+    id: 'urban-gemdale',
+    heading: '大型城市综合体',
+    sub: '金地大百汇',
+    intro: ['TOD 综合体涵盖商业、办公与休闲，高容量智能母线保障高峰客流。'],
+    cta: { href: '/contact', label: '咨询城市综合体方案' },
+    cards: [
+      { id: 'urban-gemdale-project', title: '', href: '/contact', img: '/res/金地大百汇.jpg' },
+    ],
+  },
+  {
+    id: 'urban-meiyuan',
+    heading: '大型城市综合体',
+    sub: '深圳城建梅园城市更新单元',
+    intro: ['双回路智能母线支撑文化、商业与居住空间，满足城市更新需求。'],
+    cta: { href: '/contact', label: '咨询城市综合体方案' },
+    cards: [
+      { id: 'urban-meiyuan-project', title: '', href: '/contact', img: '/res/深圳城建梅园城市更新单元.jpg' },
     ],
   },
   {
