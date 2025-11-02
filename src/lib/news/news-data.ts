@@ -29,8 +29,7 @@ export async function getNewsData(): Promise<NewsPayload> {
       title: { en: 'AIWASON Smart Busbar Technology', zh: 'AIWASON 智能母线科技' },
       description: { en: 'Explore innovations.', zh: '探索我们的创新。' },
       thumbnail: homeHeroPoster, // static import is fine here; used within the same RSC boundary
-      // Replace with the actual YouTube embed URL for the home hero video
-      embedUrl: 'https://www.youtube.com/embed/VIDEO_ID_HOME',
+      embedUrl: 'https://www.youtube.com/embed/DGmiqhmNc38',
       date: '2025-09-20',
       duration: '02:34',
     },
@@ -40,8 +39,7 @@ export async function getNewsData(): Promise<NewsPayload> {
       title: { en: 'Credit China – Liu Jingguang', zh: '信用中国 · 刘金光' },
       description: { en: 'Credit China feature.', zh: '信用中国专题片。' },
       thumbnail: creditChinaPoster,
-      // Replace with the actual YouTube embed URL for the Credit China feature
-      embedUrl: 'https://www.youtube.com/embed/VIDEO_ID_CREDIT',
+      embedUrl: 'https://www.youtube.com/embed/R9g6xvXA9j4',
       date: '2024-12-01',
       duration: '06:50',
     },

@@ -22,7 +22,11 @@ import reportManagementPng from '@/assets/solutions/report-management.png'
 import dataCenterHeroImg from '@/../public/res/数据中心/WechatIMG271.jpeg'
 import dataCenterHallImg from '@/../public/res/数据中心/WechatIMG272.jpeg'
 import productionLineImg from '@/../public/res/数据中心/WechatIMG274.jpeg'
-import dataCenterDiagramImg from '@/../public/res/数据中心/Screenshot 2025-10-16 at 16.12.13.png'
+import dataCenterDiagramImg from '@/../public/res/产品图片/智能母线/母线系统整体结构示意图.png'
+import dcGalleryOverviewImg from '@/../public/res/数据中心/Screenshot 2025-10-16 at 16.12.02.png'
+import dcGalleryAlarmsImg from '@/../public/res/数据中心/Screenshot 2025-10-16 at 16.13.02.png'
+import dcGalleryEnergyImg from '@/../public/res/数据中心/Screenshot 2025-10-16 at 16.13.16.png'
+import dcGalleryMaintenanceImg from '@/../public/res/数据中心/Screenshot 2025-10-16 at 16.13.24.png'
 
 
 export const metadata = {
@@ -233,7 +237,7 @@ const DC_DELIVERY_STAGES: Array<{
         '在数字排演阶段完成桥架、竖井与检修空间的冲突校核。',
       ],
     },
-    image: '/res/数据中心/Screenshot 2025-10-16 at 16.11.18.png',
+    image: dataCenterDiagramImg,
   },
   {
     id: 'prefab',
@@ -296,22 +300,22 @@ const DC_GALLERY: Array<{
   {
     id: 'gallery-overview',
     caption: { en: 'Dual-bus dashboard for multiple halls', zh: '多机房双母线运行看板' },
-    image: '/res/数据中心/Screenshot 2025-10-16 at 16.12.02.png',
+    image: dcGalleryOverviewImg,
   },
   {
     id: 'gallery-alarms',
     caption: { en: 'Alarm center with traceable root cause', zh: '告警中心与溯源分析' },
-    image: '/res/数据中心/Screenshot 2025-10-16 at 16.13.02.png',
+    image: dcGalleryAlarmsImg,
   },
   {
     id: 'gallery-energy',
     caption: { en: 'Energy insight & branch loading', zh: '能耗洞察与支路负载分析' },
-    image: '/res/数据中心/Screenshot 2025-10-16 at 16.13.16.png',
+    image: dcGalleryEnergyImg,
   },
   {
     id: 'gallery-maint',
     caption: { en: 'Maintenance scheduling & work orders', zh: '运维排程与工单闭环' },
-    image: '/res/数据中心/Screenshot 2025-10-16 at 16.13.24.png',
+    image: dcGalleryMaintenanceImg,
   },
 ]
 
