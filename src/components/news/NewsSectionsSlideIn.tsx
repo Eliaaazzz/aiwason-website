@@ -90,12 +90,8 @@ export default function NewsSectionsSlideIn({
                     : it.date ?? (lang === 'en' ? 'Update' : '动态'))
 
                 return (
-                  <motion.article
+                  <article
                     key={it.id}
-                    initial={{ opacity: 0, x: 24 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, amount: 0.45 }}
-                    transition={{ duration: 0.5, ease: 'easeOut', delay: idx * 0.03 }}
                     className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center"
                   >
                     {/* Left: text */}
@@ -186,7 +182,7 @@ export default function NewsSectionsSlideIn({
                         )}
                       </div>
                     </div>
-                  </motion.article>
+                  </article>
                 )
               })}
             </div>

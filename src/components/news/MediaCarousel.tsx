@@ -220,7 +220,7 @@ export default function MediaCarousel({
                       alt={imageAlt}
                       fill
                       priority={index === 0}
-                      quality={isContain ? 95 : undefined}
+                      quality={isContain ? 85 : 65}
                       sizes={sizesHint}
                       className={clsx(
                         isContain ? 'object-contain select-none' : 'object-cover select-none',

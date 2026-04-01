@@ -41,11 +41,11 @@ export default function NewsGrid({
             {n.link && (
               <div className="mt-3">
                 {/https?:\/\//.test(n.link) ? (
-                  <a href={n.link} target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:underline">
+                  <a href={n.link} target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:underline" aria-label={`${locale === 'zh' ? '查看详情' : 'Read more'}: ${resolveText(n.title, locale)}`}>
                     {locale === 'zh' ? '查看详情' : 'Read more'}
                   </a>
                 ) : (
-                  <Link href={n.link} className="text-emerald-700 hover:underline">
+                  <Link href={n.link} className="text-emerald-700 hover:underline" aria-label={`${locale === 'zh' ? '查看详情' : 'Read more'}: ${resolveText(n.title, locale)}`}>
                     {locale === 'zh' ? '查看详情' : 'Read more'}
                   </Link>
                 )}

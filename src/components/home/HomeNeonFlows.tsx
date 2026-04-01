@@ -40,6 +40,7 @@ export default function HomeNeonFlows({
             alt="hero background"
             fill
             priority={currentSlide === 0}
+            quality={50}
             sizes="100vw"
             className="object-cover object-center"
           />
@@ -79,6 +80,8 @@ export default function HomeNeonFlows({
                 alt={lang === 'en' ? 'Company Visual' : '公司展示'}
                 fill
                 priority={currentSlide === 0}
+                fetchPriority={currentSlide === 0 ? 'high' : 'auto'}
+                quality={65}
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover rounded-2xl"
               />

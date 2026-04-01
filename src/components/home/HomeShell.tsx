@@ -633,14 +633,14 @@ export default function HomeShell({ defaultLanguage = 'en' }: HomeShellProps) {
   const newsGroups: NewsGroup[] = []
 
   // 把奖图标记为 contain，项目图 cover；容器高度统一为"大图"
-  const prepareCards = useCallback((cards: MediaCard[]): MediaCard[] => {
-    return cards.map((card) => {
+  const prepareCards = useCallback((cards: MediaCard[], sectionLabel: string): MediaCard[] => {
+    return cards.map((card, i) => {
       const srcText = typeof card.img === 'string' ? card.img : card.img.src
       const isAward = IS_AWARD.test(`${card.id} ${srcText}`)
       const objectPosition = OBJECT_POSITION_OVERRIDES[card.id]
       const normalized: MediaCard = {
         ...card,
-        title: '',
+        title: isAward ? `${sectionLabel} — Award` : `${sectionLabel}${cards.length > 1 ? ` (${i + 1})` : ''}`,
         fit: isAward ? 'contain' : 'cover',
         ...(objectPosition ? { objectPosition } : {}),
       }
@@ -711,7 +711,7 @@ export default function HomeShell({ defaultLanguage = 'en' }: HomeShellProps) {
       <div className="space-y-16 lg:space-y-20 py-16">
         {modelSections.map((section) => {
           const briefIntro = section.intro.length ? [section.intro[0]] : []
-          const cards = prepareCards(section.cards)
+          const cards = prepareCards(section.cards, section.sub ?? section.heading)
 
           return (
             <div key={section.id}>
