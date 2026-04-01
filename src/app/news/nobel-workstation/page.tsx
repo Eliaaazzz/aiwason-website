@@ -5,6 +5,10 @@ import coverNobel from '@/assets/News/诺贝尔创新工作站.png'
 export const metadata: Metadata = {
   title: 'Nobel Innovation Workstation | AIWASON',
   description: 'AIWASON collaborates with Nobel Laureate Prof. Hartmut Michel to accelerate fire-resistant intelligent busbar research and applications.',
+  alternates: {
+    canonical: '/news/nobel-workstation',
+    languages: { en: '/news/nobel-workstation?lang=en', zh: '/news/nobel-workstation?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

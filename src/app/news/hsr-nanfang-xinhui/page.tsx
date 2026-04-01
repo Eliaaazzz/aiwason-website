@@ -4,6 +4,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'High-speed Rail Nanfang Xinhui Factory | AIWASON',
   description: 'Marine-grade, vibration-damped busways with AI diagnostics for coastal environments.',
+  alternates: {
+    canonical: '/news/hsr-nanfang-xinhui',
+    languages: { en: '/news/hsr-nanfang-xinhui?lang=en', zh: '/news/hsr-nanfang-xinhui?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

@@ -105,7 +105,7 @@ export default function ProductsCenter({ defaultLang = 'en' }: ProductsCenterPro
   }
 
   return (
-    <div className="bg-white text-black">
+    <main id="main-content" className="bg-white text-black">
       {/* Header + language toggle */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 pt-14 pb-6 flex items-center justify-between">
         <div>
@@ -125,7 +125,7 @@ export default function ProductsCenter({ defaultLang = 'en' }: ProductsCenterPro
           aria-label="Toggle language"
           title={isEN ? '切换到中文' : 'Switch to English'}
         >
-          <Globe className="w-4 h-4 text-[#76B900]" />
+          <Globe className="w-4 h-4 text-[#4a7400]" />
           <span className="text-sm font-semibold">{isEN ? '中文' : 'EN'}</span>
         </button>
       </section>
@@ -300,6 +300,6 @@ export default function ProductsCenter({ defaultLang = 'en' }: ProductsCenterPro
           </aside>
         </div>
       </section>
-    </div>
+    </main>
   )
 }

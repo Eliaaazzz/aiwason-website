@@ -5,6 +5,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'BYD Intelligent Manufacturing Campus | AIWASON',
   description: '6300A busway supplies stamping, battery and final assembly with headroom for ramp-up.',
+  alternates: {
+    canonical: '/news/byd-smart-factory',
+    languages: { en: '/news/byd-smart-factory?lang=en', zh: '/news/byd-smart-factory?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

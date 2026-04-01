@@ -5,6 +5,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'Hengqin Port Comprehensive Transportation Hub | AIWASON',
   description: 'Integrated backbone for port/metro/bus with egress lighting and control-room visibility.',
+  alternates: {
+    canonical: '/news/hengqin-port-hub',
+    languages: { en: '/news/hengqin-port-hub?lang=en', zh: '/news/hengqin-port-hub?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

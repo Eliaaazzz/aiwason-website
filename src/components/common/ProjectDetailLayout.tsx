@@ -78,7 +78,7 @@ export default function ProjectDetailLayout({ project, lang }: ProjectDetailLayo
   const heroFit = project.heroFit ?? 'cover'
 
   return (
-    <main className="bg-white text-gray-900">
+    <main id="main-content" className="bg-white text-gray-900">
       {/* Header */}
       <section className="border-b border-[#cde9aa]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-8">

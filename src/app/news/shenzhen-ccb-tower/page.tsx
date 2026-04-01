@@ -4,6 +4,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'Shenzhen CCB Tower | AIWASON',
   description: 'Dual redundancy with biometric interlocks secures trading floors and vault branches.',
+  alternates: {
+    canonical: '/news/shenzhen-ccb-tower',
+    languages: { en: '/news/shenzhen-ccb-tower?lang=en', zh: '/news/shenzhen-ccb-tower?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

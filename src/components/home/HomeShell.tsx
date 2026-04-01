@@ -1,7 +1,6 @@
 // src/components/home/HomeShell.tsx
 'use client'
 
-import { motion } from 'framer-motion'
 import { Globe } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,9 +13,13 @@ import monitoringSlide from '@/assets/products/ai-monitoring-terminal.png'
 // ✅ 完美金鹰广场证书静态导入（防止高度跳变）
 import perfectPlazaPrize from '@/assets/images/perfectPlazaPrize.png'
 
-import MediaCarousel, { type MediaCard } from '../news/MediaCarousel'
-import NewsSectionsSlideIn, { type NewsGroup } from '../news/NewsSectionsSlideIn'
+import dynamic from 'next/dynamic'
+import type { MediaCard } from '../news/MediaCarousel'
+import type { NewsGroup } from '../news/NewsSectionsSlideIn'
 import HomeNeonFlows from './HomeNeonFlows'
+
+const MediaCarousel = dynamic(() => import('../news/MediaCarousel'), { ssr: false })
+const NewsSectionsSlideIn = dynamic(() => import('../news/NewsSectionsSlideIn'), { ssr: false })
 
 // ---------- 类型 ----------
 type ModelSection = {
@@ -646,9 +649,10 @@ export default function HomeShell({ defaultLanguage = 'en' }: HomeShellProps) {
   }, [])
 
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <main id="main-content" className="min-h-screen bg-white text-gray-900">
       {/* navbar */}
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-gray-200">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-gray-200">
+      <nav aria-label="Main navigation">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="h-16 lg:h-20 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3 group" aria-label="Home">
@@ -658,33 +662,30 @@ export default function HomeShell({ defaultLanguage = 'en' }: HomeShellProps) {
             </Link>
 
             <div className="hidden md:flex items-center space-x-8">
-              {(['news', 'products', 'solutions', 'about', 'contact'] as const).map((key, index) => {
+              {(['news', 'products', 'solutions', 'about', 'contact'] as const).map((key) => {
                 const label = t.nav[key]
                 const href = navHref[key] ?? '#'
                 return (
-                  <motion.div key={key} whileHover={{ scale: 1.05 }} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08 }}>
-                    <Link href={href} className="text-gray-700 hover:text-[#76B900] font-medium tracking-wide text-sm relative group transition-all duration-300">
-                      {label}
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#76B900] group-hover:w-full transition-all duration-300" />
-                    </Link>
-                  </motion.div>
+                  <Link key={key} href={href} className="text-gray-700 hover:text-[#4a7400] font-medium tracking-wide text-sm relative group transition-all duration-300 hover:scale-105">
+                    {label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#76B900] group-hover:w-full transition-all duration-300" />
+                  </Link>
                 )
               })}
             </div>
 
-            <motion.button
+            <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-[#76B900]/50 rounded-lg px-4 py-2 transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-[#76B900]/50 rounded-lg px-4 py-2 transition-all duration-300 hover:scale-105 active:scale-95"
               aria-label="Toggle language"
             >
-              <Globe className="w-4 h-4 text-[#76B900]" />
+              <Globe className="w-4 h-4 text-[#4a7400]" />
               <span className="text-sm font-semibold text-gray-700">{language === 'en' ? '中文' : 'EN'}</span>
-            </motion.button>
+            </button>
           </div>
         </div>
       </nav>
+      </header>
 
       {/* hero */}
       <section className="bg-neutral-950 text-white">
@@ -748,7 +749,7 @@ export default function HomeShell({ defaultLanguage = 'en' }: HomeShellProps) {
                             href={`${section.cta.href}?lang=${language}`}
                             className="inline-flex items-center gap-2 rounded-lg bg-[#9BE15D] px-5 py-3 text-sm font-semibold text-[#0f2100] shadow hover:bg-[#88d84a] transition"
                           >
-                            {language === 'en' ? 'Learn More' : '了解详情'}
+                            {section.cta.label}
                           </Link>
                         </div>
                       </header>
@@ -784,6 +785,6 @@ export default function HomeShell({ defaultLanguage = 'en' }: HomeShellProps) {
 
       {/* 新闻占位 */}
       <NewsSectionsSlideIn lang={language} groups={newsGroups} showMetaLabel={false} />
-    </div>
+    </main>
   )
 }

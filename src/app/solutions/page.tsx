@@ -1,4 +1,5 @@
 // src/app/solutions/page.tsx
+import type { Metadata } from 'next'
 import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 import LanguageSwitch from '@/components/common/LanguageSwitch'
@@ -29,9 +30,25 @@ import dcGalleryEnergyImg from '@/../public/res/数据中心/Screenshot 2025-10-
 import dcGalleryMaintenanceImg from '@/../public/res/数据中心/Screenshot 2025-10-16 at 16.13.24.png'
 
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Solutions | AIWASON',
   description: 'AIWASON intelligent busbar solutions covering cloud platform operations and data center systems.',
+  openGraph: {
+    type: 'website',
+    title: 'Solutions | AIWASON',
+    description: 'Intelligent busbar solutions for cloud platform operations and data center systems.',
+    images: [{ url: '/res/aiwason_fireproof_busbar_hero.png', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Solutions | AIWASON',
+    description: 'Intelligent busbar solutions for cloud platform operations and data center systems.',
+    images: ['/res/aiwason_fireproof_busbar_hero.png'],
+  },
+  alternates: {
+    canonical: '/solutions',
+    languages: { en: '/solutions?lang=en', zh: '/solutions?lang=zh' },
+  },
 }
 
 type SearchParams = { [key: string]: string | string[] | undefined }
@@ -438,7 +455,7 @@ export default async function SolutionsPage({
   const lang: Lang = langParam === 'en' || langParam === 'zh' ? (langParam as Lang) : 'en'
 
   return (
-    <main className="bg-white text-gray-900 min-h-screen">
+    <main id="main-content" className="bg-white text-gray-900 min-h-screen">
       {/* HERO */}
       <section
         id="overview"
@@ -491,7 +508,7 @@ export default async function SolutionsPage({
       {/* Cloud Platform */}
       <section id="cloud-platform" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="max-w-3xl">
-          <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
+          <p className="text-sm font-semibold tracking-[0.3em] text-[#4a7400]/80 uppercase">
             {lang === 'en' ? 'Cloud Platform' : '云平台'}
           </p>
           <h2 className="mt-3 text-3xl lg:text-4xl font-extrabold">
@@ -545,7 +562,7 @@ export default async function SolutionsPage({
       <section id="monitoring" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="space-y-10">
           <div className="space-y-4 max-w-3xl">
-            <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
+            <p className="text-sm font-semibold tracking-[0.3em] text-[#4a7400]/80 uppercase">
               {lang === 'en' ? 'Monitoring' : '监测预警'}
             </p>
             <h2 className="text-3xl lg:text-4xl font-extrabold">
@@ -601,7 +618,7 @@ export default async function SolutionsPage({
         <div className="space-y-12">
           <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
             <div className="space-y-6">
-              <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
+              <p className="text-sm font-semibold tracking-[0.3em] text-[#4a7400]/80 uppercase">
                 {lang === 'en' ? 'Data Center' : '数据中心'}
               </p>
               <h2 className="text-3xl lg:text-4xl font-extrabold">{interpret(DC_INTRO, lang).title}</h2>
@@ -699,7 +716,7 @@ export default async function SolutionsPage({
       <section id="dc-delivery" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="space-y-10">
           <div className="max-w-3xl space-y-4">
-            <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
+            <p className="text-sm font-semibold tracking-[0.3em] text-[#4a7400]/80 uppercase">
               {lang === 'en' ? 'Delivery' : '交付流程'}
             </p>
             <h2 className="text-3xl lg:text-4xl font-extrabold">
@@ -758,7 +775,7 @@ export default async function SolutionsPage({
       <section id="dc-gallery" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20">
         <div className="space-y-8">
           <div className="max-w-3xl space-y-4">
-            <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
+            <p className="text-sm font-semibold tracking-[0.3em] text-[#4a7400]/80 uppercase">
               {lang === 'en' ? 'Operations Gallery' : '运维场景'}
             </p>
             <h2 className="text-3xl lg:text-4xl font-extrabold">
@@ -800,7 +817,7 @@ export default async function SolutionsPage({
       {/* Structure */}
       <section id="dc-structure" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="max-w-3xl">
-          <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
+          <p className="text-sm font-semibold tracking-[0.3em] text-[#4a7400]/80 uppercase">
             {lang === 'en' ? 'Architecture' : '主体结构'}
           </p>
           <h2 className="mt-3 text-3xl lg:text-4xl font-extrabold">
@@ -877,7 +894,7 @@ export default async function SolutionsPage({
       {/* Custom plans */}
       <section id="dc-custom" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="max-w-3xl">
-          <p className="text-sm font-semibold tracking-[0.3em] text-[#76B900]/80 uppercase">
+          <p className="text-sm font-semibold tracking-[0.3em] text-[#4a7400]/80 uppercase">
             {lang === 'en' ? 'Custom Engineering' : '工程定制化方案'}
           </p>
           <h2 className="mt-3 text-3xl lg:text-4xl font-extrabold">

@@ -5,6 +5,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'Qianhai Information Hub Data Center | AIWASON',
   description: 'Tier-IV oriented dual-bus architecture with fiber-optic condition monitoring for continuous uptime.',
+  alternates: {
+    canonical: '/news/data-center',
+    languages: { en: '/news/data-center?lang=en', zh: '/news/data-center?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

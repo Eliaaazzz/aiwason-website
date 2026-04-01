@@ -5,6 +5,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'MixC Urban Complex Project | AIWASON',
   description: 'Large-scale commercial complex with integrated retail, office, and entertainment power distribution.',
+  alternates: {
+    canonical: '/news/mixc-complex',
+    languages: { en: '/news/mixc-complex?lang=en', zh: '/news/mixc-complex?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

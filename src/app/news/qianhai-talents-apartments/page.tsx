@@ -4,6 +4,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'Qianhai Talent Apartments | AIWASON',
   description: 'Low-loss, low-noise distribution with BIM-linked O&M for quality living.',
+  alternates: {
+    canonical: '/news/qianhai-talents-apartments',
+    languages: { en: '/news/qianhai-talents-apartments?lang=en', zh: '/news/qianhai-talents-apartments?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

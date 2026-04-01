@@ -4,6 +4,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'Qianhai Holding Investment Tower | AIWASON',
   description: 'Intelligent ring supports HQ offices and cultural venues with reserved capacity for future fit-outs.',
+  alternates: {
+    canonical: '/news/qianhai-holding-investment',
+    languages: { en: '/news/qianhai-holding-investment?lang=en', zh: '/news/qianhai-holding-investment?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

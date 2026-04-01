@@ -5,6 +5,10 @@ import coverCEEC from '@/assets/News/中欧企业对接会.png'
 export const metadata: Metadata = {
   title: 'China–CEEC SMEs Matchmaking | AIWASON',
   description: 'AIWASON showcases intelligent busbar innovation at the China–CEEC SMEs Matchmaking and Cooperation Achievements Exhibition in Budapest.',
+  alternates: {
+    canonical: '/news/ceec-matchmaking',
+    languages: { en: '/news/ceec-matchmaking?lang=en', zh: '/news/ceec-matchmaking?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

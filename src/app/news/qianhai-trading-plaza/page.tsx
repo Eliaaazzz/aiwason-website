@@ -4,6 +4,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'Qianhai Exchange Plaza | AIWASON',
   description: 'Backbone retrofit delivered in phases while trading floors remained in service.',
+  alternates: {
+    canonical: '/news/qianhai-trading-plaza',
+    languages: { en: '/news/qianhai-trading-plaza?lang=en', zh: '/news/qianhai-trading-plaza?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

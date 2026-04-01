@@ -5,6 +5,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'Shenzhen Global Intelligent Chip Center | AIWASON',
   description: 'High-density power distribution for semiconductor fabrication with ultra-clean supply and real-time monitoring.',
+  alternates: {
+    canonical: '/news/chip-center',
+    languages: { en: '/news/chip-center?lang=en', zh: '/news/chip-center?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

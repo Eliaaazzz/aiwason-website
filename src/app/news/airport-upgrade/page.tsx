@@ -5,6 +5,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'Shenzhen Bao\'an International Airport Upgrade | AIWASON',
   description: 'Fire-rated busways link terminals, data rooms and baggage systems for 24/7 operation.',
+  alternates: {
+    canonical: '/news/airport-upgrade',
+    languages: { en: '/news/airport-upgrade?lang=en', zh: '/news/airport-upgrade?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

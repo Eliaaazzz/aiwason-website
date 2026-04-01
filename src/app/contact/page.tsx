@@ -1,10 +1,27 @@
 // src/app/contact/page.tsx
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Globe } from 'lucide-react'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Contact | AIWASON',
   description: 'Get in touch with AIWASON for project consultations and technical support.',
+  openGraph: {
+    type: 'website',
+    title: 'Contact | AIWASON',
+    description: 'Contact AIWASON for project consultations, technical support, and partnerships.',
+    images: [{ url: '/res/aiwason_fireproof_busbar_hero.png', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact | AIWASON',
+    description: 'Contact AIWASON for project consultations, technical support, and partnerships.',
+    images: ['/res/aiwason_fireproof_busbar_hero.png'],
+  },
+  alternates: {
+    canonical: '/contact',
+    languages: { en: '/contact?lang=en', zh: '/contact?lang=zh' },
+  },
 }
 
 const CONTACTS = [
@@ -30,7 +47,7 @@ export default async function ContactPage({
   const toggleHref = `/contact?lang=${isEN ? 'zh' : 'en'}`
 
   return (
-    <main className="bg-white text-gray-900 min-h-dvh">
+    <main id="main-content" className="bg-white text-gray-900 min-h-dvh">
       <section className="max-w-7xl mx-auto px-6 lg:px-12 pt-20 pb-12">
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10">
           <div className="space-y-5 lg:max-w-2xl">

@@ -235,7 +235,7 @@ export default function MediaCarousel({
 
             if (card.href) {
               return (
-                <Link href={card.href} key={card.id} className="focus:outline-none block shrink-0">
+                <Link href={card.href} key={card.id} className="focus:outline-none block shrink-0" aria-label={card.title || card.id}>
                   <div
                     ref={(node) => {
                       cardRefs.current[index] = node

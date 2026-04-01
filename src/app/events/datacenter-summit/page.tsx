@@ -4,6 +4,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'Qianhai International Conference Center | AIWASON',
   description: 'Fire-resistant intelligent power distribution empowering large-scale conferences in Shenzhen Qianhai.',
+  alternates: {
+    canonical: '/events/datacenter-summit',
+    languages: { en: '/events/datacenter-summit?lang=en', zh: '/events/datacenter-summit?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

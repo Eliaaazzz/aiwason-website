@@ -4,6 +4,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'Poly Theater | AIWASON',
   description: 'Low-noise, fire-rated backbone serving stage power, FOH and broadcast with quick turnarounds.',
+  alternates: {
+    canonical: '/news/poly-theater',
+    languages: { en: '/news/poly-theater?lang=en', zh: '/news/poly-theater?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

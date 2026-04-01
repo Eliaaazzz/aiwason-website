@@ -3,8 +3,12 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 import coverCCTV from '@/assets/News/央视采访1.png'
 
 export const metadata: Metadata = {
-  title: 'CCTV “Credit China” Interview | AIWASON',
-  description: 'CCTV highlights AIWASON’s fire-resistant intelligent optoelectronic busbar technology and smart manufacturing deployment.',
+  title: 'CCTV "Credit China" Interview | AIWASON',
+  description: 'CCTV highlights AIWASON\u2019s fire-resistant intelligent optoelectronic busbar technology and smart manufacturing deployment.',
+  alternates: {
+    canonical: '/news/cctv-interview',
+    languages: { en: '/news/cctv-interview?lang=en', zh: '/news/cctv-interview?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

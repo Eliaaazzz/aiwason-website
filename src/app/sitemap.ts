@@ -12,6 +12,24 @@ const staticRoutes = [
   '/events/datacenter-summit',
 ]
 
+const modelProjectRoutes = [
+  '/Model%20projects/airport-upgrade',
+  '/Model%20projects/byd-smart-factory',
+  '/Model%20projects/ccb-smart-campus',
+  '/Model%20projects/data-center',
+  '/Model%20projects/dongguan-minying',
+  '/Model%20projects/guangzhou-smart-park',
+  '/Model%20projects/hengqin-port-hub',
+  '/Model%20projects/hotel-deployment',
+  '/Model%20projects/mixc-flagship',
+  '/Model%20projects/qianhai-holding-investment',
+  '/Model%20projects/qianhai-talents-apartments',
+  '/Model%20projects/qianhai-trading-plaza',
+  '/Model%20projects/rail-transit-power',
+  '/Model%20projects/smart-tower',
+  '/Model%20projects/zhongshan-perfect-plaza',
+]
+
 // Curated list of article-style pages under /news
 const newsRoutes = [
   '/news/airport-upgrade',
@@ -40,7 +58,7 @@ const newsRoutes = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
 
-  return [...staticRoutes, ...newsRoutes].map((path) => ({
+  return [...staticRoutes, ...newsRoutes, ...modelProjectRoutes].map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: now,
     changeFrequency: 'monthly',

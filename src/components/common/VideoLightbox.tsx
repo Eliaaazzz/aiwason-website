@@ -71,6 +71,7 @@ export default function VideoLightbox({
           <button
             ref={closeRef}
             onClick={onClose}
+            aria-label="Close"
             className="rounded-md px-3 py-1.5 text-sm font-semibold bg-white/10 hover:bg-white/20 text-white"
           >
             ×

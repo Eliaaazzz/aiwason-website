@@ -1,11 +1,16 @@
 // src/app/news/airport-upgrade/page.tsx
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import LanguageSwitch from '@/components/common/LanguageSwitch'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: '机场 | Airports',
   description: '机场能源系统升级：耐火智能母线提升航站楼运行效率与安全性。',
+  alternates: {
+    canonical: '/Model%20projects/airport-upgrade',
+    languages: { en: '/Model%20projects/airport-upgrade?lang=en', zh: '/Model%20projects/airport-upgrade?lang=zh' },
+  },
 }
 
 type SearchParams = { [key: string]: string | string[] | undefined }

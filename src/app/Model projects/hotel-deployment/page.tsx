@@ -1,11 +1,16 @@
 // src/app/news/hotel-deployment/page.tsx
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import LanguageSwitch from '@/components/common/LanguageSwitch'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: '五星级酒店 | Five-star Hotels',
   description: '高端酒店母线部署：可靠、低噪与高效的配电方案。',
+  alternates: {
+    canonical: '/Model%20projects/hotel-deployment',
+    languages: { en: '/Model%20projects/hotel-deployment?lang=en', zh: '/Model%20projects/hotel-deployment?lang=zh' },
+  },
 }
 
 type SearchParams = { [key: string]: string | string[] | undefined }

@@ -6,6 +6,10 @@ import LanguageSwitch from '@/components/common/LanguageSwitch'
 export const metadata = {
   title: '商业大楼 | Commercial Towers',
   description: '智慧商业大厦部署案例：高效、可靠、智能的母线系统。',
+  alternates: {
+    canonical: '/Model%20projects/smart-tower',
+    languages: { en: '/Model%20projects/smart-tower?lang=en', zh: '/Model%20projects/smart-tower?lang=zh' },
+  },
 }
 
 type SearchParams = { [key: string]: string | string[] | undefined }

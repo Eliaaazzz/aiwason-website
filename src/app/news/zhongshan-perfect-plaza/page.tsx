@@ -5,6 +5,10 @@ import perfectPlazaPrize from '@/assets/images/perfectPlazaPrize.png'
 export const metadata: Metadata = {
   title: 'Zhongshan Perfect Golden Eagle Plaza | AIWASON',
   description: 'Fire-rated ring bus serves mall, offices and hotel with maintenance possible under load.',
+  alternates: {
+    canonical: '/news/zhongshan-perfect-plaza',
+    languages: { en: '/news/zhongshan-perfect-plaza?lang=en', zh: '/news/zhongshan-perfect-plaza?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

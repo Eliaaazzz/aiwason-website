@@ -299,7 +299,7 @@ function Core() {
   }
 
   return (
-    <main className="min-h-dvh bg-white text-black">
+    <main id="main-content" className="min-h-dvh bg-white text-black">
       {/* Header */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 pt-14 pb-6 flex items-center justify-between">
         <div>

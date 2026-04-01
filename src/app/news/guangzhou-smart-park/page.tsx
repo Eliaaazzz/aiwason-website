@@ -4,6 +4,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'Guangzhou Smart Park | AIWASON',
   description: 'Campus busways enable flexible lab and office layouts with transparent energy data.',
+  alternates: {
+    canonical: '/news/guangzhou-smart-park',
+    languages: { en: '/news/guangzhou-smart-park?lang=en', zh: '/news/guangzhou-smart-park?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }

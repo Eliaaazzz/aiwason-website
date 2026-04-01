@@ -4,6 +4,10 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 export const metadata: Metadata = {
   title: 'Dongguan Minying International Trade Center | AIWASON',
   description: 'LEED-aligned upgrade with circuit-level metering and modular capacity additions.',
+  alternates: {
+    canonical: '/news/dongguan-minying',
+    languages: { en: '/news/dongguan-minying?lang=en', zh: '/news/dongguan-minying?lang=zh' },
+  },
 }
 
 type PageProps = { searchParams: Promise<{ lang?: string }> }
