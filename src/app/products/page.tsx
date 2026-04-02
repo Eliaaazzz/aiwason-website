@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import JsonLd from '@/components/common/JsonLd'
+import { defaultOgImage, siteUrl } from '@/lib/site'
 
 const ProductsCenter = dynamic(() => import('@/components/products/ProductsCenter'), {
   loading: () => (
@@ -19,16 +20,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     title: 'Products | AIWASON',
+    url: `${siteUrl}/products`,
     description:
       'Fire-resistant intelligent busbar products for data centers and critical infrastructure.',
-    images: [{ url: '/res/aiwason_fireproof_busbar_hero.png', width: 1200, height: 630 }],
+    images: [{ url: defaultOgImage, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Products | AIWASON',
     description:
       'Fire-resistant intelligent busbar products for data centers and critical infrastructure.',
-    images: ['/res/aiwason_fireproof_busbar_hero.png'],
+    images: [defaultOgImage],
   },
   alternates: {
     canonical: '/products',
@@ -59,7 +61,7 @@ export default async function ProductsPage({
           manufacturer: {
             '@type': 'Organization',
             name: 'AIWASON',
-            url: 'https://www.aiwason.com',
+            url: siteUrl,
           },
         }}
       />

@@ -2,16 +2,23 @@ import type { Metadata, Viewport } from 'next'
 import { headers } from 'next/headers'
 import './globals.css'
 import JsonLd from '@/components/common/JsonLd'
+import {
+  defaultOgImage,
+  siteDescription,
+  siteLogo,
+  siteName,
+  siteSummary,
+  siteUrl,
+} from '@/lib/site'
 
 export const metadata: Metadata = {
   title: {
-    default: 'AIWASON',
-    template: '%s | AIWASON',
+    default: siteName,
+    template: `%s | ${siteName}`,
   },
-  metadataBase: new URL('https://www.aiwason.com'),
-  description:
-    'AIWASON — 耐火智能光电母线系统 | Fire-resistant intelligent optoelectronic busbars for data centers and smart buildings.',
-  applicationName: 'AIWASON',
+  metadataBase: new URL(siteUrl),
+  description: siteDescription,
+  applicationName: siteName,
   keywords: [
     'AIWASON',
     '深圳智能芯片中心',
@@ -22,25 +29,24 @@ export const metadata: Metadata = {
     '耐火母线',
     '智能光电',
   ],
-  authors: [{ name: 'AIWASON' }],
-  creator: 'AIWASON',
-  publisher: 'AIWASON',
+  authors: [{ name: siteName }],
+  creator: siteName,
+  publisher: siteName,
   icons: {
     icon: '/favicon.ico',
   },
   openGraph: {
     type: 'website',
-    title: 'AIWASON',
-    description:
-      'Fire-resistant intelligent optoelectronic busbar technology powering data centers and smart buildings.',
-    images: [{ url: '/res/aiwason_fireproof_busbar_hero.png', width: 1200, height: 630 }],
+    title: siteName,
+    description: siteSummary,
+    url: siteUrl,
+    images: [{ url: defaultOgImage, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AIWASON',
-    description:
-      'Fire-resistant intelligent optoelectronic busbar technology powering data centers and smart buildings.',
-    images: ['/res/aiwason_fireproof_busbar_hero.png'],
+    title: siteName,
+    description: siteSummary,
+    images: [defaultOgImage],
   },
   alternates: {
     canonical: '/',
@@ -77,9 +83,9 @@ export default async function RootLayout({
           data={{
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'AIWASON',
-            url: 'https://www.aiwason.com',
-            logo: 'https://www.aiwason.com/res/logo.png',
+            name: siteName,
+            url: siteUrl,
+            logo: siteLogo,
             contactPoint: {
               '@type': 'ContactPoint',
               email: 'Elialiu760317@outlook.com',
