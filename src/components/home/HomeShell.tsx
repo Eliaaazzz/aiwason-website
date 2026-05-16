@@ -4,31 +4,11 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { NewsGroup } from '../news/NewsSectionsSlideIn'
+import HomeNeonFlows from './HomeNeonFlows'
+import NewsSectionsSlideIn, { type NewsGroup } from '../news/NewsSectionsSlideIn'
 import LanguageSwitcher from '../common/LanguageSwitcher'
 import { localePath, type Locale } from '@/lib/i18n'
-
-// Hero — keep SSR so the LCP image renders in initial HTML, but the
-// component is its own chunk so framer-motion + the SVG paths don't ship
-// in the main bundle.
-const HomeNeonFlows = dynamic(() => import('./HomeNeonFlows'))
-
-// Below the fold — defer entirely.
-const NewsSectionsSlideIn = dynamic(
-  () => import('../news/NewsSectionsSlideIn'),
-  {
-    ssr: false,
-    loading: () => (
-      <section
-        aria-busy="true"
-        className="min-h-[600px] bg-white"
-        style={{ contentVisibility: 'auto', containIntrinsicSize: '600px' }}
-      />
-    ),
-  },
-)
 
 
 

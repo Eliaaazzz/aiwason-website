@@ -76,11 +76,18 @@ export default function NewsSectionsSlideIn({
                     {it.href && (
                       <Link
                         href={it.href}
-                        className="inline-flex items-center gap-2 text-[#2b7a00] font-semibold hover:underline"
-                        aria-label={(lang === 'en' ? 'Read more: ' : '查看详情：') + it.title}
+                        className="inline-flex items-center gap-2 text-[#2b7a00] font-semibold hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#76B900] rounded-sm"
                       >
-                        {lang === 'en' ? 'Read more' : '查看详情'}
-                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <span aria-hidden="true">
+                          {lang === 'en' ? 'Read more' : '查看详情'}
+                        </span>
+                        {/* Unique, accessible link name: visible text stays
+                            short, but each link's textContent is unique per
+                            target so SEO heuristics see descriptive text. */}
+                        <span className="sr-only">
+                          {(lang === 'en' ? 'Read more about ' : '查看详情：') + it.title}
+                        </span>
+                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                         </svg>
                       </Link>
