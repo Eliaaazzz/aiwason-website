@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
 import { useState } from 'react'
 import { blurProps } from '@/lib/imageProps'
@@ -79,19 +79,24 @@ function ProjectCard({ project, eager }: { project: Project; eager: boolean }) {
 
   return (
     <motion.div
-      className="flex-shrink-0 group cursor-pointer"
+      className="flex-shrink-0 group"
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="relative w-80 h-60 rounded-2xl overflow-hidden border border-[#76B900]/20 shadow-lg bg-gray-100">
+      <div
+        className="relative w-[clamp(220px,72vw,320px)] aspect-[4/3] rounded-2xl overflow-hidden border border-[#76B900]/20 shadow-lg bg-gray-100"
+        role="group"
+        aria-roledescription="slide"
+        aria-label={project.title}
+      >
         {!imageError ? (
           <Image
             src={project.image}
             alt={project.title}
             fill
-            sizes="(max-width: 640px) 80vw, 320px"
+            sizes="(max-width: 640px) 72vw, (max-width: 1024px) 50vw, 320px"
             quality={75}
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            className="object-cover transition-transform duration-500 group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             priority={eager}
             loading={eager ? 'eager' : 'lazy'}
             onError={() => setImageError(true)}
@@ -111,8 +116,8 @@ function ProjectCard({ project, eager }: { project: Project; eager: boolean }) {
         )}
 
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-          <h3 className="text-white text-lg font-semibold">
+        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-black/80 to-transparent">
+          <h3 className="text-white text-base sm:text-lg font-semibold">
             {project.title}
           </h3>
         </div>
@@ -121,44 +126,81 @@ function ProjectCard({ project, eager }: { project: Project; eager: boolean }) {
   )
 }
 
-export default function ProjectShowcase() {
+export default function ProjectShowcase({ lang = 'zh' }: { lang?: 'en' | 'zh' }) {
+  const [paused, setPaused] = useState(false)
+  const reduce = useReducedMotion()
+  // Sum of card max-width (320px) + gap (24px) per slide.
+  const slideStep = 344
+
+  const heading = lang === 'en' ? 'Featured Projects' : '项目展示'
+  const pauseLabel = paused
+    ? lang === 'en' ? 'Play carousel' : '继续播放'
+    : lang === 'en' ? 'Pause carousel' : '暂停播放'
+
   return (
-    <div className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+    <div className="bg-white py-12 sm:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <motion.h2
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-black tracking-tight text-black mb-12 text-center"
+          className="text-3xl md:text-4xl font-black tracking-tight text-black mb-8 sm:mb-12 text-center"
         >
-          项目展示
+          {heading}
         </motion.h2>
-        
-        <div className="relative overflow-hidden">
-          <motion.div 
-            className="flex gap-6"
-            animate={{ 
-              x: [0, -(320 + 24) * projects.length] 
-            }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 30,
-                ease: "linear",
-              },
-            }}
+
+        <div
+          className="relative overflow-hidden"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label={lang === 'en' ? 'Featured project gallery' : '精选项目轮播'}
+          aria-live={paused || reduce ? 'polite' : 'off'}
+        >
+          <motion.div
+            className="flex gap-4 sm:gap-6"
+            animate={
+              reduce || paused
+                ? { x: 0 }
+                : { x: [0, -slideStep * projects.length] }
+            }
+            transition={
+              reduce || paused
+                ? { duration: 0 }
+                : {
+                    x: {
+                      repeat: Infinity,
+                      repeatType: 'loop',
+                      duration: 30,
+                      ease: 'linear',
+                    },
+                  }
+            }
           >
-            {/* 复制项目数组以实现无缝滚动 */}
             {[...projects, ...projects].map((project, index) => (
               <ProjectCard key={`${project.id}-${index}`} project={project} eager={index < 4} />
             ))}
           </motion.div>
+
+          <button
+            type="button"
+            onClick={() => setPaused((p) => !p)}
+            aria-label={pauseLabel}
+            className="absolute right-4 bottom-4 z-20 rounded-full bg-black/60 hover:bg-black/80 text-white w-10 h-10 inline-flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#76B900]"
+          >
+            {paused ? (
+              <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M5 4l11 6-11 6V4z" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M5 4h3v12H5zM12 4h3v12h-3z" />
+              </svg>
+            )}
+          </button>
         </div>
-        
-        {/* 渐变遮罩，用于视觉效果 */}
-        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent pointer-events-none z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent pointer-events-none z-10" />
+
+        <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-r from-white to-transparent pointer-events-none z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-white to-transparent pointer-events-none z-10" />
       </div>
     </div>
   )

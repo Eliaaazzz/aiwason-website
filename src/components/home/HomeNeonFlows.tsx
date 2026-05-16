@@ -1,7 +1,7 @@
 // components/home/HomeNeonFlows.tsx
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { blurProps } from '@/lib/imageProps'
@@ -32,7 +32,7 @@ export default function HomeNeonFlows({
   onSelectSlide,
   bgImage,
 }: Props) {
-  const pct = (currentSlide % totalSlides) / Math.max(1, totalSlides - 1)
+  const reduce = useReducedMotion()
 
   return (
     <section className="relative text-white overflow-hidden">
@@ -76,9 +76,9 @@ export default function HomeNeonFlows({
               fill="none"
               stroke="url(#g)"
               strokeWidth={2.2}
-              initial={{ pathLength: 0 }}
+              initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
               animate={{ pathLength: 1 }}
-              transition={{ duration: 2 + i * 0.25, ease: 'easeInOut' }}
+              transition={reduce ? { duration: 0 } : { duration: 2 + i * 0.25, ease: 'easeInOut' }}
               style={{ filter: 'drop-shadow(0 0 12px rgba(118,185,0,0.35))' }}
             />
           )
