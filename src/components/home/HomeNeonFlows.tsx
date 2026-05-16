@@ -4,6 +4,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import { blurProps } from '@/lib/imageProps'
 
 type Props = {
   lang?: 'zh' | 'en'
@@ -38,7 +39,16 @@ export default function HomeNeonFlows({
       {/* ✅ Background (NO negative z-index) */}
       {bgImage && (
         <div className="absolute inset-0 z-0">
-          <Image src={bgImage} alt="hero background" fill priority className="object-cover object-center" />
+          <Image
+            src={bgImage}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            quality={70}
+            className="object-cover object-center"
+            {...blurProps(bgImage)}
+          />
           {/* soft dark overlay so text stays readable */}
           <div className="absolute inset-0 bg-black/55" />
         </div>
@@ -108,7 +118,11 @@ export default function HomeNeonFlows({
                 alt={lang === 'en' ? 'Company Visual' : '公司展示'}
                 fill
                 priority
+                fetchPriority="high"
+                sizes="(max-width: 1024px) 100vw, 760px"
+                quality={80}
                 className="object-cover rounded-2xl"
+                {...blurProps(imageSrc)}
               />
               <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10 pointer-events-none" />
             </div>

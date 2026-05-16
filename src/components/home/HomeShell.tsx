@@ -160,8 +160,72 @@ export default function HomeShell() {
                 ? 'Safer and greener power distribution for modern communities.'
                 : '更安全、更绿色的社区配电示范项目。',
             date: '2025/05/03',
-            img: '/res/SheratonHotel.png',
-            href: '/news/residential-showcase',
+            img: '/projects/深圳-大中华喜来登酒店.jpg',
+            href: '/news/luxury-hotel-project',
+          },
+        ],
+      },
+      {
+        heading: language === 'en' ? 'Airport' : '机场',
+        items: [
+          {
+            id: 'airport-1',
+            title: language === 'en' ? 'Shenzhen Airport Smart Deployment' : '深圳机场智能母线部署',
+            desc:
+              language === 'en'
+                ? 'Smart power solutions for major airports.'
+                : '大型机场的智能配电解决方案。',
+            date: '2025/05/10',
+            img: '/projects/深圳机场.jpg',
+            href: '/news/airport-infrastructure',
+          },
+        ],
+      },
+      {
+        heading: language === 'en' ? 'High-Speed Rail' : '高铁',
+        items: [
+          {
+            id: 'railway-1',
+            title: language === 'en' ? 'Railway Station Power Upgrade' : '高铁站配电系统升级',
+            desc:
+              language === 'en'
+                ? 'Qingdao metro station intelligent renovation.'
+                : '青岛地铁站智能化改造。',
+            date: '2025/05/12',
+            img: '/projects/青岛地铁.jpg',
+            href: '/news/railway-station-upgrade',
+          },
+        ],
+      },
+      {
+        heading: language === 'en' ? 'Library' : '图书馆',
+        items: [
+          {
+            id: 'library-1',
+            title: language === 'en' ? 'STU Library Modernization' : '汕头大学图书馆现代化',
+            desc:
+              language === 'en'
+                ? 'Smart power solutions for modern libraries.'
+                : '现代图书馆的智能配电方案。',
+            date: '2025/05/14',
+            img: '/projects/汕头大学新图书馆—A.jpg',
+            href: '/news/library-modernization',
+          },
+        ],
+      },
+      {
+        heading: language === 'en' ? 'Theater' : '剧院',
+        items: [
+          {
+            id: 'theater-1',
+            title: language === 'en' ? 'Poly Theater Smart Lighting' : '保利剧院智能照明系统',
+            desc:
+              language === 'en'
+                ? 'Professional lighting power solutions for theaters.'
+                : '剧院专业级照明配电解决方案。',
+            date: '2025/05/16',
+            img: '/projects/保利剧院.jpg',
+            href: '/news/theater-lighting-system',
           },
         ],
       },
@@ -177,7 +241,16 @@ export default function HomeShell() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="h-16 lg:h-20 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3 group" aria-label="Home">
-              <Image src={LOGO_SRC} alt="AIWASON logo" width={64} height={48} priority className="object-contain" />
+              <Image
+                src={LOGO_SRC}
+                alt="AIWASON logo"
+                width={64}
+                height={48}
+                priority
+                fetchPriority="high"
+                sizes="64px"
+                className="object-contain"
+              />
               <span className="text-2xl font-black tracking-wide text-gray-900">AIWASON</span>
               <span className="text-xs text-gray-400">®</span>
             </Link>

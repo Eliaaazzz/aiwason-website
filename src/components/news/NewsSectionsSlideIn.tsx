@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { blurProps } from '@/lib/imageProps'
 
 export type NewsItem = {
   id: string | number
@@ -94,8 +95,11 @@ export default function NewsSectionsSlideIn({
                         alt={it.title}
                         fill
                         sizes="(min-width: 1024px) 560px, 100vw"
+                        quality={75}
                         className="object-cover"
-                        priority={idx < 2}
+                        priority={gi === 0 && idx === 0}
+                        loading={gi === 0 && idx === 0 ? 'eager' : 'lazy'}
+                        {...blurProps(it.img)}
                       />
                       {/* Brand accent line */}
                       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#76B900] to-transparent" />

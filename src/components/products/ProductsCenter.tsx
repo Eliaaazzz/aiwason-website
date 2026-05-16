@@ -126,9 +126,11 @@ export default function ProductsCenter({ lang = 'en' as Lang }) {
                       <div className="rounded-2xl border border-[#76B900]/30 bg-white p-2 shadow-sm">
                         <Image
                           src={p.src}
-                          // Use the new property name: altText
                           alt={t(p.altText, curLang)}
                           priority={i === 0}
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                          placeholder="blur"
+                          quality={75}
                           className="w-full h-auto object-contain rounded-xl"
                         />
                       </div>
