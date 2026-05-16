@@ -14,8 +14,6 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
     "@radix-ui/react-slot": "^1.2.3",
-    "@react-three/drei": "^10.7.3",
-    "@react-three/fiber": "^9.3.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.12",
@@ -25,7 +23,6 @@
     "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",
     "tailwind-merge": "^3.3.1",
-    "three": "^0.179.1",
     "zod": "^4.0.17"
   },
   "devDependencies": {
@@ -35,7 +32,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/three": "^0.179.0",
     "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
