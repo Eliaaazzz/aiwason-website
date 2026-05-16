@@ -38,10 +38,7 @@ export function buildMetadata(opts: BuildMetadataOptions): Metadata {
 
   return {
     metadataBase: new URL(SITE_URL),
-    title: {
-      default: localizedTitle,
-      template: `%s | ${SITE_NAME}`,
-    },
+    title: { absolute: localizedTitle },
     description: localizedDescription,
     keywords: keywords ? keywords[locale].split(',').map((s) => s.trim()) : undefined,
     applicationName: SITE_NAME,
