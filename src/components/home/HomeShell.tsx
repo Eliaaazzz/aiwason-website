@@ -2,13 +2,13 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Globe } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import HomeNeonFlows from './HomeNeonFlows'
 import NewsSectionsSlideIn, { type NewsGroup } from '../news/NewsSectionsSlideIn'
+import LanguageSwitcher from '../common/LanguageSwitcher'
+import { localePath, type Locale } from '@/lib/i18n'
 
 
 
@@ -48,19 +48,9 @@ const translations = {
 
 type Lang = keyof typeof translations
 
-export default function HomeShell() {
-  const router = useRouter()
-  const sp = useSearchParams()
-  const pathname = usePathname()
-  const language: Lang = (sp.get('lang') as Lang) || 'zh'
+export default function HomeShell({ lang = 'zh' as Lang }: { lang?: Locale }) {
+  const language: Lang = lang as Lang
   const t = translations[language]
-
-  const toggleLanguage = () => {
-    const next: Lang = language === 'en' ? 'zh' : 'en'
-    const params = new URLSearchParams(sp.toString())
-    params.set('lang', next)
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-  }
 
   const slides = useMemo(
     () => [
@@ -240,7 +230,7 @@ export default function HomeShell() {
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="h-16 lg:h-20 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 group" aria-label="Home">
+            <Link href={localePath(language)} className="flex items-center gap-3 group" aria-label="Home">
               <Image
                 src={LOGO_SRC}
                 alt="AIWASON logo"
@@ -252,15 +242,16 @@ export default function HomeShell() {
                 className="object-contain"
               />
               <span className="text-2xl font-black tracking-wide text-gray-900">AIWASON</span>
-              <span className="text-xs text-gray-400">®</span>
+              <span className="text-xs text-gray-400" aria-hidden="true">®</span>
             </Link>
 
             <div className="hidden md:flex items-center space-x-8">
               {Object.entries(t.nav).map(([key, label], index) => {
-                const href = key === 'products' ? '/products' : `#${key}`
+                const isPageLink = key === 'products' || key === 'about'
+                const href = isPageLink ? localePath(language, key) : `#${key}`
                 return (
                   <motion.div key={key} whileHover={{ scale: 1.05 }} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08 }}>
-                    <Link href={href} className="text-gray-700 hover:text-[#76B900] font-medium tracking-wide text-sm relative group transition-all duration-300">
+                    <Link href={href} className="text-gray-700 hover:text-[#76B900] font-medium tracking-wide text-sm relative group transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#76B900] rounded-sm">
                       {label}
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#76B900] group-hover:w-full transition-all duration-300" />
                     </Link>
@@ -269,18 +260,7 @@ export default function HomeShell() {
               })}
             </div>
 
-            <motion.button
-              onClick={toggleLanguage}
-              className="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-[#76B900]/50 rounded-lg px-4 py-2 transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Toggle language"
-            >
-              <Globe className="w-4 h-4 text-[#76B900]" />
-              <span className="text-sm font-semibold text-gray-700">
-                {language === 'en' ? '中文' : 'EN'}
-              </span>
-            </motion.button>
+            <LanguageSwitcher locale={language} />
           </div>
         </div>
       </nav>
@@ -292,7 +272,7 @@ export default function HomeShell() {
         imageSrc={tSlide.img}
         titleLines={Array.isArray(tSlide.lines) ? tSlide.lines : [t.hero.title1, t.hero.title2, t.hero.title3]}
         description={tSlide.subtitle}
-        cta={{ href: `/products?lang=${language}`, label: t.hero.exploreBtn }}
+        cta={{ href: localePath(language, 'products'), label: t.hero.exploreBtn }}
         currentSlide={idx}
         totalSlides={slides.length}
         progressMs={SLIDES_MS}

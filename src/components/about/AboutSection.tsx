@@ -1,9 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Globe } from 'lucide-react'
-import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useMemo } from 'react'
+import LanguageSwitcher from '../common/LanguageSwitcher'
+import type { Locale } from '@/lib/i18n'
 
 type Lang = 'en' | 'zh'
 
@@ -40,21 +40,8 @@ const COPY = {
   },
 } as const
 
-export default function AboutSection() {
-  const router = useRouter()
-  const sp = useSearchParams()
-  const pathname = usePathname()
-
-  const lang: Lang = (sp.get('lang') as Lang) || 'en'
-  const t = COPY[lang]
-
-  const toggleLang = () => {
-    const next: Lang = lang === 'en' ? 'zh' : 'en'
-    const params = new URLSearchParams(sp.toString())
-    params.set('lang', next)
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-  }
-
+export default function AboutSection({ lang = 'zh' as Lang }: { lang?: Locale }) {
+  const t = COPY[lang as Lang]
   const items = useMemo(() => t.paragraphs, [t])
 
   return (
@@ -66,17 +53,7 @@ export default function AboutSection() {
           <p className="mt-2 text-gray-700">{t.strap}</p>
         </div>
 
-        <button
-          onClick={toggleLang}
-          className="inline-flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-[#76B900]/50 rounded-lg px-4 py-2 transition-all duration-300"
-          aria-label="Toggle language"
-          title={lang === 'en' ? '切换到中文' : 'Switch to English'}
-        >
-          <Globe className="w-4 h-4 text-[#76B900]" />
-          <span className="text-sm font-semibold text-gray-700">
-            {lang === 'en' ? '中文' : 'EN'}
-          </span>
-        </button>
+        <LanguageSwitcher locale={lang} />
       </section>
 
       {/* Content (white bg, green divider like News section) */}
@@ -125,3 +102,30 @@ export default function AboutSection() {
     </div>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

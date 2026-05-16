@@ -4,8 +4,8 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Globe } from 'lucide-react'
+import LanguageSwitcher from '../common/LanguageSwitcher'
+import type { Locale } from '@/lib/i18n'
 
 // Correctly import the new data, types, and helper function
 import {
@@ -15,23 +15,9 @@ import {
   type Product,
 } from '@/data/productsContent'
 
-export default function ProductsCenter({ lang = 'en' as Lang }) {
-  const router = useRouter()
-  const sp = useSearchParams()
-  const pathname = usePathname()
-
-  // Default to English unless ?lang=zh is explicitly present
-  const initialLang = (sp.get('lang') as Lang) || lang || 'en'
-  const [curLang, setCurLang] = useState<Lang>(initialLang)
+export default function ProductsCenter({ lang = 'zh' as Lang }: { lang?: Locale }) {
+  const curLang = lang as Lang
   const isEN = curLang === 'en'
-
-  const toggleLang = () => {
-    const next: Lang = isEN ? 'zh' : 'en'
-    setCurLang(next)
-    const params = new URLSearchParams(sp.toString())
-    params.set('lang', next)
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-  }
 
   // Use the new constant name: PRODUCTS_DATA
   const products: readonly Product[] = useMemo(() => PRODUCTS_DATA, [])
@@ -79,15 +65,7 @@ export default function ProductsCenter({ lang = 'en' as Lang }) {
           </p>
         </div>
 
-        <button
-          onClick={toggleLang}
-          className="inline-flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-[#76B900]/30 hover:border-[#76B900]/60 rounded-lg px-4 py-2 transition-all duration-300"
-          aria-label="Toggle language"
-          title={isEN ? '切换到中文' : 'Switch to English'}
-        >
-          <Globe className="w-4 h-4 text-[#76B900]" />
-          <span className="text-sm font-semibold">{isEN ? '中文' : 'EN'}</span>
-        </button>
+        <LanguageSwitcher locale={curLang} />
       </section>
 
       {/* Content + sticky quick nav */}

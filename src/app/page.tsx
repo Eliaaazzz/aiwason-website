@@ -1,3 +1,6 @@
-// src/app/page.tsx  (Server Component)
-import HomeShell from '../components/home/HomeShell'
-export default function Page() { return <HomeShell /> }
+import { redirect } from 'next/navigation'
+import { DEFAULT_LOCALE } from '@/lib/i18n'
+
+export default function RootPage() {
+  redirect(`/${DEFAULT_LOCALE}`)
+}
