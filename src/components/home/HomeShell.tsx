@@ -85,7 +85,10 @@ export default function HomeShell({ lang = 'zh' as Lang }: { lang?: Locale }) {
   }, [slides.length])
 
   const tSlide = slides[idx]
-  const heroBg = idx === 0 ? '/res/background.png' : undefined
+  // Keep the hero background present on every slide so the section's
+  // visual size stays constant when the carousel advances. Previously
+  // only slide 0 had a background, making slides 1+ look shorter.
+  const heroBg = '/res/background.png'
 
   
     // 放在 HomeShell.tsx 里，靠近其它 useMemo 的位置
