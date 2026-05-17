@@ -268,9 +268,11 @@ export default function HomeShell({ lang = 'zh' as Lang }: { lang?: Locale }) {
         </div>
       </nav>
 
-      {/* hero */}
+      {/* hero — do NOT key on idx; that would unmount/remount the whole
+          section every 6 s, causing the bg image + right-side image to
+          re-fetch/re-decode and visibly shrink mid-swap. Props update is
+          enough — the internal progress bar already re-keys on currentSlide. */}
       <HomeNeonFlows
-        key = {idx}
         lang={language}
         imageSrc={tSlide.img}
         titleLines={Array.isArray(tSlide.lines) ? tSlide.lines : [t.hero.title1, t.hero.title2, t.hero.title3]}
