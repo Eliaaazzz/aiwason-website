@@ -46,8 +46,9 @@ export default async function ContactPage({
   const lang: Lang = locale === 'zh' ? 'zh' : 'en'
   const isEN = lang === 'en'
 
-  // 修复：补充语言切换链接
-  const toggleHref = `/contact?lang=${isEN ? 'zh' : 'en'}`
+  // Locale-prefixed toggle so the middleware doesn't bounce the request
+  // back to the current locale via the NEXT_LOCALE cookie.
+  const toggleHref = `/${isEN ? 'zh' : 'en'}/contact`
 
   return (
     <main id="main-content" className="bg-white text-gray-900 min-h-dvh">

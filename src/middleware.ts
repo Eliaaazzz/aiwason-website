@@ -1,8 +1,13 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
-const SUPPORTED = ['en', 'zh'] as const
-type Supported = (typeof SUPPORTED)[number]
+type Supported = 'en' | 'zh'
 const DEFAULT_LOCALE: Supported = 'zh'
+
+// Match file extensions in path tails so static assets bypass i18n
+// redirects without false-positives on slugs that legitimately contain
+// dots (e.g. "/news/v1.0-release"). Limited to common web file types.
+const FILE_EXT_RX =
+  /\.(?:js|mjs|css|map|json|xml|txt|webmanifest|ico|png|jpe?g|webp|avif|gif|svg|bmp|tiff?|heic|woff2?|ttf|otf|eot|mp4|webm|mov|mp3|wav|ogg|pdf|zip|gz|wasm)$/i
 
 function negotiateLocale(req: NextRequest): Supported {
   const cookie = req.cookies.get('NEXT_LOCALE')?.value
@@ -42,9 +47,8 @@ function shouldSkip(pathname: string): boolean {
   if (SKIP_EXACT.has(pathname)) return true
   if (pathname.startsWith('/opengraph-image')) return true
   if (SKIP_PREFIXES.some((p) => pathname.startsWith(p))) return true
-  // Files: anything with a `.` after the last `/`
-  const lastSegment = pathname.slice(pathname.lastIndexOf('/') + 1)
-  if (lastSegment.includes('.')) return true
+  // Static file extensions only — keeps slugs with dots routable.
+  if (FILE_EXT_RX.test(pathname)) return true
   return false
 }
 

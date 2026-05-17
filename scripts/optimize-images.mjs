@@ -24,7 +24,7 @@ const TARGET_DIRS = ['public/projects', 'public/res'];
 const MAX_WIDTH = 1920;
 const JPG_QUALITY = 82;
 const PNG_COMPRESSION = 9;
-const SKIP_BELOW_BYTES = 500 * 1024; // already-small files are left alone
+const SKIP_BELOW_BYTES = 100 * 1024; // already-small files are left alone
 const MANIFEST_NAME = '.optimized.json';
 const PLACEHOLDER_OUT = path.join(
   projectRoot,
