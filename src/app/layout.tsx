@@ -1,100 +1,62 @@
 import type { Metadata, Viewport } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
 import { headers } from 'next/headers'
 import './globals.css'
-import JsonLd from '@/components/common/JsonLd'
-import {
-  defaultOgImage,
-  siteDescription,
-  siteLogo,
-  siteName,
-  siteSummary,
-  siteUrl,
-} from '@/lib/site'
+import { DEFAULT_LOCALE, htmlLang, isLocale, type Locale } from '@/lib/i18n'
+import { SITE_NAME, SITE_URL } from '@/lib/seo'
+
+const geistSans = Geist({
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: siteName,
-    template: `%s | ${siteName}`,
+    default: `${SITE_NAME} — Fire-Resistant Intelligent Optoelectronic Busbars`,
+    template: `%s | ${SITE_NAME}`,
   },
-  metadataBase: new URL(siteUrl),
-  description: siteDescription,
-  applicationName: siteName,
-  keywords: [
-    'AIWASON',
-    '深圳智能芯片中心',
-    'fireproof busbar',
-    'optoelectronic',
-    'data center',
-    'smart building',
-    '耐火母线',
-    '智能光电',
-  ],
-  authors: [{ name: siteName }],
-  creator: siteName,
-  publisher: siteName,
-  icons: {
-    icon: '/favicon.ico',
-  },
-  openGraph: {
-    type: 'website',
-    title: siteName,
-    description: siteSummary,
-    url: siteUrl,
-    images: [{ url: defaultOgImage, width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: siteName,
-    description: siteSummary,
-    images: [defaultOgImage],
-  },
-  alternates: {
-    canonical: '/',
-    languages: {
-      en: '/?lang=en',
-      zh: '/?lang=zh',
-    },
-  },
+  description:
+    'Powering data centers and real estate with revolutionary fire-resistant intelligent optoelectronic busbar technology.',
+  applicationName: SITE_NAME,
+  formatDetection: { telephone: false, email: false, address: false },
+  icons: { icon: '/icon', apple: '/apple-icon' },
+  manifest: '/manifest.webmanifest',
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'dark light',
-  themeColor: '#000000',
+  themeColor: '#76B900',
+  width: 'device-width',
+  initialScale: 1,
+  colorScheme: 'light',
 }
 
 export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const headerList = await headers()
-  const locale = headerList.get('x-locale') || 'en'
+}: Readonly<{ children: React.ReactNode }>) {
+  const headersList = await headers()
+  const rawPath = headersList.get('x-pathname') ?? headersList.get('x-locale') ?? ''
+  const fromHeader = headersList.get('x-locale')
+  let locale: Locale = DEFAULT_LOCALE
+  if (isLocale(fromHeader)) {
+    locale = fromHeader
+  } else {
+    const match = rawPath.match(/^\/(en|zh)(\/|$)/)
+    if (match && isLocale(match[1])) locale = match[1]
+  }
 
   return (
-    <html lang={locale}>
-      <body className="antialiased font-sans">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:bg-white focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#76B900]"
-        >
-          Skip to content
-        </a>
-        <JsonLd
-          data={{
-            '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: siteName,
-            url: siteUrl,
-            logo: siteLogo,
-            contactPoint: {
-              '@type': 'ContactPoint',
-              email: 'Elialiu760317@outlook.com',
-              contactType: 'customer service',
-            },
-          }}
-        />
+    <html lang={htmlLang(locale)}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
     </html>
-  );
+  )
 }
