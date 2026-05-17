@@ -1,18 +1,26 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { blurProps } from '@/lib/imageProps'
 
 export type NewsItem = {
   id: string | number
   title: string
   desc: string
   date?: string
-  img: string
+  img: string | StaticImageData
   href?: string
   tag?: string
+  imageFit?: 'cover' | 'contain'
+  video?: {
+    title: string
+    poster: string | StaticImageData
+    sources?: { src: string; type: string }[]
+    embedUrl?: string
+  }
 }
 
 export type NewsGroup = {
@@ -24,7 +32,6 @@ export default function NewsSectionsSlideIn({
   lang = 'zh',
   anchorId = 'news',
   groups,
-  showMetaLabel = true,
 }: {
   lang?: 'zh' | 'en'
   anchorId?: string
@@ -65,13 +72,11 @@ export default function NewsSectionsSlideIn({
                 >
                   {/* Left: text block */}
                   <div className="order-1">
-                    {showMetaLabel && (
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="text-sm text-[#76B900] font-semibold tracking-wider uppercase">
-                          {it.tag ?? it.date ?? (lang === 'en' ? 'Update' : '动态')}
-                        </div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="text-sm text-[#76B900] font-semibold tracking-wider uppercase">
+                        {it.tag ?? it.date ?? (lang === 'en' ? 'Update' : '动态')}
                       </div>
-                    )}
+                    </div>
                     <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">
                       {it.title}
                     </h3>
@@ -79,11 +84,18 @@ export default function NewsSectionsSlideIn({
                     {it.href && (
                       <Link
                         href={it.href}
-                        className="inline-flex items-center gap-2 text-[#2b7a00] font-semibold hover:underline"
-                        aria-label={(lang === 'en' ? 'Read more: ' : '查看详情：') + it.title}
+                        className="inline-flex items-center gap-2 text-[#2b7a00] font-semibold hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#76B900] rounded-sm"
                       >
-                        {lang === 'en' ? 'Read more' : '查看详情'}
-                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <span aria-hidden="true">
+                          {lang === 'en' ? 'Read more' : '查看详情'}
+                        </span>
+                        {/* Unique, accessible link name: visible text stays
+                            short, but each link's textContent is unique per
+                            target so SEO heuristics see descriptive text. */}
+                        <span className="sr-only">
+                          {(lang === 'en' ? 'Read more about ' : '查看详情：') + it.title}
+                        </span>
+                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                         </svg>
                       </Link>
@@ -98,8 +110,11 @@ export default function NewsSectionsSlideIn({
                         alt={it.title}
                         fill
                         sizes="(min-width: 1024px) 560px, 100vw"
-                        className="object-cover object-top"
-                        priority={idx < 2}
+                        quality={75}
+                        className="object-cover"
+                        priority={gi === 0 && idx === 0}
+                        loading={gi === 0 && idx === 0 ? 'eager' : 'lazy'}
+                        {...blurProps(it.img)}
                       />
                       {/* Brand accent line */}
                       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#76B900] to-transparent" />

@@ -1,13 +1,14 @@
 // components/home/HomeNeonFlows.tsx
 'use client'
 
-import { motion } from 'framer-motion'
-import Image, { type StaticImageData } from 'next/image'
+import { motion, useReducedMotion } from 'framer-motion'
+import Image from 'next/image'
 import Link from 'next/link'
+import { blurProps } from '@/lib/imageProps'
 
 type Props = {
   lang?: 'zh' | 'en'
-  imageSrc: string | StaticImageData
+  imageSrc: string
   titleLines: string[]
   description: string
   cta?: { href: string; label: string }
@@ -16,7 +17,7 @@ type Props = {
   progressMs: number
   onSelectSlide?: (i: number) => void
   /** ✅ unified prop name */
-  bgImage?: string
+  bgImage?: string // e.g. "/res/background.png" or imported asset
 }
 
 export default function HomeNeonFlows({
@@ -31,52 +32,60 @@ export default function HomeNeonFlows({
   onSelectSlide,
   bgImage,
 }: Props) {
+  const reduce = useReducedMotion()
+
   return (
     <section className="relative text-white overflow-hidden">
+      {/* ✅ Background (NO negative z-index) */}
       {bgImage && (
         <div className="absolute inset-0 z-0">
           <Image
             src={bgImage}
-            alt="hero background"
+            alt=""
             fill
-            priority={currentSlide === 0}
+            priority
             sizes="100vw"
+            quality={70}
             className="object-cover object-center"
+            {...blurProps(bgImage)}
           />
+          {/* soft dark overlay so text stays readable */}
           <div className="absolute inset-0 bg-black/55" />
         </div>
       )}
 
-      {/* <svg
+      {/* glow lines on top of bg, below content */}
+      <svg
         className="pointer-events-none absolute right-0 top-0 h-[120%] w-[60%] opacity-60 z-[1]"
         viewBox="0 0 600 1000"
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id="neonFlowGradient" x1="0" x2="1">
-            <stop offset="0" stopColor="#76B900" stopOpacity="0" />
-            <stop offset="0.6" stopColor="#76B900" stopOpacity="0.45" />
+          <linearGradient id="g" x1="0" x2="1">
+            <stop offset="0" stopColor="#76B900" stopOpacity="0.0" />
+            <stop offset="0.6" stopColor="#76B900" stopOpacity="0.5" />
             <stop offset="1" stopColor="#9BE15D" stopOpacity="0.8" />
           </linearGradient>
         </defs>
-        {Array.from({ length: 6 }).map((_, i) => {
-          const path = `M ${560 - i * 35} 0 C ${400 - i * 30} 200, ${520 - i * 10} 500, ${380 - i * 25} 800`
+        {[...Array(6)].map((_, i) => {
+          const d = `M ${560 - i * 35} 0 C ${400 - i * 30} 200, ${520 - i * 10} 500, ${380 - i * 25} 800`
           return (
             <motion.path
               key={i}
-              d={path}
+              d={d}
               fill="none"
-              stroke="url(#neonFlowGradient)"
+              stroke="url(#g)"
               strokeWidth={2.2}
-              initial={{ pathLength: 0 }}
+              initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
               animate={{ pathLength: 1 }}
-              transition={{ duration: 2 + i * 0.25, ease: 'easeInOut' }}
+              transition={reduce ? { duration: 0 } : { duration: 2 + i * 0.25, ease: 'easeInOut' }}
               style={{ filter: 'drop-shadow(0 0 12px rgba(118,185,0,0.35))' }}
             />
           )
         })}
-      </svg> */}
+      </svg>
 
+      {/* ✅ Foreground content stays above bg and lines */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="grid grid-cols-12 gap-8 items-center">
           <div className="col-span-12 lg:col-span-6">
@@ -101,45 +110,37 @@ export default function HomeNeonFlows({
             )}
           </div>
 
+          {/* Company image (unchanged, still visible) */}
           <div className="col-span-12 lg:col-span-6">
             <div className="relative ml-auto w-full max-w-[760px] h-[260px] sm:h-[360px] lg:h-[480px]">
               <Image
                 src={imageSrc}
                 alt={lang === 'en' ? 'Company Visual' : '公司展示'}
                 fill
-                priority={currentSlide === 0}
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                priority
+                fetchPriority="high"
+                sizes="(max-width: 1024px) 100vw, 760px"
+                quality={80}
                 className="object-cover rounded-2xl"
+                {...blurProps(imageSrc)}
               />
               <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10 pointer-events-none" />
             </div>
           </div>
         </div>
 
+        {/* dots + progress */}
         <div className="mt-10 flex items-center gap-4">
           {Array.from({ length: totalSlides }).map((_, i) => {
             const active = i === currentSlide
             return (
-              <button
-                key={i}
-                onClick={() => onSelectSlide?.(i)}
-                aria-label={`Go to slide ${i + 1}`}
-                className="relative h-4 w-4"
-              >
-                <span
-                  className={`absolute inset-0 rounded-full transition-all ${active ? 'bg-[#76B900]' : 'bg-white/25'}`}
-                />
+              <button key={i} onClick={() => onSelectSlide?.(i)} aria-label={`Go to slide ${i + 1}`} className="relative h-4 w-4">
+                <span className={`absolute inset-0 rounded-full transition-all ${active ? 'bg-[#76B900]' : 'bg-white/25'}`} />
               </button>
             )
           })}
           <div className="ml-4 h-[3px] w-40 bg-white/20 overflow-hidden rounded">
-            <motion.div
-              className="h-full bg-[#76B900]"
-              key={currentSlide}
-              initial={{ width: 0 }}
-              animate={{ width: '100%' }}
-              transition={{ duration: progressMs / 1000, ease: 'linear' }}
-            />
+            <motion.div className="h-full bg-[#76B900]" key={currentSlide} initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: progressMs / 1000, ease: 'linear' }} />
           </div>
         </div>
       </div>

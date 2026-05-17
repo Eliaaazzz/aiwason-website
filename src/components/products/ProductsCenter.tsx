@@ -4,9 +4,8 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
-import type { MouseEvent } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Globe } from 'lucide-react'
+import LanguageSwitcher from '../common/LanguageSwitcher'
+import type { Locale } from '@/lib/i18n'
 
 // Correctly import the new data, types, and helper function
 import {
@@ -16,23 +15,9 @@ import {
   type Product,
 } from '@/data/productsContent'
 
-export default function ProductsCenter({ lang = 'en' as Lang }) {
-  const router = useRouter()
-  const sp = useSearchParams()
-  const pathname = usePathname()
-
-  // Default to English unless ?lang=zh is explicitly present
-  const initialLang = (sp.get('lang') as Lang) || lang || 'en'
-  const [curLang, setCurLang] = useState<Lang>(initialLang)
+export default function ProductsCenter({ lang = 'zh' as Lang }: { lang?: Locale }) {
+  const curLang = lang as Lang
   const isEN = curLang === 'en'
-
-  const toggleLang = () => {
-    const next: Lang = isEN ? 'zh' : 'en'
-    setCurLang(next)
-    const params = new URLSearchParams(sp.toString())
-    params.set('lang', next)
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-  }
 
   // Use the new constant name: PRODUCTS_DATA
   const products: readonly Product[] = useMemo(() => PRODUCTS_DATA, [])
@@ -46,14 +31,12 @@ export default function ProductsCenter({ lang = 'en' as Lang }) {
     if (!sections.length) return
     const io = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-        if (!visible.length) return
-        const id = visible[0].target.getAttribute('data-prod-id')
-        if (id) setActiveId(id)
+        entries.forEach((entry) => {
+          const id = entry.target.getAttribute('data-prod-id')
+          if (entry.isIntersecting && id) setActiveId(id)
+        })
       },
-      { rootMargin: '-30% 0px -40% 0px', threshold: [0.1, 0.25, 0.5] }
+      { rootMargin: '-40% 0px -50% 0px', threshold: 0.01 }
     )
     sections.forEach((el) => io.observe(el))
     return () => {
@@ -62,14 +45,9 @@ export default function ProductsCenter({ lang = 'en' as Lang }) {
     }
   }, [products]) // Dependency on products array
 
-  const onJump = (id: string) => (e: MouseEvent<HTMLAnchorElement>) => {
+  const onJump = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault()
-    const target = document.getElementById(id)
-    if (!target) return
-    const offset = 96 // keep section clear of sticky header / nav
-    const top = target.getBoundingClientRect().top + window.scrollY - offset
-    window.scrollTo({ top, behavior: 'smooth' })
-    setActiveId(id)
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   return (
@@ -87,15 +65,7 @@ export default function ProductsCenter({ lang = 'en' as Lang }) {
           </p>
         </div>
 
-        <button
-          onClick={toggleLang}
-          className="inline-flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-[#76B900]/30 hover:border-[#76B900]/60 rounded-lg px-4 py-2 transition-all duration-300"
-          aria-label="Toggle language"
-          title={isEN ? '切换到中文' : 'Switch to English'}
-        >
-          <Globe className="w-4 h-4 text-[#76B900]" />
-          <span className="text-sm font-semibold">{isEN ? '中文' : 'EN'}</span>
-        </button>
+        <LanguageSwitcher locale={curLang} />
       </section>
 
       {/* Content + sticky quick nav */}
@@ -106,16 +76,15 @@ export default function ProductsCenter({ lang = 'en' as Lang }) {
             <div className="space-y-24 lg:space-y-28">
               {products.map((p, i) => {
                 const fromRight = i % 2 === 0
-                const shouldAnimate = i !== 0 // keep first block visible immediately to avoid delayed render feel
                 return (
                   <motion.section
                     key={p.id}
                     id={p.id}
                     data-prod-id={p.id}
-                    className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10 scroll-mt-28"
-                    initial={shouldAnimate ? { opacity: 0, x: fromRight ? 140 : -140 } : undefined}
-                    whileInView={shouldAnimate ? { opacity: 1, x: 0 } : undefined}
-                    viewport={{ once: true, amount: 0.1 }}
+                    className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10"
+                    initial={{ opacity: 0, x: fromRight ? 140 : -140 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.35 }}
                     transition={{ duration: 0.75, ease: 'easeOut' }}
                   >
                     {/* Text block */}
@@ -135,10 +104,11 @@ export default function ProductsCenter({ lang = 'en' as Lang }) {
                       <div className="rounded-2xl border border-[#76B900]/30 bg-white p-2 shadow-sm">
                         <Image
                           src={p.src}
-                          // Use the new property name: altText
                           alt={t(p.altText, curLang)}
                           priority={i === 0}
-                          sizes="(min-width: 1024px) 560px, 100vw"
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                          placeholder="blur"
+                          quality={75}
                           className="w-full h-auto object-contain rounded-xl"
                         />
                       </div>

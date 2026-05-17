@@ -139,6 +139,7 @@ export default function LogoNeonCard({ logoSrc, className }: Props) {
           alt="Brand Logo"
           fill
           priority
+          sizes="(max-width: 768px) 80vw, 720px"
           className="object-contain p-10 md:p-12 lg:p-16"
           style={{
             filter:

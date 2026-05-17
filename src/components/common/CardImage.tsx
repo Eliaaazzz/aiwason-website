@@ -30,6 +30,8 @@ type Props = {
   sizes?: string
   /** Optional background helper when using contain mode */
   bgClassName?: string
+  /** Image quality 1-100 */
+  quality?: number
   /** Toggle inner ring accent */
   showRing?: boolean
 }
@@ -42,10 +44,11 @@ export default function CardImage({
   fit = 'cover',
   roundedClassName = 'rounded-2xl',
   className,
-  priority = true,
-  loading = 'eager',
-  fetchPriority = 'high',
+  priority = false,
+  loading = 'lazy',
+  fetchPriority = 'auto',
   sizes = '(min-width:1024px) 33vw, 100vw',
+  quality = 65,
   bgClassName = 'bg-transparent',
   showRing = true,
 }: Props) {
@@ -70,6 +73,7 @@ export default function CardImage({
         priority={priority}
         loading={loading}
         fetchPriority={fetchPriority}
+        quality={quality}
         sizes={sizes}
         className={clsx(fit === 'contain' ? 'object-contain' : 'object-cover', 'select-none')}
       />

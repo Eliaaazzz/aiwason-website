@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { newsProvider } from '../../lib/news';
 import type { Locale, NewsItem, LocalizedText } from '../../lib/types/news';
 import type { ReactNode } from 'react';
+import { blurProps } from '../../lib/imageProps';
 
 function CardWrap({
   href,
@@ -99,8 +100,12 @@ export default async function NewsHeroMosaic({
                 src={hero.cover || fallbackCover}
                 alt={safeText(hero.title, locale) || 'news'}
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                quality={80}
                 className="object-cover opacity-80 group-hover:opacity-90 transition"
                 priority
+                fetchPriority="high"
+                {...blurProps(hero.cover || fallbackCover)}
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
@@ -136,7 +141,10 @@ export default async function NewsHeroMosaic({
                   src={n.cover || fallbackCover}
                   alt={safeText(n.title, locale) || 'news'}
                   fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  quality={70}
                   className="object-cover group-hover:scale-[1.02] transition"
+                  {...blurProps(n.cover || fallbackCover)}
                 />
               </div>
               <div className="p-4">

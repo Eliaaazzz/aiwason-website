@@ -1,30 +1,66 @@
 // src/lib/types/news.ts
-// Centralized types for the news module
+import type { StaticImageData } from 'next/image'
 
-export type Locale = 'zh' | 'en'
+export type Locale = 'en' | 'zh'
+export type Localised<T> = { en: T; zh: T }
+export type LocalizedText = Localised<string>
 
-export type LocalizedText = {
-  zh: string
-  en: string
+export type VideoItem = {
+  id: string
+  type: 'standard' | 'interview'
+  title: Localised<string>
+  description?: Localised<string>
+  thumbnail: string | StaticImageData
+  videoUrl?: string
+  embedUrl?: string
+  date?: string
+  duration?: string
 }
 
-// Minimal shape used by UI components
 export type NewsItem = {
   id: string
-  slug: string
-  date: string // ISO date string
-  cover: string
-  title: LocalizedText | string
-  summary?: LocalizedText | string
-  tags?: string[]
+  title: Localised<string>
+  description?: Localised<string>
+  source?: string
+  link?: string
+  date: string
+  image?: string | StaticImageData
+  cover?: string | StaticImageData
   url?: string
+  summary?: Localised<string>
+  slug?: string
+  tags?: string[]
+}
+
+export type WeChatPost = {
+  id: string
+  title: Localised<string>
+  description?: Localised<string>
+  thumbnail: string | StaticImageData
+  link: string
+  date: string
+}
+
+export type WeChatAccount = {
+  name: Localised<string>
+  qr: string | StaticImageData
+  homepage?: string
+  intro?: Localised<string>
+}
+
+export type NewsPayload = {
+  videos: VideoItem[]
+  news: NewsItem[]
+  wechat: WeChatPost[]
+  wechatAccount: WeChatAccount
 }
 
 export type NewsListParams = {
+  locale?: Locale
+  limit?: number
+  tag?: string
   page?: number
   pageSize?: number
-  tag?: string
-  locale?: Locale
 }
 
 export type NewsListResult = {

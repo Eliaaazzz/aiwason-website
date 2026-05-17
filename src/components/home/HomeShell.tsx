@@ -2,24 +2,18 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Globe } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import monitoringSlide from '@/assets/images/ai-monitoring-terminal.png'
-import NewsSectionsSlideIn, { type NewsGroup } from '../news/NewsSectionsSlideIn'
 import HomeNeonFlows from './HomeNeonFlows'
+import NewsSectionsSlideIn, { type NewsGroup } from '../news/NewsSectionsSlideIn'
+import LanguageSwitcher from '../common/LanguageSwitcher'
+import { localePath, type Locale } from '@/lib/i18n'
+
 
 
 const LOGO_SRC = '/res/logo.png?v=20250825'
-const IMG_VER = '20250921'
-const BACKGROUND_IMG = `/res/background.png?v=${IMG_VER}`
-
-const monitoringSlideVersioned: typeof monitoringSlide = {
-  ...monitoringSlide,
-  src: `${monitoringSlide.src}?v=${IMG_VER}`,
-}
+const IMG_VER = '20250828';
 
 const translations = {
   en: {
@@ -54,70 +48,31 @@ const translations = {
 
 type Lang = keyof typeof translations
 
-export default function HomeShell() {
-  const router = useRouter()
-  const sp = useSearchParams()
-  const pathname = usePathname()
-  const language: Lang = (sp.get('lang') as Lang) || 'zh'
+export default function HomeShell({ lang = 'zh' as Lang }: { lang?: Locale }) {
+  const language: Lang = lang as Lang
   const t = translations[language]
-
-  const toggleLanguage = () => {
-    const next: Lang = language === 'en' ? 'zh' : 'en'
-    const params = new URLSearchParams(sp.toString())
-    params.set('lang', next)
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-  }
 
   const slides = useMemo(
     () => [
-      {
-        id: 0,
+      { id: 0,
         lines: language === 'en'
-          ? ['FIRE-RESISTANT', 'INTELLIGENT', 'OPTOELECTRONIC BUSBARS']
+          ? ['FIRE-RESISTANT', 'INTELLIGENT OPTOELECTRONIC', 'BUSBARS']
           : ['耐火', '智能光电', '母线系统'],
         subtitle: t.hero.subtitle,
         img: '/res/company.jpg',
-        bg: BACKGROUND_IMG,
       },
-      {
-        id: 1,
-        lines: language === 'en' ? ['AI-POWERED', 'REAL-TIME', 'MONITORING'] : ['AI智能监控', '实时分析', '预测维护'],
-        subtitle: t.features.smartMonitoring.description,
-        img: monitoringSlideVersioned,
-        bg: BACKGROUND_IMG,
-      },
-      {
-        id: 2,
-        lines: language === 'en' ? ['ULTRA-HIGH', 'EFFICIENCY', 'RELIABILITY'] : ['超高', '效率', '可靠性'],
-        subtitle: t.features.highEfficiency.description,
-        img: '/res/company.jpg',
-        bg: BACKGROUND_IMG,
-      },
-      {
-        id: 3,
-        lines: language === 'en' ? ['FIRE-RESISTANT', 'CORE', 'TECHNOLOGY'] : ['耐火', '核心', '技术'],
-        subtitle: t.features.fireResistant.description,
-        img: `/res/aiwason_fireproof_busbar_hero.png?v=${IMG_VER}`,
-        bg: BACKGROUND_IMG,
-      },
-      {
-        id: 4,
-        lines: language === 'en' ? ['SMART', 'BUILDINGS', 'READY'] : ['面向', '智能建筑', '应用'],
-        subtitle:
-          language === 'en'
-            ? 'Designed for IoT-enabled facilities with intelligent building management.'
-            : '为物联网与智能楼控系统而生。',
-        img: '/res/company.jpg',
-        bg: BACKGROUND_IMG,
-      },
+      { id: 1, lines: language === 'en' ? ['AI-POWERED', 'REAL-TIME', 'MONITORING'] : ['AI智能监控', '实时分析', '预测维护'],
+        subtitle: t.features.smartMonitoring.description, img: '/res/company.jpg' },
+      { id: 2, lines: language === 'en' ? ['ULTRA-HIGH', 'EFFICIENCY', 'RELIABILITY'] : ['超高', '效率', '可靠性'],
+        subtitle: t.features.highEfficiency.description, img: '/res/company.jpg' },
+      { id: 3, lines: language === 'en' ? ['FIRE-RESISTANT', 'CORE', 'TECHNOLOGY'] : ['耐火', '核心', '技术'],
+        subtitle: t.features.fireResistant.description,  img: `/res/aiwason_fireproof_busbar_hero.png?v=${IMG_VER}`},
+      { id: 4, lines: language === 'en' ? ['SMART', 'BUILDINGS', 'READY'] : ['面向', '智能建筑', '应用'],
+        subtitle: language === 'en'
+          ? 'Designed for IoT-enabled facilities with intelligent building management.'
+          : '为物联网与智能楼控系统而生。', img: '/res/company.jpg' },
     ],
-    [
-      language,
-      t.hero.subtitle,
-      t.features.smartMonitoring.description,
-      t.features.highEfficiency.description,
-      t.features.fireResistant.description,
-    ]
+    [language, t.hero.subtitle, t.features.smartMonitoring.description, t.features.highEfficiency.description, t.features.fireResistant.description]
   )
 
   const SLIDES_MS = 6000
@@ -130,32 +85,27 @@ export default function HomeShell() {
   }, [slides.length])
 
   const tSlide = slides[idx]
-  const navHref = useMemo(
-    () => ({
-      products: `/products?lang=${language}`,
-      solutions: `/solutions?lang=${language}`,
-      about: `/about?lang=${language}`,
-      contact: `/contact?lang=${language}`,
-    }),
-    [language],
-  )
+  // Keep the hero background present on every slide so the section's
+  // visual size stays constant when the carousel advances. Previously
+  // only slide 0 had a background, making slides 1+ look shorter.
+  const heroBg = '/res/background.png'
 
+  
+    // 放在 HomeShell.tsx 里，靠近其它 useMemo 的位置
   const newsGroups: NewsGroup[] = useMemo(
     () => [
-
       {
         heading: language === 'en' ? 'Conference Center' : '会议中心',
         items: [
           {
             id: 'meet-1',
-            title: language === 'en'
-              ? 'International Conference Center'
-              : '国际会议中心',
-            desc: language === 'en'
-              ? 'At Shenzhen Qianhai International Conference Center, AIWASON delivers high-efficiency, green, intelligent, and safe power distribution for large exhibitions and summits.'
-              : '深圳前海国际会议中心，AIWASON 以高效、绿色、智能、安全的输配电体系，支撑大型会展与国际峰会。',
+            title: language === 'en' ? 'Global Data Center Summit' : '国际数据中心大会',
+            desc:
+              language === 'en'
+                ? 'AIWASON presents fire-resistant intelligent optoelectronic busbar solutions.'
+                : '发布耐火智能光电母线解决方案。',
             date: '2025/05/18',
-            img: '/res/conference.jpg', 
+            img: '/res/conference.jpg',
             href: '/events/datacenter-summit',
           },
         ],
@@ -171,8 +121,8 @@ export default function HomeShell() {
                 ? 'Real-time analytics and predictive maintenance for mission-critical workloads.'
                 : '实时分析与预测性维护，保障关键业务连续性。',
             date: '2025/05/12',
-            img: '/res/dataCenter.jpeg',
-            href: '/news/data-center',
+            img: '/res/company.jpg',
+            href: '/news/ai-monitoring-upgrade',
           },
         ],
       },
@@ -192,71 +142,83 @@ export default function HomeShell() {
           },
         ],
       },
-      // 五星级酒店
       {
-        heading: language === 'en' ? 'Five-star Hotels' : '五星级酒店',
+        heading: language === 'en' ? 'Residential / Civil' : '民用建筑',
         items: [
           {
-            id: 'hotel-1',
-            title: language === 'en' ? 'Luxury Hotel Deployment' : '高端酒店母线部署',
+            id: 'res-1',
+            title: language === 'en' ? 'Residential Showcase' : '民用建筑改造示范',
             desc:
               language === 'en'
-                ? 'Reliable, quiet, and efficient power for premium hospitality.'
-                : '为高端酒店提供可靠、低噪与高效的配电方案。',
-            date: '2025/05/08',
-            img: '/res/gallery-44.jpg',
-            href: '/news/hotel-deployment',
+                ? 'Safer and greener power distribution for modern communities.'
+                : '更安全、更绿色的社区配电示范项目。',
+            date: '2025/05/03',
+            img: '/projects/深圳-大中华喜来登酒店.jpg',
+            href: '/news/luxury-hotel-project',
           },
         ],
       },
-      // 机场
       {
-        heading: language === 'en' ? 'Airports' : '机场',
+        heading: language === 'en' ? 'Airport' : '机场',
         items: [
           {
             id: 'airport-1',
-            title: language === 'en' ? 'Airport Energy Upgrade' : '机场能源系统升级',
+            title: language === 'en' ? 'Shenzhen Airport Smart Deployment' : '深圳机场智能母线部署',
             desc:
               language === 'en'
-                ? 'Enhance the operational efficiency and safety of the terminal building with fire-resistant intelligent photoelectric busbars.'
-                : '以耐火智能光电母线提升航站楼运行效率与安全性。',
-            date: '2025/04/28',
-            img: '/res/gallery-46.jpg',
-            href: '/news/airport-upgrade',
+                ? 'Smart power solutions for major airports.'
+                : '大型机场的智能配电解决方案。',
+            date: '2025/05/10',
+            img: '/projects/深圳机场.jpg',
+            href: '/news/airport-infrastructure',
           },
         ],
       },
-      // 高铁
       {
-        heading: language === 'en' ? 'High-speed Rail' : '高铁',
+        heading: language === 'en' ? 'High-Speed Rail' : '高铁',
         items: [
           {
-            id: 'hsr-1',
-            title: language === 'en' ? 'Rail Transit Power System' : '轨道交通配电系统',
+            id: 'railway-1',
+            title: language === 'en' ? 'Railway Station Power Upgrade' : '高铁站配电系统升级',
             desc:
               language === 'en'
-                ? 'Robust distribution for depots and stations with predictive monitoring.'
-                : '为车辆段与车站提供稳健配电与预测监测能力。',
-            date: '2025/04/20',
-            img: '/res/gallery-18.png',
-            href: '/news/rail-transit-power',
+                ? 'Qingdao metro station intelligent renovation.'
+                : '青岛地铁站智能化改造。',
+            date: '2025/05/12',
+            img: '/projects/青岛地铁.jpg',
+            href: '/news/railway-station-upgrade',
           },
         ],
       },
-      // 图书馆
       {
-        heading: language === 'en' ? 'Libraries' : '图书馆',
+        heading: language === 'en' ? 'Library' : '图书馆',
         items: [
           {
             id: 'library-1',
-            title: language === 'en' ? 'University Library Showcase' : '高校图书馆示范项目',
+            title: language === 'en' ? 'STU Library Modernization' : '汕头大学图书馆现代化',
             desc:
               language === 'en'
-                ? 'Silent, efficient power distribution for learning environments.'
-                : '面向学习空间的静音高效配电方案。',
-            date: '2025/04/12',
-            img: '/res/gallery-39.jpg',
-            href: '/news/library-showcase',
+                ? 'Smart power solutions for modern libraries.'
+                : '现代图书馆的智能配电方案。',
+            date: '2025/05/14',
+            img: '/projects/汕头大学新图书馆—A.jpg',
+            href: '/news/library-modernization',
+          },
+        ],
+      },
+      {
+        heading: language === 'en' ? 'Theater' : '剧院',
+        items: [
+          {
+            id: 'theater-1',
+            title: language === 'en' ? 'Poly Theater Smart Lighting' : '保利剧院智能照明系统',
+            desc:
+              language === 'en'
+                ? 'Professional lighting power solutions for theaters.'
+                : '剧院专业级照明配电解决方案。',
+            date: '2025/05/16',
+            img: '/projects/保利剧院.jpg',
+            href: '/news/theater-lighting-system',
           },
         ],
       },
@@ -266,23 +228,33 @@ export default function HomeShell() {
 
   
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-black text-white">
       {/* navbar */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="h-16 lg:h-20 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 group" aria-label="Home">
-              <Image src={LOGO_SRC} alt="AIWASON logo" width={64} height={48} priority className="object-contain" />
+            <Link href={localePath(language)} className="flex items-center gap-3 group" aria-label="Home">
+              <Image
+                src={LOGO_SRC}
+                alt="AIWASON logo"
+                width={64}
+                height={48}
+                priority
+                fetchPriority="high"
+                sizes="64px"
+                className="object-contain"
+              />
               <span className="text-2xl font-black tracking-wide text-gray-900">AIWASON</span>
-              <span className="text-xs text-gray-400">®</span>
+              <span className="text-xs text-gray-400" aria-hidden="true">®</span>
             </Link>
 
             <div className="hidden md:flex items-center space-x-8">
               {Object.entries(t.nav).map(([key, label], index) => {
-                const href = navHref[key as keyof typeof navHref] ?? '#'
+                const isPageLink = key === 'products' || key === 'about'
+                const href = isPageLink ? localePath(language, key) : `#${key}`
                 return (
                   <motion.div key={key} whileHover={{ scale: 1.05 }} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08 }}>
-                    <Link href={href} className="text-gray-700 hover:text-[#76B900] font-medium tracking-wide text-sm relative group transition-all duration-300">
+                    <Link href={href} className="text-gray-700 hover:text-[#76B900] font-medium tracking-wide text-sm relative group transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#76B900] rounded-sm">
                       {label}
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#76B900] group-hover:w-full transition-all duration-300" />
                     </Link>
@@ -291,43 +263,30 @@ export default function HomeShell() {
               })}
             </div>
 
-            <motion.button
-              onClick={toggleLanguage}
-              className="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-[#76B900]/50 rounded-lg px-4 py-2 transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Toggle language"
-            >
-              <Globe className="w-4 h-4 text-[#76B900]" />
-              <span className="text-sm font-semibold text-gray-700">
-                {language === 'en' ? '中文' : 'EN'}
-              </span>
-            </motion.button>
+            <LanguageSwitcher locale={language} />
           </div>
         </div>
       </nav>
 
-      {/* hero */}
-      <section className="bg-neutral-950 text-white">
-        <HomeNeonFlows
-          key={idx}
-          lang={language}
-          imageSrc={tSlide.img}
-          titleLines={Array.isArray(tSlide.lines) ? tSlide.lines : [t.hero.title1, t.hero.title2, t.hero.title3]}
-          description={tSlide.subtitle}
-          cta={{ href: `/products?lang=${language}`, label: t.hero.exploreBtn }}
-          currentSlide={idx}
-          totalSlides={slides.length}
-          progressMs={SLIDES_MS}
-          onSelectSlide={setIdx}
-          bgImage={tSlide.bg ?? BACKGROUND_IMG}
-        />
-      </section>
-
-      <div className="h-1 w-full bg-[#cde9aa]" aria-hidden="true" />
+      {/* hero — do NOT key on idx; that would unmount/remount the whole
+          section every 6 s, causing the bg image + right-side image to
+          re-fetch/re-decode and visibly shrink mid-swap. Props update is
+          enough — the internal progress bar already re-keys on currentSlide. */}
+      <HomeNeonFlows
+        lang={language}
+        imageSrc={tSlide.img}
+        titleLines={Array.isArray(tSlide.lines) ? tSlide.lines : [t.hero.title1, t.hero.title2, t.hero.title3]}
+        description={tSlide.subtitle}
+        cta={{ href: localePath(language, 'products'), label: t.hero.exploreBtn }}
+        currentSlide={idx}
+        totalSlides={slides.length}
+        progressMs={SLIDES_MS}
+        onSelectSlide={setIdx}
+        bgImage={heroBg}
+      />
 
       {/* news */}
-      <NewsSectionsSlideIn lang={language} groups={newsGroups} showMetaLabel={false} />
+      <NewsSectionsSlideIn lang={language} groups={newsGroups} />
     </div>
   )
 }
