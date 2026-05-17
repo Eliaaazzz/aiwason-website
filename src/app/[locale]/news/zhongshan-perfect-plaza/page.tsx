@@ -6,7 +6,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Zhongshan Perfect Golden Eagle Plaza | AIWASON',
+  title: 'Zhongshan Perfect Golden Eagle Plaza',
   description: 'Fire-rated ring bus serves mall, offices and hotel with maintenance possible under load.',
   alternates: {
     canonical: '/news/zhongshan-perfect-plaza',

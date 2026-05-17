@@ -5,7 +5,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'High-speed Rail Nanfang Xinhui Factory | AIWASON',
+  title: 'High-speed Rail Nanfang Xinhui Factory',
   description: 'Marine-grade, vibration-damped busways with AI diagnostics for coastal environments.',
   alternates: {
     canonical: '/news/hsr-nanfang-xinhui',

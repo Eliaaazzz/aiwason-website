@@ -5,7 +5,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Dongguan Minying International Trade Center | AIWASON',
+  title: 'Dongguan Minying International Trade Center',
   description: 'LEED-aligned upgrade with circuit-level metering and modular capacity additions.',
   alternates: {
     canonical: '/news/dongguan-minying',

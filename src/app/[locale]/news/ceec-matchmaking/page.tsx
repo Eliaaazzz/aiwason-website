@@ -6,7 +6,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'China–CEEC SMEs Matchmaking | AIWASON',
+  title: 'China–CEEC SMEs Matchmaking',
   description: 'AIWASON showcases intelligent busbar innovation at the China–CEEC SMEs Matchmaking and Cooperation Achievements Exhibition in Budapest.',
   alternates: {
     canonical: '/news/ceec-matchmaking',

@@ -6,7 +6,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'CCTV "Credit China" Interview | AIWASON',
+  title: 'CCTV "Credit China" Interview',
   description: 'CCTV highlights AIWASON\u2019s fire-resistant intelligent optoelectronic busbar technology and smart manufacturing deployment.',
   alternates: {
     canonical: '/news/cctv-interview',

@@ -5,7 +5,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Qianhai International Conference Center | AIWASON',
+  title: 'Qianhai International Conference Center',
   description: 'Fire-resistant intelligent power distribution empowering large-scale conferences in Shenzhen Qianhai.',
   alternates: {
     canonical: '/events/datacenter-summit',

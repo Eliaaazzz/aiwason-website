@@ -6,7 +6,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Shenzhen Bao\'an International Airport Upgrade | AIWASON',
+  title: 'Shenzhen Bao\'an International Airport Upgrade',
   description: 'Fire-rated busways link terminals, data rooms and baggage systems for 24/7 operation.',
   alternates: {
     canonical: '/news/airport-upgrade',

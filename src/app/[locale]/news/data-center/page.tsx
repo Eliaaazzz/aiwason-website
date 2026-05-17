@@ -6,7 +6,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Qianhai Information Hub Data Center | AIWASON',
+  title: 'Qianhai Information Hub Data Center',
   description: 'Tier-IV oriented dual-bus architecture with fiber-optic condition monitoring for continuous uptime.',
   alternates: {
     canonical: '/news/data-center',

@@ -5,7 +5,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Qianhai Talent Apartments | AIWASON',
+  title: 'Qianhai Talent Apartments',
   description: 'Low-loss, low-noise distribution with BIM-linked O&M for quality living.',
   alternates: {
     canonical: '/news/qianhai-talents-apartments',

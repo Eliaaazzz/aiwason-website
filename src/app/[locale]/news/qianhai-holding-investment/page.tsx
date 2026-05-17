@@ -5,7 +5,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Qianhai Holding Investment Tower | AIWASON',
+  title: 'Qianhai Holding Investment Tower',
   description: 'Intelligent ring supports HQ offices and cultural venues with reserved capacity for future fit-outs.',
   alternates: {
     canonical: '/news/qianhai-holding-investment',

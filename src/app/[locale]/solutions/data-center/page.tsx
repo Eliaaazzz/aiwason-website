@@ -10,7 +10,7 @@ const DataCenterPage = dynamic(
 )
 
 const TITLE = {
-  en: 'Data Center Solutions — Intelligent Busbar Systems | AIWASON',
+  en: 'Data Center Solutions — Intelligent Busbar Systems',
   zh: '数据中心解决方案 — 智能母线系统 | 艾默森',
 } as const
 

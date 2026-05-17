@@ -6,7 +6,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Shenzhen Global Intelligent Chip Center | AIWASON',
+  title: 'Shenzhen Global Intelligent Chip Center',
   description: 'High-density power distribution for semiconductor fabrication with ultra-clean supply and real-time monitoring.',
   alternates: {
     canonical: '/news/chip-center',

@@ -19,17 +19,17 @@ export function generateStaticParams() {
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'News & Media | AIWASON',
+  title: 'News & Media',
   description: 'Latest videos, featured stories, media coverage, and WeChat.',
   openGraph: {
     type: 'website',
-    title: 'News & Media | AIWASON',
+    title: 'News & Media',
     description: 'Latest videos, featured stories, media coverage, and WeChat.',
     images: [{ url: '/res/aiwason_fireproof_busbar_hero.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'News & Media | AIWASON',
+    title: 'News & Media',
     description: 'Latest videos, featured stories, media coverage, and WeChat.',
     images: ['/res/aiwason_fireproof_busbar_hero.png'],
   },

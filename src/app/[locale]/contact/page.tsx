@@ -8,17 +8,17 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Contact | AIWASON',
+  title: 'Contact',
   description: 'Get in touch with AIWASON for project consultations and technical support.',
   openGraph: {
     type: 'website',
-    title: 'Contact | AIWASON',
+    title: 'Contact',
     description: 'Contact AIWASON for project consultations, technical support, and partnerships.',
     images: [{ url: '/res/aiwason_fireproof_busbar_hero.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Contact | AIWASON',
+    title: 'Contact',
     description: 'Contact AIWASON for project consultations, technical support, and partnerships.',
     images: ['/res/aiwason_fireproof_busbar_hero.png'],
   },

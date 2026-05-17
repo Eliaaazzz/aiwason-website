@@ -6,7 +6,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'MixC Urban Complex Project | AIWASON',
+  title: 'MixC Urban Complex Project',
   description: 'Large-scale commercial complex with integrated retail, office, and entertainment power distribution.',
   alternates: {
     canonical: '/news/mixc-complex',

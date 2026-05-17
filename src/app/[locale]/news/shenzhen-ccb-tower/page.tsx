@@ -5,7 +5,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Shenzhen CCB Tower | AIWASON',
+  title: 'Shenzhen CCB Tower',
   description: 'Dual redundancy with biometric interlocks secures trading floors and vault branches.',
   alternates: {
     canonical: '/news/shenzhen-ccb-tower',

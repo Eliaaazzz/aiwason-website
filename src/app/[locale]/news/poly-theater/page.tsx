@@ -5,7 +5,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Poly Theater | AIWASON',
+  title: 'Poly Theater',
   description: 'Low-noise, fire-rated backbone serving stage power, FOH and broadcast with quick turnarounds.',
   alternates: {
     canonical: '/news/poly-theater',

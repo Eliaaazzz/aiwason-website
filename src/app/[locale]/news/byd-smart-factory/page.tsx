@@ -6,7 +6,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'BYD Intelligent Manufacturing Campus | AIWASON',
+  title: 'BYD Intelligent Manufacturing Campus',
   description: '6300A busway supplies stamping, battery and final assembly with headroom for ramp-up.',
   alternates: {
     canonical: '/news/byd-smart-factory',

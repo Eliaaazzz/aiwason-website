@@ -6,7 +6,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Hengqin Port Comprehensive Transportation Hub | AIWASON',
+  title: 'Hengqin Port Comprehensive Transportation Hub',
   description: 'Integrated backbone for port/metro/bus with egress lighting and control-room visibility.',
   alternates: {
     canonical: '/news/hengqin-port-hub',

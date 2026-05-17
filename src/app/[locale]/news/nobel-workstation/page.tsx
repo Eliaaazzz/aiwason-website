@@ -6,7 +6,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Nobel Innovation Workstation | AIWASON',
+  title: 'Nobel Innovation Workstation',
   description: 'AIWASON collaborates with Nobel Laureate Prof. Hartmut Michel to accelerate fire-resistant intelligent busbar research and applications.',
   alternates: {
     canonical: '/news/nobel-workstation',

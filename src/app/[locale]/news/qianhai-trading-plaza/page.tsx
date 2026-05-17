@@ -5,7 +5,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Qianhai Exchange Plaza | AIWASON',
+  title: 'Qianhai Exchange Plaza',
   description: 'Backbone retrofit delivered in phases while trading floors remained in service.',
   alternates: {
     canonical: '/news/qianhai-trading-plaza',

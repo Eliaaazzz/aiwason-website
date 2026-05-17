@@ -5,7 +5,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Guangzhou Smart Park | AIWASON',
+  title: 'Guangzhou Smart Park',
   description: 'Campus busways enable flexible lab and office layouts with transparent energy data.',
   alternates: {
     canonical: '/news/guangzhou-smart-park',
