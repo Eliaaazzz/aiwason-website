@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { blurProps } from '@/lib/imageProps'
@@ -11,9 +11,16 @@ export type NewsItem = {
   title: string
   desc: string
   date?: string
-  img: string
+  img: string | StaticImageData
   href?: string
   tag?: string
+  imageFit?: 'cover' | 'contain'
+  video?: {
+    title: string
+    poster: string | StaticImageData
+    sources?: { src: string; type: string }[]
+    embedUrl?: string
+  }
 }
 
 export type NewsGroup = {
@@ -29,6 +36,7 @@ export default function NewsSectionsSlideIn({
   lang?: 'zh' | 'en'
   anchorId?: string
   groups: NewsGroup[]
+  showMetaLabel?: boolean
 }) {
   return (
     <section id={anchorId} className="relative bg-white">

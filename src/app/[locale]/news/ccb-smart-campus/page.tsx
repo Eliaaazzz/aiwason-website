@@ -1,2 +1,3 @@
-export { metadata } from '@/app/news/shenzhen-ccb-tower/page'
-export { default } from '@/app/news/shenzhen-ccb-tower/page'
+export { metadata } from '@/app/[locale]/news/shenzhen-ccb-tower/page'
+export { default } from '@/app/[locale]/news/shenzhen-ccb-tower/page'
+export { generateStaticParams } from '@/app/[locale]/news/shenzhen-ccb-tower/page'

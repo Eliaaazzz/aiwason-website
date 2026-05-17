@@ -236,3 +236,7 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
     ],
   },
 ]
+
+export const PRODUCTS_DATA: readonly Product[] = PRODUCT_CATEGORIES.flatMap(
+  (category) => category.products,
+)

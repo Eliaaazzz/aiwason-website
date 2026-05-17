@@ -1,18 +1,28 @@
-import type { ImageProps } from 'next/image';
+import type { ImageProps, StaticImageData } from 'next/image';
 import { getPlaceholder } from './data/imagePlaceholders.generated';
 
 type BlurExtras = Pick<ImageProps, 'placeholder' | 'blurDataURL'>;
 
-export function blurProps(src: string | undefined | null): BlurExtras {
-  if (typeof src !== 'string' || src.length === 0) return {};
-  const clean = src.split('?')[0];
-  const entry = getPlaceholder(clean);
+type ImageSrc = string | StaticImageData | undefined | null;
+
+function toLookupKey(src: ImageSrc): string | null {
+  if (typeof src === 'string') return src.length ? src.split('?')[0] : null;
+  // StaticImageData already has its own blur metadata baked in by next/image
+  // — no need to look up our placeholder map. Returning null falls through
+  // to the empty object below so the static-import blur takes effect.
+  return null;
+}
+
+export function blurProps(src: ImageSrc): BlurExtras {
+  const key = toLookupKey(src);
+  if (!key) return {};
+  const entry = getPlaceholder(key);
   if (!entry) return {};
   return { placeholder: 'blur', blurDataURL: entry.blurDataURL };
 }
 
-export function imageDimensions(src: string | undefined | null) {
-  if (typeof src !== 'string' || src.length === 0) return undefined;
-  const clean = src.split('?')[0];
-  return getPlaceholder(clean);
+export function imageDimensions(src: ImageSrc) {
+  const key = toLookupKey(src);
+  if (!key) return undefined;
+  return getPlaceholder(key);
 }

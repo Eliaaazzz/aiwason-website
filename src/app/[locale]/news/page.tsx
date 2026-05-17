@@ -246,14 +246,18 @@ export default async function NewsPage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <MediaReportRail
             title={localise(copy.headings.media)}
-            items={mediaCards.map((m) => ({
-              id: m.id,
-              title: m.title,
-              href: m.href,
-              img: m.img,
-              date: m.date,
-              source: m.source,
-            }))}
+            items={mediaCards
+              .filter((m): m is typeof m & { href: string; img: NonNullable<typeof m.img> } =>
+                Boolean(m.href) && Boolean(m.img),
+              )
+              .map((m) => ({
+                id: m.id,
+                title: m.title,
+                href: m.href,
+                img: m.img,
+                date: m.date,
+                source: m.source,
+              }))}
             lang={lang}
           />
         </div>
