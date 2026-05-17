@@ -1,31 +1,71 @@
-export type Locale = 'zh' | 'en';
+// src/lib/types/news.ts
+import type { StaticImageData } from 'next/image'
 
-export interface LocalizedText {
-    zh: string;
-    en: string;
+export type Locale = 'en' | 'zh'
+export type Localised<T> = { en: T; zh: T }
+export type LocalizedText = Localised<string>
+
+export type VideoItem = {
+  id: string
+  type: 'standard' | 'interview'
+  title: Localised<string>
+  description?: Localised<string>
+  thumbnail: string | StaticImageData
+  videoUrl?: string
+  embedUrl?: string
+  date?: string
+  duration?: string
 }
 
-export interface NewsItem {
-    id: string;
-    slug: string;
-    date: string;
-    cover?: string;
-    title: LocalizedText;
-    summary: LocalizedText;
-    tags?: string[];
-    url?: string;
+export type NewsItem = {
+  id: string
+  title: Localised<string>
+  description?: Localised<string>
+  source?: string
+  link?: string
+  date: string
+  image?: string | StaticImageData
+  cover?: string | StaticImageData
+  url?: string
+  summary?: Localised<string>
+  slug?: string
+  tags?: string[]
 }
 
-export interface NewsListParams {
-    page?: number;
-    pageSize?: number;
-    tag?: string;
-    locale?: Locale;
+export type WeChatPost = {
+  id: string
+  title: Localised<string>
+  description?: Localised<string>
+  thumbnail: string | StaticImageData
+  link: string
+  date: string
 }
 
-export interface NewsListResult {
-    items: NewsItem[];
-    total: number;
-    page: number;
-    pageSize: number;
+export type WeChatAccount = {
+  name: Localised<string>
+  qr: string | StaticImageData
+  homepage?: string
+  intro?: Localised<string>
+}
+
+export type NewsPayload = {
+  videos: VideoItem[]
+  news: NewsItem[]
+  wechat: WeChatPost[]
+  wechatAccount: WeChatAccount
+}
+
+export type NewsListParams = {
+  locale?: Locale
+  limit?: number
+  tag?: string
+  page?: number
+  pageSize?: number
+}
+
+export type NewsListResult = {
+  items: NewsItem[]
+  total: number
+  page: number
+  pageSize: number
 }
