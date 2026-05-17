@@ -3,6 +3,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import LanguageSwitch from '@/components/common/LanguageSwitch'
 
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'zh' }]
+}
+
 export const metadata = {
   title: '商业大楼 | Commercial Towers',
   description: '智慧商业大厦部署案例：高效、可靠、智能的母线系统。',
@@ -12,12 +16,11 @@ export const metadata = {
   },
 }
 
-type SearchParams = { [key: string]: string | string[] | undefined }
-type PageProps = { searchParams?: Promise<SearchParams> }
+type PageProps = { params: Promise<{ locale: string }> }
 
-export default async function Page({ searchParams }: PageProps) {
-  const resolved = searchParams ? await searchParams : undefined
-  const lang = (resolved?.lang as 'zh' | 'en') || 'zh'
+export default async function Page({ params }: PageProps) {
+  const { locale } = await params
+  const lang = (locale === 'zh' ? 'zh' : 'en') as 'zh' | 'en'
 
   const detailCopy: Record<'zh' | 'en', string[]> = {
     en: [

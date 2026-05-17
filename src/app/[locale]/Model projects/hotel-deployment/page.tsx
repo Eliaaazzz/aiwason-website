@@ -4,6 +4,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import LanguageSwitch from '@/components/common/LanguageSwitch'
 
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'zh' }]
+}
+
 export const metadata: Metadata = {
   title: '五星级酒店 | Five-star Hotels',
   description: '高端酒店母线部署：可靠、低噪与高效的配电方案。',
@@ -13,12 +17,11 @@ export const metadata: Metadata = {
   },
 }
 
-type SearchParams = { [key: string]: string | string[] | undefined }
-type PageProps = { searchParams?: Promise<SearchParams> }
+type PageProps = { params: Promise<{ locale: string }> }
 
-export default async function Page({ searchParams }: PageProps) {
-  const resolved = searchParams ? await searchParams : undefined
-  const lang = (resolved?.lang as 'zh' | 'en') || 'zh'
+export default async function Page({ params }: PageProps) {
+  const { locale } = await params
+  const lang = (locale === 'zh' ? 'zh' : 'en') as 'zh' | 'en'
 
   const detailCopy: Record<'zh' | 'en', string[]> = {
     en: [

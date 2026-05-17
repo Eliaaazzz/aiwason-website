@@ -1,2 +1,3 @@
-export { metadata } from '@/app/news/ccb-smart-campus/page'
-export { default } from '@/app/news/ccb-smart-campus/page'
+export { metadata } from '@/app/[locale]/news/ccb-smart-campus/page'
+export { default } from '@/app/[locale]/news/ccb-smart-campus/page'
+export { generateStaticParams } from '@/app/[locale]/news/ccb-smart-campus/page'

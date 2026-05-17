@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 import perfectPlazaPrize from '@/assets/images/perfectPlazaPrize.png'
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'zh' }]
+}
 
 export const metadata: Metadata = {
   title: 'Zhongshan Perfect Golden Eagle Plaza | AIWASON',
@@ -11,7 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-type PageProps = { searchParams: Promise<{ lang?: string }> }
+type PageProps = { params: Promise<{ locale: string }> }
 
 const projectData: ProjectDetail = {
   id: 'zhongshan-perfect-plaza',
@@ -120,9 +123,9 @@ const projectData: ProjectDetail = {
   ],
 }
 
-export default async function ZhongshanPerfectPlazaPage({ searchParams }: PageProps) {
-  const sp = await searchParams
-  const lang = (sp?.lang === 'zh' ? 'zh' : 'en') as 'en' | 'zh'
+export default async function ZhongshanPerfectPlazaPage({ params }: PageProps) {
+  const { locale } = await params
+  const lang = (locale === 'zh' ? 'zh' : 'en') as 'en' | 'zh'
 
   return <ProjectDetailLayout project={projectData} lang={lang} />
 }

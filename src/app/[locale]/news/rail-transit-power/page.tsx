@@ -1,2 +1,3 @@
-export { metadata } from '@/app/news/hsr-nanfang-xinhui/page'
-export { default } from '@/app/news/hsr-nanfang-xinhui/page'
+export { metadata } from '@/app/[locale]/news/hsr-nanfang-xinhui/page'
+export { default } from '@/app/[locale]/news/hsr-nanfang-xinhui/page'
+export { generateStaticParams } from '@/app/[locale]/news/hsr-nanfang-xinhui/page'

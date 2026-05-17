@@ -12,6 +12,9 @@ import coverNobelMeet from '@/assets/News/诺奖教授个人.png'
 import coverCCTV1 from '@/assets/News/央视采访1.png'
 import wechatBanner from '@/assets/News/Wechat.png'
 import wechatQrcode from '@/assets/News/Wechat-QRcode.png'
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'zh' }]
+}
 
 export const revalidate = 3600
 
@@ -37,7 +40,7 @@ export const metadata: Metadata = {
 }
 
 // ✅ 按 Next.js 新规范：searchParams 是 Promise
-type PageProps = { searchParams: Promise<{ lang?: string }> }
+type PageProps = { params: Promise<{ locale: string }> }
 
 type Localised<T> = { en: T; zh: T }
 
@@ -45,10 +48,9 @@ const Separator = () => (
   <div className="h-2 w-full bg-gradient-to-r from-white via-[#aee28b] to-white" aria-hidden="true" />
 )
 
-export default async function NewsPage({ searchParams }: PageProps) {
-  // ✅ await searchParams，修复你控制台的报错
-  const sp = await searchParams
-  const lang = (sp?.lang === 'zh' ? 'zh' : 'en') as 'en' | 'zh'
+export default async function NewsPage({ params }: PageProps) {
+  const { locale } = await params
+  const lang = (locale === 'zh' ? 'zh' : 'en') as 'en' | 'zh'
 
   const { videos, news } = await getNewsData()
 

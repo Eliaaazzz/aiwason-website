@@ -3,6 +3,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Globe } from 'lucide-react'
 
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'zh' }]
+}
+
 export const metadata: Metadata = {
   title: 'Contact | AIWASON',
   description: 'Get in touch with AIWASON for project consultations and technical support.',
@@ -34,13 +38,12 @@ type SearchParams = Record<string, string | string[] | undefined>
 type Lang = 'en' | 'zh'
 
 export default async function ContactPage({
-  searchParams,
+  params,
 }: {
-  searchParams: Promise<SearchParams>
+  params: Promise<{ locale: string }>
 }) {
-  const sp = await searchParams
-  const langParam = sp?.lang
-  const lang: Lang = langParam === 'en' || langParam === 'zh' ? (langParam as Lang) : 'en'
+  const { locale } = await params
+  const lang: Lang = locale === 'zh' ? 'zh' : 'en'
   const isEN = lang === 'en'
 
   // 修复：补充语言切换链接

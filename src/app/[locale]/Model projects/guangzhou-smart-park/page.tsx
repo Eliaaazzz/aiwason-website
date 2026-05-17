@@ -1,2 +1,3 @@
-export { metadata } from '@/app/news/guangzhou-smart-park/page'
-export { default } from '@/app/news/guangzhou-smart-park/page'
+export { metadata } from '@/app/[locale]/news/guangzhou-smart-park/page'
+export { default } from '@/app/[locale]/news/guangzhou-smart-park/page'
+export { generateStaticParams } from '@/app/[locale]/news/guangzhou-smart-park/page'

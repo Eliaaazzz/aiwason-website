@@ -1,2 +1,3 @@
-export { metadata } from '@/app/news/hengqin-port-hub/page'
-export { default } from '@/app/news/hengqin-port-hub/page'
+export { metadata } from '@/app/[locale]/news/hengqin-port-hub/page'
+export { default } from '@/app/[locale]/news/hengqin-port-hub/page'
+export { generateStaticParams } from '@/app/[locale]/news/hengqin-port-hub/page'

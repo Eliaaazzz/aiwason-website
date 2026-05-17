@@ -1,6 +1,9 @@
 // src/app/news/mixc-complex/page.tsx
 import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'zh' }]
+}
 
 export const metadata: Metadata = {
   title: 'MixC Urban Complex Project | AIWASON',
@@ -11,7 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-type PageProps = { searchParams: Promise<{ lang?: string }> }
+type PageProps = { params: Promise<{ locale: string }> }
 
 const projectData: ProjectDetail = {
   id: 'mixc-complex',
@@ -118,9 +121,9 @@ const projectData: ProjectDetail = {
   ],
 }
 
-export default async function MixCComplexPage({ searchParams }: PageProps) {
-  const sp = await searchParams
-  const lang = (sp?.lang === 'zh' ? 'zh' : 'en') as 'en' | 'zh'
+export default async function MixCComplexPage({ params }: PageProps) {
+  const { locale } = await params
+  const lang = (locale === 'zh' ? 'zh' : 'en') as 'en' | 'zh'
 
   return <ProjectDetailLayout project={projectData} lang={lang} />
 }
