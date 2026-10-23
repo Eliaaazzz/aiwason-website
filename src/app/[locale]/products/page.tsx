@@ -32,11 +32,5 @@ export default async function ProductsPage({
   const { locale } = await params
   if (!isLocale(locale)) notFound()
   const lang = locale as Locale
-  return (
-    <>
-      <title>{TITLE[lang]}</title>
-      <meta name="description" content={DESCRIPTION[lang]} />
-      <ProductsCenter lang={lang} />
-    </>
-  )
+  return <ProductsCenter lang={lang} />
 }

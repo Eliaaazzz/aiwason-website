@@ -32,11 +32,5 @@ export default async function AboutPage({
   const { locale } = await params
   if (!isLocale(locale)) notFound()
   const lang = locale as Locale
-  return (
-    <>
-      <title>{TITLE[lang]}</title>
-      <meta name="description" content={DESCRIPTION[lang]} />
-      <AboutSection lang={lang} />
-    </>
-  )
+  return <AboutSection lang={lang} />
 }

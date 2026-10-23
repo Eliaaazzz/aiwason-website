@@ -34,7 +34,7 @@ export function buildMetadata(opts: BuildMetadataOptions): Metadata {
   const ogLocaleAlternate = locale === 'zh' ? 'en_US' : 'zh_CN';
   const cleanedPath = path.replace(/^\/+/, '');
   const canonicalPath = cleanedPath ? `/${locale}/${cleanedPath}` : `/${locale}`;
-  const ogImage = image ?? '/opengraph-image';
+  const ogImage = image ?? `/${locale}/opengraph-image`;
 
   return {
     metadataBase: new URL(SITE_URL),

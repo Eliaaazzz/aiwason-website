@@ -12,6 +12,7 @@
 // Run via `npm run prebuild` (chained into `npm run build`).
 
 import { promises as fs } from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
@@ -126,6 +127,10 @@ function formatBytes(n) {
   return `${(n / 1024 / 1024).toFixed(2)}MB`;
 }
 
+async function fingerprintFile(absPath) {
+  return createHash('sha256').update(await fs.readFile(absPath)).digest('hex');
+}
+
 async function main() {
   const allPlaceholders = {};
   let totalBefore = 0;
@@ -145,7 +150,7 @@ async function main() {
     for (const name of images) {
       const absPath = path.join(absDir, name);
       const stat = await fs.stat(absPath);
-      const fingerprint = `${stat.mtimeMs}-${stat.size}`;
+      const fingerprint = await fingerprintFile(absPath);
 
       let result;
       if (manifest[name]?.fingerprint === fingerprint) {
@@ -160,12 +165,14 @@ async function main() {
       }
 
       const finalStat = await fs.stat(absPath);
-      manifest[name] = {
-        fingerprint: `${finalStat.mtimeMs}-${finalStat.size}`,
-        sizeBefore: result.sizeBefore,
-        sizeAfter: finalStat.size,
-        optimizedAt: new Date().toISOString(),
-      };
+      if (result.reason !== 'cached') {
+        manifest[name] = {
+          fingerprint: await fingerprintFile(absPath),
+          sizeBefore: result.sizeBefore,
+          sizeAfter: finalStat.size,
+          optimizedAt: new Date().toISOString(),
+        };
+      }
 
       const before = result.sizeBefore ?? finalStat.size;
       const after = finalStat.size;

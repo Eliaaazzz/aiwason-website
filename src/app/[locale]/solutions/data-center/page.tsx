@@ -42,11 +42,5 @@ export default async function DataCenter({
   const { locale } = await params
   if (!isLocale(locale)) notFound()
   const lang = locale as Locale
-  return (
-    <>
-      <title>{TITLE[lang]}</title>
-      <meta name="description" content={DESCRIPTION[lang]} />
-      <DataCenterPage lang={lang} />
-    </>
-  )
+  return <DataCenterPage lang={lang} />
 }

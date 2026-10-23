@@ -59,9 +59,10 @@ export function middleware(req: NextRequest) {
   const existing = pathHasLocale(pathname)
 
   if (existing) {
-    const res = NextResponse.next()
-    res.headers.set('x-locale', existing)
-    res.headers.set('x-pathname', pathname)
+    const requestHeaders = new Headers(req.headers)
+    requestHeaders.set('x-locale', existing)
+    requestHeaders.set('x-pathname', pathname)
+    const res = NextResponse.next({ request: { headers: requestHeaders } })
     if (req.cookies.get('NEXT_LOCALE')?.value !== existing) {
       res.cookies.set('NEXT_LOCALE', existing, {
         path: '/',

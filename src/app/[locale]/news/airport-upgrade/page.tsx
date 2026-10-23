@@ -1,17 +1,20 @@
 // src/app/news/airport-upgrade/page.tsx
 import type { Metadata } from 'next'
+import { localeMetadata } from '@/lib/pageHelpers'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 export function generateStaticParams() {
   return [{ locale: 'en' }, { locale: 'zh' }]
 }
 
-export const metadata: Metadata = {
-  title: 'Shenzhen Bao\'an International Airport Upgrade',
-  description: 'Fire-rated busways link terminals, data rooms and baggage systems for 24/7 operation.',
-  alternates: {
-    canonical: '/news/airport-upgrade',
-    languages: { en: '/news/airport-upgrade?lang=en', zh: '/news/airport-upgrade?lang=zh' },
-  },
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  return localeMetadata(params, {
+    path: 'news/airport-upgrade',
+    title: projectData.title,
+    description: {
+      en: 'Fire-rated busways link terminals, data rooms and baggage systems for 24/7 operation.',
+      zh: '耐火母线连接航站楼、数据机房和行李处理系统，保障全天候运行。',
+    },
+  })
 }
 
 type PageProps = { params: Promise<{ locale: string }> }

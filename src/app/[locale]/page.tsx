@@ -41,15 +41,5 @@ export default async function HomePage({
   const { locale } = await params
   if (!isLocale(locale)) notFound()
   const lang = locale as Locale
-  return (
-    <>
-      {/* Render head-bound metadata as JSX so they enter the stream before
-          the client-component Suspense boundary; React 19 hoists them into
-          <head>. This is a workaround for Next 15's generateMetadata being
-          emitted late in the body of pages that render client components. */}
-      <title>{TITLE[lang]}</title>
-      <meta name="description" content={DESCRIPTION[lang]} />
-      <HomeShell lang={lang} />
-    </>
-  )
+  return <HomeShell lang={lang} />
 }

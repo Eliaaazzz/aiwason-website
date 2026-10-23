@@ -32,11 +32,5 @@ export default async function SolutionsPage({
   const { locale } = await params
   if (!isLocale(locale)) notFound()
   const lang = locale as Locale
-  return (
-    <>
-      <title>{TITLE[lang]}</title>
-      <meta name="description" content={DESCRIPTION[lang]} />
-      <SolutionsSection lang={lang} />
-    </>
-  )
+  return <SolutionsSection lang={lang} />
 }
