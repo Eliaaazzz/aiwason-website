@@ -1,66 +1,94 @@
 import type { MetadataRoute } from 'next'
-import { siteUrl } from '@/lib/site'
+import { LOCALES } from '@/lib/i18n'
+import { SITE_URL } from '@/lib/seo'
 
-const staticRoutes = [
-  '/',
-  '/about',
-  '/products',
-  '/solutions',
-  '/news',
-  '/contact',
-  '/events/datacenter-summit',
-]
+// Static (non-dynamic) routes that live under /[locale]/.
+// Listed once here; the sitemap emits both /en/<route> and /zh/<route>
+// with full hreflang alternates so search engines discover every
+// localized variant of each page.
+const STATIC_ROUTES = [
+  '',
+  'about',
+  'products',
+  'solutions',
+  'solutions/data-center',
+  'news',
+  'contact',
+  'events',
+] as const
 
-const modelProjectRoutes = [
-  '/Model%20projects/airport-upgrade',
-  '/Model%20projects/byd-smart-factory',
-  '/Model%20projects/ccb-smart-campus',
-  '/Model%20projects/data-center',
-  '/Model%20projects/dongguan-minying',
-  '/Model%20projects/guangzhou-smart-park',
-  '/Model%20projects/hengqin-port-hub',
-  '/Model%20projects/hotel-deployment',
-  '/Model%20projects/mixc-flagship',
-  '/Model%20projects/qianhai-holding-investment',
-  '/Model%20projects/qianhai-talents-apartments',
-  '/Model%20projects/qianhai-trading-plaza',
-  '/Model%20projects/rail-transit-power',
-  '/Model%20projects/smart-tower',
-  '/Model%20projects/zhongshan-perfect-plaza',
-]
+// Curated news article slugs (mirrors src/app/[locale]/news/<slug>/page.tsx)
+const NEWS_SLUGS = [
+  'airport-upgrade',
+  'byd-smart-factory',
+  'ccb-smart-campus',
+  'cctv-interview',
+  'ceec-matchmaking',
+  'chip-center',
+  'data-center',
+  'dongguan-minying',
+  'guangzhou-smart-park',
+  'hengqin-port-hub',
+  'hsr-nanfang-xinhui',
+  'mixc-complex',
+  'mixc-flagship',
+  'nobel-workstation',
+  'poly-theater',
+  'qianhai-holding-investment',
+  'qianhai-talents-apartments',
+  'qianhai-trading-plaza',
+  'rail-transit-power',
+  'shenzhen-ccb-tower',
+  'zhongshan-perfect-plaza',
+] as const
 
-// Curated list of article-style pages under /news
-const newsRoutes = [
-  '/news/airport-upgrade',
-  '/news/byd-smart-factory',
-  '/news/ccb-smart-campus',
-  '/news/cctv-interview',
-  '/news/ceec-matchmaking',
-  '/news/chip-center',
-  '/news/data-center',
-  '/news/dongguan-minying',
-  '/news/guangzhou-smart-park',
-  '/news/hengqin-port-hub',
-  '/news/hsr-nanfang-xinhui',
-  '/news/mixc-complex',
-  '/news/mixc-flagship',
-  '/news/nobel-workstation',
-  '/news/poly-theater',
-  '/news/qianhai-holding-investment',
-  '/news/qianhai-talents-apartments',
-  '/news/qianhai-trading-plaza',
-  '/news/rail-transit-power',
-  '/news/shenzhen-ccb-tower',
-  '/news/zhongshan-perfect-plaza',
-]
+// Model project slugs (mirrors src/app/[locale]/Model projects/<slug>/page.tsx).
+// Space + capital "M" gets URL-encoded as `Model%20projects` for the sitemap.
+const MODEL_PROJECT_SLUGS = [
+  'airport-upgrade',
+  'byd-smart-factory',
+  'ccb-smart-campus',
+  'data-center',
+  'dongguan-minying',
+  'guangzhou-smart-park',
+  'hengqin-port-hub',
+  'hotel-deployment',
+  'mixc-flagship',
+  'qianhai-holding-investment',
+  'qianhai-talents-apartments',
+  'qianhai-trading-plaza',
+  'rail-transit-power',
+  'smart-tower',
+  'zhongshan-perfect-plaza',
+] as const
+
+function entry(route: string, priority: number) {
+  const suffix = route ? `/${route}` : ''
+  return LOCALES.map((locale) => ({
+    url: `${SITE_URL}/${locale}${suffix}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority,
+    alternates: {
+      languages: {
+        ...Object.fromEntries(
+          LOCALES.map((l) => [
+            l === 'zh' ? 'zh-CN' : l,
+            `${SITE_URL}/${l}${suffix}`,
+          ]),
+        ),
+        'x-default': `${SITE_URL}/zh${suffix}`,
+      },
+    },
+  }))
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date()
-
-  return [...staticRoutes, ...newsRoutes, ...modelProjectRoutes].map((path) => ({
-    url: `${siteUrl}${path}`,
-    lastModified: now,
-    changeFrequency: 'monthly',
-    priority: path === '/' ? 1 : 0.7,
-  }))
+  return [
+    ...STATIC_ROUTES.flatMap((route) => entry(route, route === '' ? 1 : 0.8)),
+    ...NEWS_SLUGS.flatMap((slug) => entry(`news/${slug}`, 0.6)),
+    ...MODEL_PROJECT_SLUGS.flatMap((slug) =>
+      entry(`Model%20projects/${slug}`, 0.5),
+    ),
+  ]
 }

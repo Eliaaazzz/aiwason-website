@@ -1,790 +1,292 @@
-// src/components/home/HomeShell.tsx
+// components/home/HomeShell.tsx
 'use client'
 
-import { Globe } from 'lucide-react'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
-
-// hero 静态图
-import monitoringSlide from '@/assets/products/ai-monitoring-terminal.png'
-
-// ✅ 完美金鹰广场证书静态导入（防止高度跳变）
-import perfectPlazaPrize from '@/assets/images/perfectPlazaPrize.png'
-
-import dynamic from 'next/dynamic'
-import type { MediaCard } from '../news/MediaCarousel'
-import type { NewsGroup } from '../news/NewsSectionsSlideIn'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import HomeNeonFlows from './HomeNeonFlows'
-
-const MediaCarousel = dynamic(() => import('../news/MediaCarousel'), { ssr: false })
-const NewsSectionsSlideIn = dynamic(() => import('../news/NewsSectionsSlideIn'), { ssr: false })
-
-// ---------- 类型 ----------
-type ModelSection = {
-  id: string
-  heading: string
-  sub?: string
-  intro: string[]
-  bullets?: string[]
-  cta: { href: string; label: string }
-  cards: MediaCard[]
-}
-
-// 可选：针对个别图片用 cover 时需要上对齐等
-const OBJECT_POSITION_OVERRIDES: Record<string, string> = {
-  // 例：'urban-qhih-1': 'top',
-  'urban-dongguan-award-1': 'center',
-  'urban-dongguan-award-2': 'center',
-  'urban-zhongshan-award': 'center',
-}
-
-// 识别"奖项/证书"用的正则
-const IS_AWARD = /award|prize|LEED|证书|获奖/i
-
-// ---------------- EN (refined, professional) ----------------
-const MODEL_SECTIONS_EN: ModelSection[] = [
-  {
-    id: 'data-centers',
-    heading: 'Data Centers',
-    sub: 'Qianhai Information Hub',
-    intro: ['Tier-IV oriented dual-bus architecture with fiber-optic condition monitoring for continuous uptime.'],
-    bullets: [
-      'Independent dual busbars and sectionalization',
-      'Digital twin prepared for liquid-cooling expansion',
-      'Unified dashboard for energy and emergency response',
-    ],
-    cta: { href: '/news/data-center', label: 'Explore Data Center Story' },
-    cards: [
-      { id: 'dc-case', title: '', href: '/news/data-center', img: '/res/前海信息枢纽中心.jpg' },
-      { id: 'dc-award', title: '', href: '/news/data-center', img: '/res/数据中心获奖.png' },
-    ],
-  },
-
-  {
-    id: 'chip-center',
-    heading: 'Global Chip Centers',
-    sub: 'Shenzhen Global Intelligent Chip Center',
-    intro: ['High-density power distribution for semiconductor fabrication with ultra-clean supply and real-time monitoring.'],
-    bullets: ['Clean power for sensitive chip production', 'Redundant backbone for 24/7 operations', 'Smart monitoring for equipment protection'],
-    cta: { href: '/news/chip-center', label: 'Chip Center Case' },
-    cards: [{ id: 'chip-center-project', title: '', href: '/news/chip-center', img: '/res/深圳全球智能芯片中心.jpg' }],
-  },
- 
-  {
-    id: 'manufacturing',
-    heading: 'Large-scale Manufacturing',
-    sub: 'BYD Intelligent Manufacturing Campus',
-    intro: ['6300 A busway supplies stamping, battery and final assembly with headroom for ramp-up.'],
-    bullets: ['IP54 tap-offs for harsh bays', 'Arc-fault detection and isolation', 'Modular sections for quick expansion'],
-    cta: { href: '/news/byd-smart-factory', label: 'View Manufacturing Case' },
-    cards: [{ id: 'factory-project', title: '', href: '/news/byd-smart-factory', img: '/res/深圳比亚迪—A.jpg' }],
-  },
-  {
-    id: 'conference',
-    heading: 'Conference Centers',
-    sub: 'Qianhai International Conference Center',
-    intro: ['Redundant low-noise backbone supporting VIP summits and live broadcast operations.'],
-    bullets: ['Multi-hall looped redundancy', 'Scene presets with smart tap-offs', 'Maintainability without service interruption'],
-    cta: { href: '/events/datacenter-summit', label: 'Meet Global Leaders' },
-    cards: [
-      { id: 'conference-project', title: '', href: '/events/datacenter-summit', img: '/res/前海国际会议中心.jpg' },
-      { id: 'conference-award', title: '', href: '/events/datacenter-summit', img: '/res/横琴口岸鲁班奖.png' },
-    ],
-  },
-
-  // Featured large urban complexes
-  {
-    id: 'urban-mixc',
-    heading: 'Large Urban Complexes',
-    sub: 'MixC Flagship Complex',
-    intro: [
-      'Retail, office, and lifestyle zones stay live 24/7 with zoned intelligent busways and energy analytics.',
-    ],
-    cta: { href: '/news/mixc-complex', label: 'MixC Case Study' },
-    cards: [
-      { id: 'urban-mixc-project', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' },
-      { id: 'urban-mixc-award', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' },
-    ],
-  },
-  {
-    id: 'urban-gemdale',
-    heading: 'Large Urban Complexes',
-    sub: 'Gemdale The Grand MixC',
-    intro: [
-      'TOD complex with retail, offices, and leisure powered by high-capacity smart busways.',
-    ],
-    cta: { href: '/contact', label: 'Discuss Urban Complex Projects' },
-    cards: [
-      { id: 'urban-gemdale-project', title: '', href: '/contact', img: '/res/金地大百汇.jpg' },
-    ],
-  },
-  {
-    id: 'urban-meiyuan',
-    heading: 'Large Urban Complexes',
-    sub: 'Shenzhen Chengjian Meiyuan Renewal',
-    intro: [
-      'Urban renewal cluster using dual-loop distribution to support culture, retail, and residential programs.',
-    ],
-    cta: { href: '/contact', label: 'Discuss Urban Complex Projects' },
-    cards: [
-      { id: 'urban-meiyuan-project', title: '', href: '/contact', img: '/res/深圳城建梅园城市更新单元.jpg' },
-    ],
-  },
-  {
-    id: 'urban-guangzhou',
-    heading: 'Large Urban Complexes',
-    sub: 'Guangzhou Smart Park',
-    intro: [
-      'Campus-scale distribution links laboratories and offices with unified dashboards and resilient redundancy.',
-    ],
-    cta: { href: '/news/guangzhou-smart-park', label: 'Smart Park Story' },
-    cards: [
-      { id: 'urban-guangzhou-project', title: '', href: '/news/guangzhou-smart-park', img: '/res/广州新一代技术信息产业园.jpg' },
-      { id: 'urban-guangzhou-award', title: '', href: '/news/guangzhou-smart-park', img: '/res/世界智慧城市大奖.jpg' },
-    ],
-  },
-  {
-    id: 'urban-qh-trade',
-    heading: 'Large Urban Complexes',
-    sub: 'Qianhai Exchange Plaza',
-    intro: ['Phased retrofit keeps trading floors active while dual-redundant rings secure every expansion stage.'],
-    cta: { href: '/news/qianhai-trading-plaza', label: 'Trading Plaza Story' },
-    cards: [
-      { id: 'urban-qh-trade-project', title: '', href: '/news/qianhai-trading-plaza', img: '/res/前海交易广场.jpg' },
-      { id: 'urban-qh-trade-award', title: '', href: '/news/qianhai-trading-plaza', img: '/res/前海交易广场获奖.jpg' },
-    ],
-  },
-  {
-    id: 'urban-qh-hq',
-    heading: 'Large Urban Complexes',
-    sub: 'Qianhai Holding Investment Tower',
-    intro: ['Intelligent ring backs HQ offices and cultural venues with predictive maintenance and reserved capacity.'],
-    cta: { href: '/news/qianhai-holding-investment', label: 'Holding Tower Story' },
-    cards: [
-      { id: 'urban-qh-hq-project', title: '', href: '/news/qianhai-holding-investment', img: '/res/前海投控大厦.jpg' },
-      { id: 'urban-qh-hq-award', title: '', href: '/news/qianhai-holding-investment', img: '/res/qianhai-investment-prize.png' },
-    ],
-  },
-  {
-    id: 'urban-dongguan',
-    heading: 'Large Urban Complexes',
-    sub: 'Dongguan Minying International Trade Center',
-    intro: ['LEED-aligned upgrade delivers circuit-level metering and modular growth paths for the mixed-use hub.'],
-    cta: { href: '/news/dongguan-minying', label: 'Dongguan Minying Story' },
-    cards: [
-      { id: 'urban-dongguan-project', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸.jpg' },
-      { id: 'urban-dongguan-award-1', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED.jpg' },
-      { id: 'urban-dongguan-award-2', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-    ],
-  },
-  {
-    id: 'urban-zhongshan',
-    heading: 'Large Urban Complexes',
-    sub: 'Zhongshan Perfect Golden Eagle Plaza',
-    intro: ['Fire-rated rings serve mall, offices, and hotel with live-maintenance capability and at-scale metering.'],
-    cta: { href: '/news/zhongshan-perfect-plaza', label: 'Golden Eagle Story' },
-    cards: [
-      { id: 'urban-zhongshan-project', title: '', href: '/news/zhongshan-perfect-plaza', img: '/res/中山完美金鹰广场.jpg' },
-      { id: 'urban-zhongshan-award', title: '', href: '/news/zhongshan-perfect-plaza', img: perfectPlazaPrize },
-    ],
-  },
-
-  // Others
-  {
-    id: 'banking',
-    heading: 'Banking',
-    sub: 'Shenzhen China Construction Bank Tower',
-    intro: ['Dual redundancy with biometric interlocks secures trading floors and vault branches.'],
-    bullets: ['Biometric-controlled critical tap-offs', '2-hour fire-rated vault branches with thermal sensing'],
-    cta: { href: '/news/shenzhen-ccb-tower', label: 'CCB Tower' },
-    cards: [{ id: 'bank-ccb', title: '', href: '/news/shenzhen-ccb-tower', img: '/res/深圳建行大厦项目.jpg' }],
-  },
-  {
-    id: 'banking-jmrccb',
-    heading: 'Banking',
-    sub: 'Jiangmen Rural Commercial Bank HQ',
-    intro: ['Dual-level redundancy with branch-ready distribution supporting the bank’s new digital operations hub.'],
-    bullets: ['Tiered backbone for retail + data center loads', 'Fire-rated risers with smart metering at each branch node'],
-    cta: { href: '/news', label: 'Explore Banking Builds' },
-    cards: [{ id: 'bank-jmrccb', title: '', href: '/news', img: '/res/江门农商银行新总部大楼.jpg' }],
-  },
-  {
-    id: 'residential',
-    heading: 'Residential',
-    sub: 'Qianhai Talent Apartments',
-    intro: ['Low-loss, low-noise distribution with BIM-linked O&M for quality living.'],
-    bullets: ['Tenant-level metering and prepay', 'QR-linked asset records for faster maintenance'],
-    cta: { href: '/news/qianhai-talents-apartments', label: 'Talent Apartments' },
-    cards: [
-      { id: 'res-project', title: '', href: '/news/qianhai-talents-apartments', img: '/res/前海珑湾国际人才公寓.jpg' },
-      { id: 'res-award-bim', title: '', href: '/news/qianhai-talents-apartments', img: '/res/前海玲珑湾获奖.png' },
-      { id: 'res-award-steel', title: '', href: '/news/qianhai-talents-apartments', img: '/res/前海玲珑湾结构金奖.png' },
-    ],
-  },
-  {
-    id: 'airports',
-    heading: 'Airports',
-    sub: 'Shenzhen Bao\'an International Airport',
-    intro: ['Fire-rated busways link terminals, data rooms and baggage systems for 24/7 operation.'],
-    bullets: ['Terminal and airside redundancy', 'Condition monitoring of critical loads'],
-    cta: { href: '/news/airport-upgrade', label: 'Airport Upgrade' },
-    cards: [{ id: 'airport-project', title: '', href: '/news/airport-upgrade', img: '/res/gallery-46.jpg' }],
-  },
-  {
-    id: 'transport',
-    heading: 'Transport Hubs',
-    sub: 'Hengqin Port Hub',
-    intro: ['Integrated backbone for port/metro/bus with egress lighting and control-room visibility.'],
-    bullets: ['Redundant rings across all modes', 'Fiber sensing back to the command center'],
-    cta: { href: '/news/hengqin-port-hub', label: 'Hengqin Port Hub' },
-    cards: [
-      { id: 'transport-project', title: '', href: '/news/hengqin-port-hub', img: '/res/横琴口岸综合交通枢纽.jpg' },
-      { id: 'transport-award', title: '', href: '/news/hengqin-port-hub', img: '/res/横琴口岸鲁班奖.png' },
-    ],
-  },
-  {
-    id: 'hsr',
-    heading: 'High-speed Rail',
-    sub: 'High-speed Rail (Nanfang Xinhui Factory)',
-    intro: ['Marine-grade, vibration-damped busways with AI diagnostics for coastal environments.'],
-    bullets: ['Weatherproof, vibration-damped encapsulation', 'AI-assisted work orders from fiber data'],
-    cta: { href: '/news/hsr-nanfang-xinhui', label: 'Railway Factory' },
-    cards: [{ id: 'hsr-project', title: '', href: '/news/hsr-nanfang-xinhui', img: '/res/高铁（南方新会工厂）.jpg' }],
-  },
-  {
-    id: 'culture',
-    heading: 'Cultural Facilities',
-    sub: 'Poly Theater',
-    intro: ['Low-noise, fire-rated backbone serving stage power, FOH and broadcast with quick turnarounds.'],
-    bullets: ['Isolated feeds for audio, lighting and rigging', 'Zone-level metering for event settlement'],
-    cta: { href: '/news/poly-theater', label: 'Poly Theater Showcase' },
-    cards: [
-      { id: 'poly-theater-exterior', title: '', href: '/news/poly-theater', img: '/res/保利剧院.jpg' },
-      { id: 'poly-theater-hall', title: '', href: '/news/poly-theater', img: '/res/gallery-39.jpg' },
-    ],
-  },
-]
-
-// ---------------- ZH（专业、克制）----------------
-const MODEL_SECTIONS_ZH: ModelSection[] = [
-  {
-    id: 'data-centers',
-    heading: '数据中心',
-    sub: '前海信息枢纽中心',
-    intro: ['面向 Tier IV 的双母线架构，结合光纤状态监测，确保关键机房持续运行。'],
-    bullets: ['独立双路母线与分段切换', '预留液冷扩容的数字孪生', '能源与应急信息统一看板'],
-    cta: { href: '/news/data-center', label: '查看数据中心案例' },
-    cards: [
-      { id: 'dc-case', title: '', href: '/news/data-center', img: '/res/前海信息枢纽中心.jpg' },
-      { id: 'dc-award', title: '', href: '/news/data-center', img: '/res/数据中心获奖.png' },
-    ],
-  },
-  {
-    id: 'chip-center',
-    heading: '芯片中心',
-    sub: '深圳全球智能芯片中心',
-    intro: ['为半导体制造提供高密度配电，超洁净供电结合实时监控，保障芯片生产环境。'],
-    bullets: ['洁净电力适配敏感芯片生产', '冗余骨干支撑24/7运行', '智能监测保护设备安全'],
-    cta: { href: '/news/chip-center', label: '芯片中心案例' },
-    cards: [{ id: 'chip-center-project', title: '', href: '/news/chip-center', img: '/res/深圳全球智能芯片中心.jpg' }],
-  },
-  {
-    id: 'manufacturing',
-    heading: '大型制造',
-    sub: '比亚迪智能制造园区',
-    intro: ['6300A 母线覆盖冲压、电池与总装车间，满足产线爬坡与稳定供电需求。'],
-    bullets: ['IP54 分接箱适配车间环境', '电弧故障检测与隔离', '模块化段件便于扩容改造'],
-    cta: { href: '/news/byd-smart-factory', label: '查看制造案例' },
-    cards: [{ id: 'factory-project', title: '', href: '/news/byd-smart-factory', img: '/res/深圳比亚迪—A.jpg' }],
-  },
+import NewsSectionsSlideIn, { type NewsGroup } from '../news/NewsSectionsSlideIn'
+import LanguageSwitcher from '../common/LanguageSwitcher'
+import { localePath, type Locale } from '@/lib/i18n'
 
 
-  {
-    id: 'conference',
-    heading: '会议中心',
-    sub: '前海国际会议中心',
-    intro: ['冗余、低噪声电力骨干，支撑高规格会议与直播演播的稳定运行。'],
-    bullets: ['多会场环网冗余', '情景化智能分接与预案', '检修可不中断供电'],
-    cta: { href: '/events/datacenter-summit', label: '走进行业峰会' },
-    cards: [
-      { id: 'conference-project', title: '', href: '/events/datacenter-summit', img: '/res/前海国际会议中心.jpg' },
-      { id: 'conference-award', title: '', href: '/events/datacenter-summit', img: '/res/横琴口岸鲁班奖.png' },
-    ],
-  },
 
-  // 大型城市综合体精选项目
-  {
-    id: 'urban-mixc',
-    heading: '大型城市综合体',
-    sub: '万象汇旗舰综合体',
-    intro: ['商业、办公与生活动线共存，智能母线保障 24/7 运营并输出能耗洞察。'],
-    cta: { href: '/news/mixc-complex', label: '查看项目' },
-    cards: [
-      { id: 'urban-mixc-project', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' },
-      { id: 'urban-mixc-award', title: '', href: '/news/mixc-complex', img: '/res/万象汇.jpeg' },
-    ],
-  },
-  {
-    id: 'urban-gemdale',
-    heading: '大型城市综合体',
-    sub: '金地大百汇',
-    intro: ['TOD 综合体涵盖商业、办公与休闲，高容量智能母线保障高峰客流。'],
-    cta: { href: '/contact', label: '咨询城市综合体方案' },
-    cards: [
-      { id: 'urban-gemdale-project', title: '', href: '/contact', img: '/res/金地大百汇.jpg' },
-    ],
-  },
-  {
-    id: 'urban-meiyuan',
-    heading: '大型城市综合体',
-    sub: '深圳城建梅园城市更新单元',
-    intro: ['双回路智能母线支撑文化、商业与居住空间，满足城市更新需求。'],
-    cta: { href: '/contact', label: '咨询城市综合体方案' },
-    cards: [
-      { id: 'urban-meiyuan-project', title: '', href: '/contact', img: '/res/深圳城建梅园城市更新单元.jpg' },
-    ],
-  },
-  {
-    id: 'urban-guangzhou',
-    heading: '大型城市综合体',
-    sub: '广州智慧园区',
-    intro: ['园区级智能配电联通实验室与办公空间，统一看板掌握冗余与能耗。'],
-    cta: { href: '/news/guangzhou-smart-park', label: '查看项目' },
-    cards: [
-      { id: 'urban-guangzhou-project', title: '', href: '/news/guangzhou-smart-park', img: '/res/广州新一代技术信息产业园.jpg' },
-      { id: 'urban-guangzhou-award', title: '', href: '/news/guangzhou-smart-park', img: '/res/世界智慧城市大奖.jpg' },
-    ],
-  },
-  {
-    id: 'urban-qh-trade',
-    heading: '大型城市综合体',
-    sub: '前海交易广场',
-    intro: ['分期改造不中断交易，双路环网与智能监控守护金融核心。'],
-    cta: { href: '/news/qianhai-trading-plaza', label: '查看项目' },
-    cards: [
-      { id: 'urban-qh-trade-project', title: '', href: '/news/qianhai-trading-plaza', img: '/res/前海交易广场.jpg' },
-      { id: 'urban-qh-trade-award', title: '', href: '/news/qianhai-trading-plaza', img: '/res/前海交易广场获奖.jpg' },
-    ],
-  },
-  {
-    id: 'urban-qh-hq',
-    heading: '大型城市综合体',
-    sub: '前海投控大厦',
-    intro: ['智能环网覆盖总部办公与展厅，预测性维护与容量预留同步进行。'],
-    cta: { href: '/news/qianhai-holding-investment', label: '查看项目' },
-    cards: [
-      { id: 'urban-qh-hq-project', title: '', href: '/news/qianhai-holding-investment', img: '/res/前海投控大厦.jpg' },
-      { id: 'urban-qh-hq-award', title: '', href: '/news/qianhai-holding-investment', img: '/res/qianhai-investment-prize.png' },
-    ],
-  },
-  {
-    id: 'urban-dongguan',
-    heading: '大型城市综合体',
-    sub: '东莞民盈国贸中心',
-    intro: ['遵循 LEED 体系的回路级计量与模块化扩容，驱动绿色运营。'],
-    cta: { href: '/news/dongguan-minying', label: '查看项目' },
-    cards: [
-      { id: 'urban-dongguan-project', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸.jpg' },
-      { id: 'urban-dongguan-award-1', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED.jpg' },
-      { id: 'urban-dongguan-award-2', title: '', href: '/news/dongguan-minying', img: '/res/东莞民盈国贸美国LEED2.jpg' },
-    ],
-  },
-  {
-    id: 'urban-zhongshan',
-    heading: '大型城市综合体',
-    sub: '中山完美金鹰广场',
-    intro: ['耐火环网服务商业、办公与酒店，支持带电检修与分区计量。'],
-    cta: { href: '/news/zhongshan-perfect-plaza', label: '查看项目' },
-    cards: [
-      { id: 'urban-zhongshan-project', title: '', href: '/news/zhongshan-perfect-plaza', img: '/res/中山完美金鹰广场.jpg' },
-      { id: 'urban-zhongshan-award', title: '', href: '/news/zhongshan-perfect-plaza', img: perfectPlazaPrize },
-    ],
-  },
-
-  // 其他
-  {
-    id: 'banking',
-    heading: '银行系统',
-    sub: '深圳建行大厦',
-    intro: ['双路冗余并结合生物识别联动，保障交易大厅与金库支路的安全与连续性。'],
-    bullets: ['关键分接点生物识别联动', '金库支路 2 小时耐火并带温度监测'],
-    cta: { href: '/news/shenzhen-ccb-tower', label: '深圳建行大厦' },
-    cards: [{ id: 'bank-ccb', title: '', href: '/news/shenzhen-ccb-tower', img: '/res/深圳建行大厦项目.jpg' }],
-  },
-  {
-    id: 'banking-jmrccb',
-    heading: '银行系统',
-    sub: '江门农商银行总部大楼',
-    intro: ['双回路干线贯通营业、研发与数据中心空间，兼顾分行支路的远程管理。'],
-    bullets: ['分层干线支撑零售+数据中心负载', '耐火竖井结合智能计量覆盖各支行节点'],
-    cta: { href: '/news', label: '查看更多银行项目' },
-    cards: [{ id: 'bank-jmrccb', title: '', href: '/news', img: '/res/江门农商银行新总部大楼.jpg' }],
-  },
-  {
-    id: 'residential',
-    heading: '住宅社区',
-    sub: '前海人才公寓',
-    intro: ['低损耗、低噪声供配电，BIM 贯通资产与运维，提升居住质量。'],
-    bullets: ['租户级计量与预付费', '二维码资产关联，运维闭环更快'],
-    cta: { href: '/news/qianhai-talents-apartments', label: '人才公寓案例' },
-    cards: [
-      { id: 'res-project', title: '', href: '/news/qianhai-talents-apartments', img: '/res/前海珑湾国际人才公寓.jpg' },
-      { id: 'res-award-bim', title: '', href: '/news/qianhai-talents-apartments', img: '/res/前海玲珑湾获奖.png' },
-      { id: 'res-award-steel', title: '', href: '/news/qianhai-talents-apartments', img: '/res/前海玲珑湾结构金奖.png' },
-    ],
-  },
-  {
-    id: 'airports',
-    heading: '机场',
-    sub: '深圳宝安机场',
-    intro: ['耐火智能光电母线联通航站区、机房与行李系统，适配 24/7 运行场景。'],
-    bullets: ['航站与空侧冗余架构', '关键负载状态监测'],
-    cta: { href: '/news/airport-upgrade', label: '机场升级案例' },
-    cards: [{ id: 'airport-project', title: '', href: '/news/airport-upgrade', img: '/res/gallery-46.jpg' }],
-  },
-  {
-    id: 'transport',
-    heading: '交通枢纽',
-    sub: '横琴口岸综合枢纽',
-    intro: ['口岸/地铁/巴士共用一体化电力骨干，疏散照明与指挥中心联动可视。'],
-    bullets: ['多方式环网冗余', '光纤感知直达中控'],
-    cta: { href: '/news/hengqin-port-hub', label: '横琴口岸综合枢纽' },
-    cards: [
-      { id: 'transport-project', title: '', href: '/news/hengqin-port-hub', img: '/res/横琴口岸综合交通枢纽.jpg' },
-      { id: 'transport-award', title: '', href: '/news/hengqin-port-hub', img: '/res/横琴口岸鲁班奖.png' },
-    ],
-  },
-  {
-    id: 'hsr',
-    heading: '高铁',
-    sub: '高铁（南方新会工厂）',
-    intro: ['船级封装与减振设计适应近海环境，辅以 AI 诊断提升检修效率。'],
-    bullets: ['耐候减振封装', '基于光纤数据的工单辅助'],
-    cta: { href: '/news/hsr-nanfang-xinhui', label: '高铁南方工厂案例' },
-    cards: [{ id: 'hsr-project', title: '', href: '/news/hsr-nanfang-xinhui', img: '/res/高铁（南方新会工厂）.jpg' }],
-  },
-  {
-    id: 'culture',
-    heading: '文化设施',
-    sub: '保利剧院',
-    intro: ['面向演出与排练的低噪声耐火母线，覆盖舞台、前场与录播系统，支持快速切换。'],
-    bullets: ['音频/灯光/吊装分路隔离', '分区计量便于演出结算'],
-    cta: { href: '/news/poly-theater', label: '保利剧院案例' },
-    cards: [
-      { id: 'poly-theater-exterior', title: '', href: '/news/poly-theater', img: '/res/保利剧院.jpg' },
-    ],
-  },
-]
-
-// 语言映射
-const MODEL_SECTIONS: Record<'en' | 'zh', ModelSection[]> = {
-  en: MODEL_SECTIONS_EN,
-  zh: MODEL_SECTIONS_ZH,
-}
-
-// ------- 文案与常量 -------
-const LOGO_SRC = '/res/logo.png'
-const BACKGROUND_IMG = '/res/background.png'
+const LOGO_SRC = '/res/logo.png?v=20250825'
+const IMG_VER = '20250828';
 
 const translations = {
   en: {
-    nav: { products: 'PRODUCTS', news: 'NEWS', solutions: 'SOLUTIONS', about: 'ABOUT', contact: 'CONTACT' },
+    nav: { products: 'PRODUCTS', solutions: 'SOLUTIONS', about: 'ABOUT', contact: 'CONTACT' },
     hero: {
       title1: 'FIRE-RESISTANT',
       title2: 'INTELLIGENT OPTOELECTRONIC',
       title3: 'BUSBARS',
-      subtitle:
-        'Powering the future of data centers and real estate with revolutionary fire-resistant intelligent optoelectronic busbar technology.',
+      subtitle: 'Powering the future of data centers and real estate with revolutionary fire-resistant intelligent optoelectronic busbar technology.',
       exploreBtn: 'EXPLORE PRODUCTS',
     },
     features: {
-      smartMonitoring: { title: 'AI-POWERED MONITORING', description: 'Real-time analytics with predictive maintenance' },
-      highEfficiency: { title: 'ULTRA-HIGH EFFICIENCY', description: 'Reduces operational costs and environmental impact' },
-      fireResistant: { title: 'FIRE-RESISTANT CORE', description: '2-hour fire resistance rating' },
+      smartMonitoring: { title: 'AI-POWERED MONITORING', description: 'Real-time analytics with predictive maintenance powered by advanced AI algorithms' },
+      highEfficiency: { title: 'ULTRA-HIGH EFFICIENCY', description: 'Industry-leading power efficiency reduces operational costs and environmental impact' },
+      fireResistant: { title: 'FIRE-RESISTANT CORE', description: '2-hour fire resistance rating ensures uninterrupted power delivery during critical situations' },
     },
   },
   zh: {
-    nav: { products: '产品中心', news: '新闻动态', solutions: '解决方案', about: '关于我们', contact: '联系我们' },
+    nav: { products: '产品中心', solutions: '解决方案', about: '关于我们', contact: '联系我们' },
     hero: {
       title1: '耐火', title2: '智能光电', title3: '母线系统',
       subtitle: '革命性耐火智能光电母线技术，为数据中心和房地产行业提供未来动力。',
       exploreBtn: '产品展示',
     },
     features: {
-      smartMonitoring: { title: 'AI智能监控', description: '实时分析与预测性维护' },
-      highEfficiency: { title: '超高效率', description: '降低运营成本与环境影响' },
-      fireResistant: { title: '耐火核心技术', description: '2 小时耐火等级' },
+      smartMonitoring: { title: 'AI智能监控', description: '基于先进AI算法的实时分析和预测性维护' },
+      highEfficiency: { title: '超高效率', description: '行业领先的电力效率，降低运营成本和环境影响' },
+      fireResistant: { title: '耐火核心技术', description: '2小时耐火等级，确保关键情况下的不间断电力传输' },
     },
   },
 } as const
 
 type Lang = keyof typeof translations
 
-type HomeShellProps = {
-  defaultLanguage?: Lang
-}
-
-export default function HomeShell({ defaultLanguage = 'en' }: HomeShellProps) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const [language, setLanguage] = useState<Lang>(defaultLanguage)
-
-  const syncLanguageFromUrl = useCallback(() => {
-    if (typeof window === 'undefined') return
-    const param = new URLSearchParams(window.location.search).get('lang')
-    if (param === 'en' || param === 'zh') {
-      setLanguage(param)
-    } else {
-      setLanguage(defaultLanguage)
-    }
-  }, [defaultLanguage])
-
-  useEffect(() => {
-    syncLanguageFromUrl()
-    if (typeof window === 'undefined') return
-    window.addEventListener('popstate', syncLanguageFromUrl)
-    return () => window.removeEventListener('popstate', syncLanguageFromUrl)
-  }, [syncLanguageFromUrl])
-
+export default function HomeShell({ lang = 'zh' as Lang }: { lang?: Locale }) {
+  const language: Lang = lang as Lang
   const t = translations[language]
 
-  const toggleLanguage = () => {
-    const next: Lang = language === 'en' ? 'zh' : 'en'
-    const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
-    params.set('lang', next)
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-    setLanguage(next)
-  }
-
-  // hero slides
   const slides = useMemo(
     () => [
-      {
-        id: 0,
-        lines: language === 'en' ? ['FIRE-RESISTANT', 'INTELLIGENT', 'PHOTOELECTRIC BUSBARS'] : ['耐火', '智能光电', '母线系统'],
+      { id: 0,
+        lines: language === 'en'
+          ? ['FIRE-RESISTANT', 'INTELLIGENT OPTOELECTRONIC', 'BUSBARS']
+          : ['耐火', '智能光电', '母线系统'],
         subtitle: t.hero.subtitle,
         img: '/res/company.jpg',
-        bg: BACKGROUND_IMG,
       },
-      {
-        id: 1,
-        lines: language === 'en' ? ['AI-POWERED', 'REAL-TIME', 'MONITORING'] : ['AI智能监控', '实时分析', '预测维护'],
-        subtitle: t.features.smartMonitoring.description,
-        img: monitoringSlide,
-        bg: BACKGROUND_IMG,
-      },
-      {
-        id: 2,
-        lines: language === 'en' ? ['ULTRA-HIGH', 'EFFICIENCY', 'RELIABILITY'] : ['超高', '效率', '可靠性'],
-        subtitle: t.features.highEfficiency.description,
-        img: '/res/factory.jpg',
-        bg: BACKGROUND_IMG,
-      },
-      {
-        id: 3,
-        lines: language === 'en' ? ['FIRE-RESISTANT', 'CORE', 'TECHNOLOGY'] : ['耐火', '核心', '技术'],
-        subtitle: t.features.fireResistant.description,
-        img: '/res/aiwason_fireproof_busbar_hero.png',
-        bg: BACKGROUND_IMG,
-      },
-      {
-        id: 4,
-        lines: language === 'en' ? ['SMART', 'BUILDINGS', 'READY'] : ['面向', '智能建筑', '应用'],
-        subtitle: language === 'en' ? 'Designed for IoT-enabled facilities with intelligent building management.' : '为物联网与智能楼控系统而生。',
-        img: '/res/gallery-10.jpeg',
-        bg: BACKGROUND_IMG,
-      },
+      { id: 1, lines: language === 'en' ? ['AI-POWERED', 'REAL-TIME', 'MONITORING'] : ['AI智能监控', '实时分析', '预测维护'],
+        subtitle: t.features.smartMonitoring.description, img: '/res/company.jpg' },
+      { id: 2, lines: language === 'en' ? ['ULTRA-HIGH', 'EFFICIENCY', 'RELIABILITY'] : ['超高', '效率', '可靠性'],
+        subtitle: t.features.highEfficiency.description, img: '/res/company.jpg' },
+      { id: 3, lines: language === 'en' ? ['FIRE-RESISTANT', 'CORE', 'TECHNOLOGY'] : ['耐火', '核心', '技术'],
+        subtitle: t.features.fireResistant.description,  img: `/res/aiwason_fireproof_busbar_hero.png?v=${IMG_VER}`},
+      { id: 4, lines: language === 'en' ? ['SMART', 'BUILDINGS', 'READY'] : ['面向', '智能建筑', '应用'],
+        subtitle: language === 'en'
+          ? 'Designed for IoT-enabled facilities with intelligent building management.'
+          : '为物联网与智能楼控系统而生。', img: '/res/company.jpg' },
     ],
-    [language, t.hero.subtitle, t.features.smartMonitoring.description, t.features.highEfficiency.description, t.features.fireResistant.description],
+    [language, t.hero.subtitle, t.features.smartMonitoring.description, t.features.highEfficiency.description, t.features.fireResistant.description]
   )
 
   const SLIDES_MS = 6000
   const [idx, setIdx] = useState(0)
-  const timeoutRef = useRef<number | null>(null)
-
-  const scheduleNext = useCallback(() => {
-    if (timeoutRef.current) window.clearTimeout(timeoutRef.current)
-    timeoutRef.current = window.setTimeout(() => {
-      setIdx((i) => (i + 1) % slides.length)
-    }, SLIDES_MS)
+  const timerRef = useRef<number | null>(null)
+  useEffect(() => {
+    if (timerRef.current) window.clearInterval(timerRef.current)
+    timerRef.current = window.setInterval(() => setIdx(i => (i + 1) % slides.length), SLIDES_MS)
+    return () => { if (timerRef.current) window.clearInterval(timerRef.current) }
   }, [slides.length])
 
-  useEffect(() => {
-    scheduleNext()
-    return () => { if (timeoutRef.current) window.clearTimeout(timeoutRef.current) }
-  }, [idx, scheduleNext])
-
   const tSlide = slides[idx]
+  // Keep the hero background present on every slide so the section's
+  // visual size stays constant when the carousel advances. Previously
+  // only slide 0 had a background, making slides 1+ look shorter.
+  const heroBg = '/res/background.png'
 
-  const navHref = useMemo(
-    () => ({
-      products: `/products?lang=${language}`,
-      news: `/news?lang=${language}`,
-      solutions: `/solutions?lang=${language}`,
-      about: `/about?lang=${language}`,
-      contact: `/contact?lang=${language}`,
-    }),
-    [language],
+  
+    // 放在 HomeShell.tsx 里，靠近其它 useMemo 的位置
+  const newsGroups: NewsGroup[] = useMemo(
+    () => [
+      {
+        heading: language === 'en' ? 'Conference Center' : '会议中心',
+        items: [
+          {
+            id: 'meet-1',
+            title: language === 'en' ? 'Global Data Center Summit' : '国际数据中心大会',
+            desc:
+              language === 'en'
+                ? 'AIWASON presents fire-resistant intelligent optoelectronic busbar solutions.'
+                : '发布耐火智能光电母线解决方案。',
+            date: '2025/05/18',
+            img: '/res/conference.jpg',
+            href: '/events/datacenter-summit',
+          },
+        ],
+      },
+      {
+        heading: language === 'en' ? 'Data Centers' : '数据中心',
+        items: [
+          {
+            id: 'dc-1',
+            title: language === 'en' ? 'AI Monitoring Upgrade' : 'AI 智能监控系统升级',
+            desc:
+              language === 'en'
+                ? 'Real-time analytics and predictive maintenance for mission-critical workloads.'
+                : '实时分析与预测性维护，保障关键业务连续性。',
+            date: '2025/05/12',
+            img: '/res/company.jpg',
+            href: '/news/ai-monitoring-upgrade',
+          },
+        ],
+      },
+      {
+        heading: language === 'en' ? 'Commercial Towers' : '商业大楼',
+        items: [
+          {
+            id: 'biz-1',
+            title: language === 'en' ? 'Smart Tower Deployment' : '智慧商业大厦部署',
+            desc:
+              language === 'en'
+                ? 'High-efficiency busbar rollout across 100 floors.'
+                : '在 100 层楼宇完成高效母线部署。',
+            date: '2025/05/05',
+            img: '/res/skyscraper.jpg',
+            href: '/news/smart-tower',
+          },
+        ],
+      },
+      {
+        heading: language === 'en' ? 'Residential / Civil' : '民用建筑',
+        items: [
+          {
+            id: 'res-1',
+            title: language === 'en' ? 'Residential Showcase' : '民用建筑改造示范',
+            desc:
+              language === 'en'
+                ? 'Safer and greener power distribution for modern communities.'
+                : '更安全、更绿色的社区配电示范项目。',
+            date: '2025/05/03',
+            img: '/projects/深圳-大中华喜来登酒店.jpg',
+            href: '/news/luxury-hotel-project',
+          },
+        ],
+      },
+      {
+        heading: language === 'en' ? 'Airport' : '机场',
+        items: [
+          {
+            id: 'airport-1',
+            title: language === 'en' ? 'Shenzhen Airport Smart Deployment' : '深圳机场智能母线部署',
+            desc:
+              language === 'en'
+                ? 'Smart power solutions for major airports.'
+                : '大型机场的智能配电解决方案。',
+            date: '2025/05/10',
+            img: '/projects/深圳机场.jpg',
+            href: '/news/airport-infrastructure',
+          },
+        ],
+      },
+      {
+        heading: language === 'en' ? 'High-Speed Rail' : '高铁',
+        items: [
+          {
+            id: 'railway-1',
+            title: language === 'en' ? 'Railway Station Power Upgrade' : '高铁站配电系统升级',
+            desc:
+              language === 'en'
+                ? 'Qingdao metro station intelligent renovation.'
+                : '青岛地铁站智能化改造。',
+            date: '2025/05/12',
+            img: '/projects/青岛地铁.jpg',
+            href: '/news/railway-station-upgrade',
+          },
+        ],
+      },
+      {
+        heading: language === 'en' ? 'Library' : '图书馆',
+        items: [
+          {
+            id: 'library-1',
+            title: language === 'en' ? 'STU Library Modernization' : '汕头大学图书馆现代化',
+            desc:
+              language === 'en'
+                ? 'Smart power solutions for modern libraries.'
+                : '现代图书馆的智能配电方案。',
+            date: '2025/05/14',
+            img: '/projects/汕头大学新图书馆—A.jpg',
+            href: '/news/library-modernization',
+          },
+        ],
+      },
+      {
+        heading: language === 'en' ? 'Theater' : '剧院',
+        items: [
+          {
+            id: 'theater-1',
+            title: language === 'en' ? 'Poly Theater Smart Lighting' : '保利剧院智能照明系统',
+            desc:
+              language === 'en'
+                ? 'Professional lighting power solutions for theaters.'
+                : '剧院专业级照明配电解决方案。',
+            date: '2025/05/16',
+            img: '/projects/保利剧院.jpg',
+            href: '/news/theater-lighting-system',
+          },
+        ],
+      },
+    ],
+    [language]
   )
 
-  const modelSections: ModelSection[] = useMemo(() => MODEL_SECTIONS[language] ?? MODEL_SECTIONS.en, [language])
-  const newsGroups: NewsGroup[] = []
-
-  // 把奖图标记为 contain，项目图 cover；容器高度统一为"大图"
-  const prepareCards = useCallback((cards: MediaCard[], sectionLabel: string): MediaCard[] => {
-    return cards.map((card, i) => {
-      const srcText = typeof card.img === 'string' ? card.img : card.img.src
-      const isAward = IS_AWARD.test(`${card.id} ${srcText}`)
-      const objectPosition = OBJECT_POSITION_OVERRIDES[card.id]
-      const normalized: MediaCard = {
-        ...card,
-        title: isAward ? `${sectionLabel} — Award` : `${sectionLabel}${cards.length > 1 ? ` (${i + 1})` : ''}`,
-        fit: isAward ? 'contain' : 'cover',
-        ...(objectPosition ? { objectPosition } : {}),
-      }
-      return normalized
-    })
-  }, [])
-
+  
   return (
-    <main id="main-content" className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-black text-white">
       {/* navbar */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-gray-200">
-      <nav aria-label="Main navigation">
+      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="h-16 lg:h-20 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 group" aria-label="Home">
-              <Image src={LOGO_SRC} alt="AIWASON logo" width={64} height={48} priority className="object-contain" />
+            <Link href={localePath(language)} className="flex items-center gap-3 group" aria-label="Home">
+              <Image
+                src={LOGO_SRC}
+                alt="AIWASON logo"
+                width={64}
+                height={48}
+                priority
+                fetchPriority="high"
+                sizes="64px"
+                className="object-contain"
+              />
               <span className="text-2xl font-black tracking-wide text-gray-900">AIWASON</span>
-              <span className="text-xs text-gray-400">®</span>
+              <span className="text-xs text-gray-400" aria-hidden="true">®</span>
             </Link>
 
             <div className="hidden md:flex items-center space-x-8">
-              {(['news', 'products', 'solutions', 'about', 'contact'] as const).map((key) => {
-                const label = t.nav[key]
-                const href = navHref[key] ?? '#'
+              {Object.entries(t.nav).map(([key, label], index) => {
+                const isPageLink = key === 'products' || key === 'about'
+                const href = isPageLink ? localePath(language, key) : `#${key}`
                 return (
-                  <Link key={key} href={href} className="text-gray-700 hover:text-[#4a7400] font-medium tracking-wide text-sm relative group transition-all duration-300 hover:scale-105">
-                    {label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#76B900] group-hover:w-full transition-all duration-300" />
-                  </Link>
+                  <motion.div key={key} whileHover={{ scale: 1.05 }} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08 }}>
+                    <Link href={href} className="text-gray-700 hover:text-[#76B900] font-medium tracking-wide text-sm relative group transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#76B900] rounded-sm">
+                      {label}
+                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#76B900] group-hover:w-full transition-all duration-300" />
+                    </Link>
+                  </motion.div>
                 )
               })}
             </div>
 
-            <button
-              onClick={toggleLanguage}
-              className="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-[#76B900]/50 rounded-lg px-4 py-2 transition-all duration-300 hover:scale-105 active:scale-95"
-              aria-label="Toggle language"
-            >
-              <Globe className="w-4 h-4 text-[#4a7400]" />
-              <span className="text-sm font-semibold text-gray-700">{language === 'en' ? '中文' : 'EN'}</span>
-            </button>
+            <LanguageSwitcher locale={language} />
           </div>
         </div>
       </nav>
-      </header>
 
-      {/* hero */}
-      <section className="bg-neutral-950 text-white">
-        <HomeNeonFlows
-          key={idx}
-          lang={language}
-          imageSrc={tSlide.img}
-          titleLines={Array.isArray(tSlide.lines) ? tSlide.lines : [t.hero.title1, t.hero.title2, t.hero.title3]}
-          description={tSlide.subtitle}
-          cta={{ href: `/products?lang=${language}`, label: t.hero.exploreBtn }}
-          currentSlide={idx}
-          totalSlides={slides.length}
-          progressMs={SLIDES_MS}
-          onSelectSlide={setIdx}
-          bgImage={tSlide.bg ?? BACKGROUND_IMG}
-        />
-      </section>
+      {/* hero — do NOT key on idx; that would unmount/remount the whole
+          section every 6 s, causing the bg image + right-side image to
+          re-fetch/re-decode and visibly shrink mid-swap. Props update is
+          enough — the internal progress bar already re-keys on currentSlide. */}
+      <HomeNeonFlows
+        lang={language}
+        imageSrc={tSlide.img}
+        titleLines={Array.isArray(tSlide.lines) ? tSlide.lines : [t.hero.title1, t.hero.title2, t.hero.title3]}
+        description={tSlide.subtitle}
+        cta={{ href: localePath(language, 'products'), label: t.hero.exploreBtn }}
+        currentSlide={idx}
+        totalSlides={slides.length}
+        progressMs={SLIDES_MS}
+        onSelectSlide={setIdx}
+        bgImage={heroBg}
+      />
 
-      {/* 顶部浅绿色分隔条 */}
-      <div className="h-1 w-full bg-[#cde9aa]" aria-hidden="true" />
-
-      {/* sections */}
-      <div className="space-y-16 lg:space-y-20 py-16">
-        {modelSections.map((section) => {
-          const briefIntro = section.intro.length ? [section.intro[0]] : []
-          const cards = prepareCards(section.cards, section.sub ?? section.heading)
-
-          return (
-            <div key={section.id}>
-              <section className="bg-white">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                  <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)] lg:items-start">
-                    {/* 左侧文字 */}
-                    <div className="space-y-6">
-                      <header className="space-y-3">
-                        <h2 className="text-3xl lg:text-5xl font-extrabold text-gray-900">
-                          {section.heading}
-                        </h2>
-                        {section.sub ? (
-                          <p className="text-base lg:text-lg font-semibold text-gray-700">
-                            {section.sub}
-                          </p>
-                        ) : null}
-
-                        <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
-                          {briefIntro.map((paragraph) => (
-                            <p key={paragraph}>{paragraph}</p>
-                          ))}
-                        </div>
-
-                        {section.bullets?.length ? (
-                          <ul className="list-disc space-y-2 pl-5 text-sm text-gray-700">
-                            {section.bullets.map((item) => (
-                              <li key={item}>{item}</li>
-                            ))}
-                          </ul>
-                        ) : null}
-
-                        <div className="pt-2">
-                          <Link
-                            href={`${section.cta.href}?lang=${language}`}
-                            className="inline-flex items-center gap-2 rounded-lg bg-[#9BE15D] px-5 py-3 text-sm font-semibold text-[#0f2100] shadow hover:bg-[#88d84a] transition"
-                          >
-                            {section.cta.label}
-                          </Link>
-                        </div>
-                      </header>
-                    </div>
-
-                    {/* 右侧：统一大尺寸容器；项目=cover，奖状=contain（完整展示） */}
-                    <div className="relative">
-                      <MediaCarousel
-                        title=""
-                        items={cards}
-                        lang={language}
-                        imageOnly
-                        frameless
-                        hideHeader
-                        controlsOverlay
-                        controlsVariant="brand"
-                        // 恢复为"大图"视觉（容器高度统一）
-                        imageHeightClass="h-[560px] md:h-[640px] lg:h-[740px]"
-                        cardWidthClass="min-w-[88vw] sm:min-w-[70vw] lg:min-w-[820px] lg:max-w-[820px]"
-                        roundedClass=""
-                      />
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              {/* 每个 section 底部分隔条 */}
-              <div className="h-1 w-full bg-[#cde9aa] mt-10" aria-hidden="true" />
-            </div>
-          )
-        })}
-      </div>
-
-      {/* 新闻占位 */}
-      <NewsSectionsSlideIn lang={language} groups={newsGroups} showMetaLabel={false} />
-    </main>
+      {/* news */}
+      <NewsSectionsSlideIn lang={language} groups={newsGroups} />
+    </div>
   )
 }

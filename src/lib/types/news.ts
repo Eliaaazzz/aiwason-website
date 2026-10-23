@@ -1,8 +1,8 @@
-// src/types/news.ts
+// src/lib/types/news.ts
 import type { StaticImageData } from 'next/image'
 
-export type Localised<T> = { en: T; zh: T }
 export type Locale = 'en' | 'zh'
+export type Localised<T> = { en: T; zh: T }
 export type LocalizedText = Localised<string>
 
 export type VideoItem = {
@@ -11,9 +11,7 @@ export type VideoItem = {
   title: Localised<string>
   description?: Localised<string>
   thumbnail: string | StaticImageData
-  /** Local file path (e.g. /video/demo.mp4). Optional if using external provider. */
   videoUrl?: string
-  /** External embed URL (e.g. https://www.youtube.com/embed/...). */
   embedUrl?: string
   date?: string
   duration?: string
@@ -23,13 +21,13 @@ export type NewsItem = {
   id: string
   title: Localised<string>
   description?: Localised<string>
-  source: string
-  link: string
+  source?: string
+  link?: string
   date: string
-  image: string | StaticImageData
+  image?: string | StaticImageData
   cover?: string | StaticImageData
   url?: string
-  summary?: Localised<string> | string
+  summary?: Localised<string>
   slug?: string
   tags?: string[]
 }
