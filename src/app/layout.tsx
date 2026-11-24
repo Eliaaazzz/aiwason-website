@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description: siteDescription,
   applicationName: siteName,
   keywords: [
-    'AIWASON',
+    'AMERSON',
     '深圳智能芯片中心',
     'fireproof busbar',
     'optoelectronic',

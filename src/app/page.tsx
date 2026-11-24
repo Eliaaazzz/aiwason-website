@@ -5,12 +5,12 @@ import JsonLd from '@/components/common/JsonLd'
 import { defaultOgImage, siteLogo, siteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'AIWASON — Fire-Resistant Intelligent Optoelectronic Busbars',
+  title: 'AMERSON — Fire-Resistant Intelligent Optoelectronic Busbars',
   description:
-    'AIWASON delivers fire-resistant intelligent optoelectronic busbar systems for data centers, smart buildings, and critical infrastructure worldwide.',
+    'AMERSON delivers fire-resistant intelligent optoelectronic busbar systems for data centers, smart buildings, and critical infrastructure worldwide.',
   openGraph: {
     type: 'website',
-    title: 'AIWASON — Fire-Resistant Intelligent Optoelectronic Busbars',
+    title: 'AMERSON — Fire-Resistant Intelligent Optoelectronic Busbars',
     url: siteUrl,
     description:
       'Powering data centers and smart buildings with revolutionary fire-resistant intelligent optoelectronic busbar technology.',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AIWASON — Fire-Resistant Intelligent Optoelectronic Busbars',
+    title: 'AMERSON — Fire-Resistant Intelligent Optoelectronic Busbars',
     description:
       'Powering data centers and smart buildings with revolutionary fire-resistant intelligent optoelectronic busbar technology.',
     images: [defaultOgImage],
@@ -45,13 +45,13 @@ export default async function Page({
         data={{
           '@context': 'https://schema.org',
           '@type': 'WebSite',
-          name: 'AIWASON',
+          name: 'AMERSON',
           url: siteUrl,
           description:
             'Fire-resistant intelligent optoelectronic busbar systems for data centers and smart buildings.',
           publisher: {
             '@type': 'Organization',
-            name: 'AIWASON',
+            name: 'AMERSON',
             url: siteUrl,
             logo: siteLogo,
           },

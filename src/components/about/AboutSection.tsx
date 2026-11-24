@@ -61,7 +61,7 @@ const COPY: Record<Lang, {
     title: 'About Us',
     strap: 'Hard-tech power distribution for critical infrastructure worldwide.',
     paragraphs: [
-      'Guangdong AIWASON Technology focuses on intelligent, safe, and efficient power distribution across data centers, transport hubs, commercial complexes, and campuses.',
+      'Guangdong AMERSON Technology focuses on intelligent, safe, and efficient power distribution across data centers, transport hubs, commercial complexes, and campuses.',
       'We keep investing in R&D for fire-resistant busways, smart monitoring, and cloud-native O&M platforms.',
       'With “customer focus and reliable engineering” as our mission, we build greener and safer infrastructure for the digital era.',
     ],

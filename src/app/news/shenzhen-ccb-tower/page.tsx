@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 
 export const metadata: Metadata = {
-  title: 'Shenzhen CCB Tower | AIWASON',
+  title: 'Shenzhen CCB Tower | AMERSON',
   description: 'Dual redundancy with biometric interlocks secures trading floors and vault branches.',
   alternates: {
     canonical: '/news/shenzhen-ccb-tower',
@@ -30,13 +30,13 @@ const projectData: ProjectDetail = {
   heroImage: '/res/深圳建行大厦.jpg',
   description: {
     zh: [
-      '深圳建行大厦作为中国建设银行在深圳的重要金融中心，对电力系统的安全性和可靠性要求极高。AIWASON为其设计的双路冗余配电系统，结合生物识别联动技术，为交易大厅和金库支路提供了最高级别的安全保障。',
+      '深圳建行大厦作为中国建设银行在深圳的重要金融中心，对电力系统的安全性和可靠性要求极高。AMERSON为其设计的双路冗余配电系统，结合生物识别联动技术，为交易大厅和金库支路提供了最高级别的安全保障。',
       '系统的核心特色在于其智能化的安全管理机制。关键分接点配备了生物识别联动系统，只有授权人员才能进行操作，确保了电力系统的操作安全。金库支路采用2小时耐火设计，并集成了温度监测系统。',
       '双路冗余架构确保了银行业务的连续性。主用供电回路和备用回路实现了完全隔离，一旦主路出现问题，备用回路可以在毫秒级别实现无缝切换，保证交易系统不中断。',
       '智能监控系统对整个大厦的电力运行状态进行24/7实时监控，包括电压、电流、功率因数等关键参数。系统还具备预测性维护功能，能够提前发现潜在问题并及时预警，确保银行业务的稳定运行。',
     ],
     en: [
-      'As an important financial center of China Construction Bank in Shenzhen, Shenzhen CCB Tower has extremely high requirements for power system security and reliability. The dual redundancy power distribution system designed by AIWASON, combined with biometric interlock technology, provides the highest level of security for trading floors and vault branches.',
+      'As an important financial center of China Construction Bank in Shenzhen, Shenzhen CCB Tower has extremely high requirements for power system security and reliability. The dual redundancy power distribution system designed by AMERSON, combined with biometric interlock technology, provides the highest level of security for trading floors and vault branches.',
       'The core feature of the system lies in its intelligent security management mechanism. Critical tap-off points are equipped with biometric interlock systems, allowing only authorized personnel to operate, ensuring operational security of the power system. Vault branches adopt 2-hour fire-resistant design and integrate temperature monitoring systems.',
       'The dual redundancy architecture ensures business continuity for banking operations. Main and backup power supply circuits achieve complete isolation. Once the main circuit encounters problems, the backup circuit can achieve seamless switching at millisecond level, ensuring uninterrupted trading systems.',
       'The intelligent monitoring system provides 24/7 real-time monitoring of the entire building\'s power operation status, including key parameters such as voltage, current, and power factor. The system also has predictive maintenance capabilities, able to identify potential problems in advance and provide timely warnings, ensuring stable operation of banking business.',

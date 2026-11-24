@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 
 export const metadata: Metadata = {
-  title: 'Qianhai Information Hub Data Center | AIWASON',
+  title: 'Qianhai Information Hub Data Center | AMERSON',
   description: 'Tier-IV oriented dual-bus architecture with fiber-optic condition monitoring for continuous uptime.',
   alternates: {
     canonical: '/news/data-center',
@@ -35,13 +35,13 @@ const projectData: ProjectDetail = {
   heroImage: '/res/前海信息枢纽中心.jpg',
   description: {
     zh: [
-      '前海信息枢纽中心作为深圳前海的核心数据基础设施，采用了AIWASON最先进的耐火智能光电母线系统。项目面向Tier IV等级设计，实现了双母线架构的高可靠性配电方案。',
+      '前海信息枢纽中心作为深圳前海的核心数据基础设施，采用了AMERSON最先进的耐火智能光电母线系统。项目面向Tier IV等级设计，实现了双母线架构的高可靠性配电方案。',
       '该项目集成了光纤状态监测技术，能够实时监控母线系统的运行状态，包括温度、湿度、电弧检测等关键参数。通过AI智能分析，系统可以提前预警潜在故障，确保数据中心的持续稳定运行。',
       '项目采用模块化设计理念，支持数据中心的快速扩容和灵活配置。独立的双路母线系统确保在任一路径故障时，系统仍能保持正常供电，满足金融级数据中心的高可用性要求。',
       '在节能环保方面，系统整体效率超过98.5%，显著降低了数据中心的运营成本。同时，系统预留了液冷扩容接口，为未来高密度服务器部署提供了技术保障。',
     ],
     en: [
-      'The Qianhai Information Hub Data Center serves as the core data infrastructure for Shenzhen Qianhai, featuring AIWASON\'s most advanced fire-resistant intelligent optoelectronic busbar system. The project is designed to meet Tier IV standards with a highly reliable dual-bus architecture power distribution solution.',
+      'The Qianhai Information Hub Data Center serves as the core data infrastructure for Shenzhen Qianhai, featuring AMERSON\'s most advanced fire-resistant intelligent optoelectronic busbar system. The project is designed to meet Tier IV standards with a highly reliable dual-bus architecture power distribution solution.',
       'The project integrates fiber-optic condition monitoring technology that provides real-time monitoring of busbar system operation status, including critical parameters such as temperature, humidity, and arc detection. Through AI intelligent analysis, the system can provide early warnings of potential failures, ensuring continuous and stable operation of the data center.',
       'The project adopts a modular design concept that supports rapid expansion and flexible configuration of the data center. The independent dual-bus system ensures that the system can maintain normal power supply when either path fails, meeting the high availability requirements of financial-grade data centers.',
       'In terms of energy conservation and environmental protection, the overall system efficiency exceeds 98.5%, significantly reducing the operating costs of the data center. Additionally, the system reserves liquid cooling expansion interfaces, providing technical assurance for future high-density server deployments.',

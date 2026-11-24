@@ -7,14 +7,14 @@ import CardImage from '@/components/common/CardImage'
 
 import frBusduct from '@/assets/products/fr-busduct.png'
 
-import heroPng from '@/assets/solutions/aiwason-solution-hero.png'
-import analyticsHeatmapPng from '@/assets/solutions/aiwason-analytics-heatmap.png'
-import alertDispatchPng from '@/assets/solutions/aiwason-alert-dispatch.png'
-import modularBuswayPng from '@/assets/solutions/aiwason-modular-busway.png'
-import tapoffPanelPng from '@/assets/solutions/aiwason-tapoff-panel.png'
+import heroPng from '@/assets/solutions/amerson-solution-hero.png'
+import analyticsHeatmapPng from '@/assets/solutions/amerson-analytics-heatmap.png'
+import alertDispatchPng from '@/assets/solutions/amerson-alert-dispatch.png'
+import modularBuswayPng from '@/assets/solutions/amerson-modular-busway.png'
+import tapoffPanelPng from '@/assets/solutions/amerson-tapoff-panel.png'
 import operationMgmtPng from '@/assets/solutions/operation-management.png'
 import planMgmtPng from '@/assets/solutions/plan-management.png'
-import historicalAnalyticsPng from '@/assets/solutions/aiwason-historical-analytics.png'
+import historicalAnalyticsPng from '@/assets/solutions/amerson-historical-analytics.png'
 
 import conductorPng from '@/assets/solutions/bus-conductor.png'
 import insulationSleevePng from '@/assets/solutions/insulation-sleeve.png'
@@ -31,19 +31,19 @@ import dcGalleryMaintenanceImg from '@/../public/res/数据中心/Screenshot 202
 
 
 export const metadata: Metadata = {
-  title: 'Solutions | AIWASON',
-  description: 'AIWASON intelligent busbar solutions covering cloud platform operations and data center systems.',
+  title: 'Solutions | AMERSON',
+  description: 'AMERSON intelligent busbar solutions covering cloud platform operations and data center systems.',
   openGraph: {
     type: 'website',
-    title: 'Solutions | AIWASON',
+    title: 'Solutions | AMERSON',
     description: 'Intelligent busbar solutions for cloud platform operations and data center systems.',
-    images: [{ url: '/res/aiwason_fireproof_busbar_hero.png', width: 1200, height: 630 }],
+    images: [{ url: '/res/amerson_fireproof_busbar_hero.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Solutions | AIWASON',
+    title: 'Solutions | AMERSON',
     description: 'Intelligent busbar solutions for cloud platform operations and data center systems.',
-    images: ['/res/aiwason_fireproof_busbar_hero.png'],
+    images: ['/res/amerson_fireproof_busbar_hero.png'],
   },
   alternates: {
     canonical: '/solutions',
@@ -169,12 +169,12 @@ const DC_INTRO: Localised<{ title: string; overview: string }> = {
   en: {
     title: 'Data Center Intelligent Busbar System',
     overview:
-      'Growing AI and big-data workloads demand higher density power distribution. The AIWASON system integrates high-efficiency conductors, rapid installation, and intelligent monitoring to meet modern data center requirements.',
+      'Growing AI and big-data workloads demand higher density power distribution. The AMERSON system integrates high-efficiency conductors, rapid installation, and intelligent monitoring to meet modern data center requirements.',
   },
   zh: {
     title: '数据中心专用智能母线系统',
     overview:
-      '随着人工智能与大数据应用的发展，数据中心对配电提出高密度、高效率、安全可靠的新要求。AIWASON 通过高效导体、快速安装结构与智能监测平台，全面满足数据中心用电场景。',
+      '随着人工智能与大数据应用的发展，数据中心对配电提出高密度、高效率、安全可靠的新要求。AMERSON 通过高效导体、快速安装结构与智能监测平台，全面满足数据中心用电场景。',
   },
 }
 
@@ -463,7 +463,7 @@ export default async function SolutionsPage({
       >
         <Image
           src={heroVisual}
-          alt={lang === 'en' ? 'AIWASON intelligent busbar system' : 'AIWASON 智能母线系统'}
+          alt={lang === 'en' ? 'AMERSON intelligent busbar system' : 'AMERSON 智能母线系统'}
           fill
           className="absolute inset-0 h-full w-full object-cover object-center"
           priority

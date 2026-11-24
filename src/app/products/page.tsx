@@ -14,12 +14,12 @@ const ProductsCenter = dynamic(() => import('@/components/products/ProductsCente
 })
 
 export const metadata: Metadata = {
-  title: 'Products | AIWASON',
+  title: 'Products | AMERSON',
   description:
-    'Explore AIWASON fire-resistant intelligent optoelectronic busbar products: smart busbars, tap-off units, monitoring terminals, and cloud platforms for data centers.',
+    'Explore AMERSON fire-resistant intelligent optoelectronic busbar products: smart busbars, tap-off units, monitoring terminals, and cloud platforms for data centers.',
   openGraph: {
     type: 'website',
-    title: 'Products | AIWASON',
+    title: 'Products | AMERSON',
     url: `${siteUrl}/products`,
     description:
       'Fire-resistant intelligent busbar products for data centers and critical infrastructure.',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Products | AIWASON',
+    title: 'Products | AMERSON',
     description:
       'Fire-resistant intelligent busbar products for data centers and critical infrastructure.',
     images: [defaultOgImage],
@@ -54,13 +54,13 @@ export default async function ProductsPage({
         data={{
           '@context': 'https://schema.org',
           '@type': 'Product',
-          name: 'AIWASON Fire-Resistant Intelligent Optoelectronic Busbars',
+          name: 'AMERSON Fire-Resistant Intelligent Optoelectronic Busbars',
           description:
             'Smart busbar systems with AI monitoring, fire resistance, and cloud-based management for modern infrastructure.',
-          brand: { '@type': 'Brand', name: 'AIWASON' },
+          brand: { '@type': 'Brand', name: 'AMERSON' },
           manufacturer: {
             '@type': 'Organization',
-            name: 'AIWASON',
+            name: 'AMERSON',
             url: siteUrl,
           },
         }}

@@ -1,7 +1,7 @@
-# AIWASON Website - AI Agent Instructions
+# AMERSON Website - AI Agent Instructions
 
 ## Project Overview
-This is a professional corporate website for AIWASON, a company specializing in fire-resistant intelligent optoelectronic busbar systems for data centers and smart buildings. The site features a modern, NVIDIA-inspired dark theme with green technology accents.
+This is a professional corporate website for AMERSON, a company specializing in fire-resistant intelligent optoelectronic busbar systems for data centers and smart buildings. The site features a modern, NVIDIA-inspired dark theme with green technology accents.
 
 ## Technology Stack & Key Patterns
 
@@ -110,7 +110,7 @@ export type NewsItem = {
 - Product images: `/res/gallery-*.jpg`
 - Background images: `/res/background.png`, `/res/company.jpg`
 - Logo and branding: `/res/logo.png`
-- Hero images: `/res/aiwason_fireproof_busbar_hero.png`
+- Hero images: `/res/amerson_fireproof_busbar_hero.png`
 
 ## Common Tasks
 

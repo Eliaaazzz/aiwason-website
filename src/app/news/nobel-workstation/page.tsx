@@ -3,8 +3,8 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 import coverNobel from '@/assets/News/诺贝尔创新工作站.png'
 
 export const metadata: Metadata = {
-  title: 'Nobel Innovation Workstation | AIWASON',
-  description: 'AIWASON collaborates with Nobel Laureate Prof. Hartmut Michel to accelerate fire-resistant intelligent busbar research and applications.',
+  title: 'Nobel Innovation Workstation | AMERSON',
+  description: 'AMERSON collaborates with Nobel Laureate Prof. Hartmut Michel to accelerate fire-resistant intelligent busbar research and applications.',
   alternates: {
     canonical: '/news/nobel-workstation',
     languages: { en: '/news/nobel-workstation?lang=en', zh: '/news/nobel-workstation?lang=zh' },
@@ -36,16 +36,16 @@ const projectData: ProjectDetail = {
   heroFit: 'contain',
   description: {
     zh: [
-      'AIWASON 与诺贝尔化学奖得主米歇尔教授携手成立“诺奖·专家创新工作站”，围绕耐火智能光电母线的材料升级、散热设计与能效优化等前沿课题开展联合研究。',
-      '双方团队以 AIWASON 在数据中心与城市综合体的落地经验为基础，将实验室成果快速转化为可落地的产品模块，提升高密度配电场景的长期可靠性。',
+      'AMERSON 与诺贝尔化学奖得主米歇尔教授携手成立“诺奖·专家创新工作站”，围绕耐火智能光电母线的材料升级、散热设计与能效优化等前沿课题开展联合研究。',
+      '双方团队以 AMERSON 在数据中心与城市综合体的落地经验为基础，将实验室成果快速转化为可落地的产品模块，提升高密度配电场景的长期可靠性。',
       '工作站构建了“联合课题 + 共建实验室 + 应用示范”的三层合作体系，涵盖材料性能测试、光电耦合仿真、智能监测算法等多个研究方向。',
-      '通过专家工作站，AIWASON 与高校及科研机构建立开放式生态，共同推动耐火智能母线的国际标准化，助力全球绿色能源基础设施升级。',
+      '通过专家工作站，AMERSON 与高校及科研机构建立开放式生态，共同推动耐火智能母线的国际标准化，助力全球绿色能源基础设施升级。',
     ],
     en: [
-      'AIWASON partnered with Nobel Chemistry Laureate Prof. Hartmut Michel to launch the “Nobel Expert Innovation Workstation,” focusing on materials enhancement, thermal design, and efficiency optimisation for fire-resistant intelligent optoelectronic busbars.',
-      'Building on AIWASON’s deployments in data centres and urban complexes, the joint team rapidly translates laboratory breakthroughs into deployable product modules, reinforcing long-term reliability for high-density power distribution scenarios.',
+      'AMERSON partnered with Nobel Chemistry Laureate Prof. Hartmut Michel to launch the “Nobel Expert Innovation Workstation,” focusing on materials enhancement, thermal design, and efficiency optimisation for fire-resistant intelligent optoelectronic busbars.',
+      'Building on AMERSON’s deployments in data centres and urban complexes, the joint team rapidly translates laboratory breakthroughs into deployable product modules, reinforcing long-term reliability for high-density power distribution scenarios.',
       'The workstation operates an integrated collaboration model of joint research topics, co-built laboratories, and application pilots, spanning material characterisation, photoelectric coupling simulations, and intelligent monitoring algorithms.',
-      'Through the expert workstation, AIWASON connects universities and institutes within an open ecosystem to advance international standardisation of fire-resistant intelligent busbars and accelerate sustainable energy infrastructure worldwide.',
+      'Through the expert workstation, AMERSON connects universities and institutes within an open ecosystem to advance international standardisation of fire-resistant intelligent busbars and accelerate sustainable energy infrastructure worldwide.',
     ],
   },
   keyFeatures: {
@@ -71,7 +71,7 @@ const projectData: ProjectDetail = {
     },
     {
       label: { zh: '联合团队', en: 'Joint Team' },
-      value: { zh: 'AIWASON 专家 + 诺奖科研团队 + 海内外高校', en: 'AIWASON experts with Nobel research team and global universities' },
+      value: { zh: 'AMERSON 专家 + 诺奖科研团队 + 海内外高校', en: 'AMERSON experts with Nobel research team and global universities' },
     },
     {
       label: { zh: '成果转化', en: 'Technology Transfer' },

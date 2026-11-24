@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 
 export const metadata: Metadata = {
-  title: 'Qianhai International Conference Center | AIWASON',
+  title: 'Qianhai International Conference Center | AMERSON',
   description: 'Fire-resistant intelligent power distribution empowering large-scale conferences in Shenzhen Qianhai.',
   alternates: {
     canonical: '/events/datacenter-summit',
@@ -34,13 +34,13 @@ const projectData: ProjectDetail = {
   heroImage: '/res/conference.jpg',
   description: {
     zh: [
-      '深圳前海国际会议中心定位为粤港澳大湾区的国际会展枢纽，承担全球领导者与产业先锋的高规格峰会活动。AIWASON 提供的耐火智能光电母线方案，建立起场馆高效、安全、绿色的能源骨干。',
+      '深圳前海国际会议中心定位为粤港澳大湾区的国际会展枢纽，承担全球领导者与产业先锋的高规格峰会活动。AMERSON 提供的耐火智能光电母线方案，建立起场馆高效、安全、绿色的能源骨干。',
       '双路环网结构覆盖主会议厅、分论坛、媒体中心与后勤区域，关键节点实现 2 小时耐火与实时温升监测。系统支持峰会期间的高负载切换，并确保重要通信与广播系统的独立供电。',
       '我们将智慧感知接入场馆综合运维平台，提供回路级能耗分析、负载预警与应急联动策略。通过云端巡检与专家远程支持，保障国际会议期间的零中断运行体验。',
       '项目同步规划未来扩展能力，可快速新增展览模块与临时演播区，保持供配电系统的冗余与可升级性，为大型会议提供可持续的能源支撑。',
     ],
     en: [
-      'Positioned as the convention hub for the Guangdong–Hong Kong–Macao Greater Bay Area, the Shenzhen Qianhai International Conference Center hosts global leaders and industry pioneers. AIWASON delivers a fire-resistant intelligent optoelectronic busbar backbone that keeps the venue efficient, safe, and green.',
+      'Positioned as the convention hub for the Guangdong–Hong Kong–Macao Greater Bay Area, the Shenzhen Qianhai International Conference Center hosts global leaders and industry pioneers. AMERSON delivers a fire-resistant intelligent optoelectronic busbar backbone that keeps the venue efficient, safe, and green.',
       'Dual-ring redundancy spans the main plenary hall, break-out forums, media center, and support zones. Critical tap-offs achieve two-hour fire endurance with real-time thermal monitoring, enabling seamless load transfers during peak summit operations while safeguarding communications and broadcast systems.',
       'Intelligent sensing is integrated into the venue’s unified O&M platform, providing circuit-level energy analytics, load forecasting, and emergency response playbooks. Cloud-based inspections and expert remote assistance secure zero-interruption performance throughout international events.',
       'The project roadmap anticipates future expansion, allowing rapid addition of exhibition modules and temporary broadcasting suites while maintaining redundancy and upgradability across the power network—delivering a sustainable energy foundation for world-class conferences.',

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 
 export const metadata: Metadata = {
-  title: 'Poly Theater | AIWASON',
+  title: 'Poly Theater | AMERSON',
   description: 'Low-noise, fire-rated backbone serving stage power, FOH and broadcast with quick turnarounds.',
   alternates: {
     canonical: '/news/poly-theater',
@@ -30,13 +30,13 @@ const projectData: ProjectDetail = {
   heroImage: '/res/保利剧院.jpg',
   description: {
     zh: [
-      '保利剧院作为国内顶级的艺术演出场所，对电力系统的稳定性、安静性和灵活性要求极高。AIWASON为其设计的智能配电系统采用了低噪声耐火母线技术，全面覆盖了舞台、前台和录播系统，支持快速情景切换和多元化演出需求。',
+      '保利剧院作为国内顶级的艺术演出场所，对电力系统的稳定性、安静性和灵活性要求极高。AMERSON为其设计的智能配电系统采用了低噪声耐火母线技术，全面覆盖了舞台、前台和录播系统，支持快速情景切换和多元化演出需求。',
       '系统的核心优势在于其精细化的分路设计。音频、灯光和吓装系统实现了独立的电力供应和控制，相互之间不会产生干扰，确保了演出效果的纯净性。每个系统都能根据不同演出的需要进行独立调节和控制。',
       '分区计量系统为演出经营管理提供了强大的数据支持。系统能够精确记录每场演出的用电量，包括音响、灯光、舞美等各个部分的能耗数据，为演出成本结算和剧院运营管理提供了详细的参考依据。',
       '考虑到演出场所的特殊性，系统特别强化了安全性和可靠性设计。所有关键电力设备都配备了备用方案，即使在演出过程中出现突发情况，也能够迅速切换到备用系统，确保演出的连续性和观众的安全。',
     ],
     en: [
-      'As a top-tier arts performance venue in China, Poly Theater has extremely high requirements for power system stability, quietness, and flexibility. The intelligent power distribution system designed by AIWASON adopts low-noise fire-rated busbar technology, comprehensively covering stage, front-of-house, and broadcast systems, supporting rapid scene switching and diverse performance needs.',
+      'As a top-tier arts performance venue in China, Poly Theater has extremely high requirements for power system stability, quietness, and flexibility. The intelligent power distribution system designed by AMERSON adopts low-noise fire-rated busbar technology, comprehensively covering stage, front-of-house, and broadcast systems, supporting rapid scene switching and diverse performance needs.',
       'The core advantage of the system lies in its refined circuit design. Audio, lighting, and rigging systems achieve independent power supply and control without mutual interference, ensuring the purity of performance effects. Each system can be independently adjusted and controlled according to the needs of different performances.',
       'The zoned metering system provides powerful data support for performance management. The system can accurately record power consumption for each performance, including energy consumption data for audio, lighting, stage design and other parts, providing detailed reference for performance cost settlement and theater operation management.',
       'Considering the special nature of performance venues, the system particularly strengthens safety and reliability design. All critical power equipment is equipped with backup solutions. Even if unexpected situations occur during performances, it can quickly switch to backup systems, ensuring performance continuity and audience safety.',

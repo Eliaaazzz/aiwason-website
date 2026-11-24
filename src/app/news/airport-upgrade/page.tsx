@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 
 export const metadata: Metadata = {
-  title: 'Shenzhen Bao\'an International Airport Upgrade | AIWASON',
+  title: 'Shenzhen Bao\'an International Airport Upgrade | AMERSON',
   description: 'Fire-rated busways link terminals, data rooms and baggage systems for 24/7 operation.',
   alternates: {
     canonical: '/news/airport-upgrade',
@@ -35,13 +35,13 @@ const projectData: ProjectDetail = {
   heroImage: '/res/gallery-46.jpg',
   description: {
     zh: [
-      '深圳宝安国际机场作为大湾区重要的航空枢纽，年客流量超过5000万人次。机场T3航站楼扩建工程对电力系统提出了极高的可靠性要求。AIWASON为该项目提供了全面的耐火智能光电母线升级方案。',
+      '深圳宝安国际机场作为大湾区重要的航空枢纽，年客流量超过5000万人次。机场T3航站楼扩建工程对电力系统提出了极高的可靠性要求。AMERSON为该项目提供了全面的耐火智能光电母线升级方案。',
       '项目覆盖航站楼、数据中心、行李处理系统等关键区域，采用冗余配电架构确保24小时不间断运行。系统集成了先进的故障预警技术，能够在故障发生前提前预警，最大限度减少对航班运营的影响。',
       '针对机场复杂的运营环境，系统设计了多级安全保护机制。重要设备采用双路供电，关键负载配置UPS备用电源。智能监测系统实时监控电力质量，确保精密设备的稳定运行。',
       '项目还考虑了未来的扩展需求，预留了充足的电力容量和接口。随着机场智能化程度的不断提高，系统能够支持新技术设备的接入，保障机场的持续发展。',
     ],
     en: [
-      'Shenzhen Bao\'an International Airport, as an important aviation hub in the Greater Bay Area, handles over 50 million passengers annually. The T3 terminal expansion project places extremely high reliability requirements on the power system. AIWASON provides a comprehensive fire-resistant intelligent optoelectronic busbar upgrade solution for this project.',
+      'Shenzhen Bao\'an International Airport, as an important aviation hub in the Greater Bay Area, handles over 50 million passengers annually. The T3 terminal expansion project places extremely high reliability requirements on the power system. AMERSON provides a comprehensive fire-resistant intelligent optoelectronic busbar upgrade solution for this project.',
       'The project covers critical areas including terminals, data centers, and baggage handling systems, adopting redundant power distribution architecture to ensure 24-hour uninterrupted operation. The system integrates advanced fault warning technology that can provide early warnings before faults occur, minimizing impact on flight operations.',
       'Targeting the complex operating environment of airports, the system designs multi-level safety protection mechanisms. Important equipment adopts dual power supply, and critical loads are configured with UPS backup power. The intelligent monitoring system provides real-time monitoring of power quality to ensure stable operation of precision equipment.',
       'The project also considers future expansion needs, reserving sufficient power capacity and interfaces. As the airport\'s level of intelligence continues to improve, the system can support the integration of new technology equipment, ensuring the airport\'s sustainable development.',

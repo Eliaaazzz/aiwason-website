@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 
 export const metadata: Metadata = {
-  title: 'Shenzhen Global Intelligent Chip Center | AIWASON',
+  title: 'Shenzhen Global Intelligent Chip Center | AMERSON',
   description: 'High-density power distribution for semiconductor fabrication with ultra-clean supply and real-time monitoring.',
   alternates: {
     canonical: '/news/chip-center',
@@ -35,13 +35,13 @@ const projectData: ProjectDetail = {
   heroImage: '/res/深圳全球智能芯片中心.jpg',
   description: {
     zh: [
-      '深圳全球智能芯片中心是国内领先的半导体研发与制造基地，对电力系统的洁净度和可靠性有着极高的要求。AIWASON为该项目提供了专为半导体制造环境设计的高密度配电解决方案。',
+      '深圳全球智能芯片中心是国内领先的半导体研发与制造基地，对电力系统的洁净度和可靠性有着极高的要求。AMERSON为该项目提供了专为半导体制造环境设计的高密度配电解决方案。',
       '项目采用了全密封设计的耐火智能光电母线系统，确保在洁净室环境中不产生任何颗粒污染。系统集成了先进的电磁兼容技术，有效抑制电磁干扰，保护敏感的芯片制造设备。',
       '为满足半导体生产的24/7连续运行需求，系统配置了冗余备份架构。多重监测系统实时监控电力质量，包括谐波分析、电压闪烁检测等，确保为精密制造设备提供稳定的电力环境。',
       '智能监测系统能够预测设备维护需求，通过预防性维护策略，最大限度减少生产中断。系统还预留了未来扩容接口，支持产线的快速扩展和升级。',
     ],
     en: [
-      'The Shenzhen Global Intelligent Chip Center is a leading semiconductor R&D and manufacturing base in China, with extremely high requirements for power system cleanliness and reliability. AIWASON provides a high-density power distribution solution specifically designed for semiconductor manufacturing environments.',
+      'The Shenzhen Global Intelligent Chip Center is a leading semiconductor R&D and manufacturing base in China, with extremely high requirements for power system cleanliness and reliability. AMERSON provides a high-density power distribution solution specifically designed for semiconductor manufacturing environments.',
       'The project adopts a fully sealed fire-resistant intelligent optoelectronic busbar system to ensure no particle contamination is generated in cleanroom environments. The system integrates advanced electromagnetic compatibility technology to effectively suppress electromagnetic interference and protect sensitive chip manufacturing equipment.',
       'To meet the 24/7 continuous operation requirements of semiconductor production, the system is configured with redundant backup architecture. Multiple monitoring systems provide real-time monitoring of power quality, including harmonic analysis and voltage flicker detection, ensuring a stable power environment for precision manufacturing equipment.',
       'The intelligent monitoring system can predict equipment maintenance needs and minimize production interruptions through preventive maintenance strategies. The system also reserves future expansion interfaces to support rapid expansion and upgrading of production lines.',

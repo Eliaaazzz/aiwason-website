@@ -1,4 +1,4 @@
-# AIWASON Official Website
+# AMERSON Official Website
 **Fire-Resistant Intelligent Optoelectronic Busbar Systems**
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&logoColor=white)](https://nextjs.org/)
@@ -7,7 +7,7 @@
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-0055FF?logo=framer&logoColor=white)](https://www.framer.com/motion/)
 [![License](https://img.shields.io/badge/License-Proprietary-red)](LICENSE)
 
-> Professional corporate website for AIWASON, a leading manufacturer of fire-resistant intelligent optoelectronic busbar systems, specializing in power distribution solutions for real estate developments and data centers.
+> Professional corporate website for AMERSON, a leading manufacturer of fire-resistant intelligent optoelectronic busbar systems, specializing in power distribution solutions for real estate developments and data centers.
 
 ## 🚀 Live Demo
 
@@ -252,7 +252,7 @@ NEXT_PUBLIC_ANALYTICS_ID=your-analytics-id
 
 ## 📄 License
 
-This project is proprietary and confidential. All rights reserved by AIWASON.
+This project is proprietary and confidential. All rights reserved by AMERSON.
 
 **Unauthorized copying, distribution, or use is strictly prohibited.**
 

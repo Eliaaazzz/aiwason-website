@@ -3,8 +3,8 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 import coverCCTV from '@/assets/News/央视采访1.png'
 
 export const metadata: Metadata = {
-  title: 'CCTV "Credit China" Interview | AIWASON',
-  description: 'CCTV highlights AIWASON\u2019s fire-resistant intelligent optoelectronic busbar technology and smart manufacturing deployment.',
+  title: 'CCTV "Credit China" Interview | AMERSON',
+  description: 'CCTV highlights AMERSON\u2019s fire-resistant intelligent optoelectronic busbar technology and smart manufacturing deployment.',
   alternates: {
     canonical: '/news/cctv-interview',
     languages: { en: '/news/cctv-interview?lang=en', zh: '/news/cctv-interview?lang=zh' },
@@ -16,8 +16,8 @@ type PageProps = { searchParams: Promise<{ lang?: string }> }
 const projectData: ProjectDetail = {
   id: 'cctv-credit-china-interview',
   title: {
-    zh: '央视《信用中国》专访 AIWASON',
-    en: 'CCTV “Credit China” Interview with AIWASON',
+    zh: '央视《信用中国》专访 AMERSON',
+    en: 'CCTV “Credit China” Interview with AMERSON',
   },
   subtitle: {
     zh: '耐火智能光电母线的创新与落地',
@@ -36,16 +36,16 @@ const projectData: ProjectDetail = {
   heroFit: 'contain',
   description: {
     zh: [
-      '央视《信用中国》栏目聚焦 AIWASON 在耐火智能光电母线领域的技术突破与产业化成果，专题展示公司在数据中心、轨道交通、城市综合体的标杆项目。',
-      '节目深入采访 AIWASON 核心研发团队与合作伙伴，解析光纤感知、AI 运维、模块化连接等独有技术如何提升大型基础设施的安全性与能效表现。',
-      '报道同步探访 AIWASON 智能制造基地，呈现从高导电母排加工、耐火封装到智能监测装置装配的自动化生产流程，强调全过程质量追溯与可靠性验证体系。',
-      '通过央视权威媒体平台，AIWASON 分享了推动绿色能源基础设施升级的实践经验，并宣布面向国际市场的战略合作计划。',
+      '央视《信用中国》栏目聚焦 AMERSON 在耐火智能光电母线领域的技术突破与产业化成果，专题展示公司在数据中心、轨道交通、城市综合体的标杆项目。',
+      '节目深入采访 AMERSON 核心研发团队与合作伙伴，解析光纤感知、AI 运维、模块化连接等独有技术如何提升大型基础设施的安全性与能效表现。',
+      '报道同步探访 AMERSON 智能制造基地，呈现从高导电母排加工、耐火封装到智能监测装置装配的自动化生产流程，强调全过程质量追溯与可靠性验证体系。',
+      '通过央视权威媒体平台，AMERSON 分享了推动绿色能源基础设施升级的实践经验，并宣布面向国际市场的战略合作计划。',
     ],
     en: [
-      'CCTV’s “Credit China” programme spotlighted AIWASON’s breakthroughs in fire-resistant intelligent optoelectronic busbars, featuring flagship deployments across data centres, rail transit, and urban mixed-use complexes.',
-      'The feature interviewed AIWASON’s core R&D team and ecosystem partners, explaining how proprietary technologies—fiber sensing, AI-driven operations, and modular tap-off design—enhance safety and energy performance for large-scale infrastructure.',
-      'The episode also visited AIWASON’s smart manufacturing base, showcasing automated production lines from high-conductivity busbar processing and fire-resistant encapsulation to intelligent monitoring assembly, highlighting end-to-end quality traceability.',
-      'Through CCTV’s national platform, AIWASON shared its roadmap for advancing sustainable energy infrastructure and announced upcoming strategic collaborations for international markets.',
+      'CCTV’s “Credit China” programme spotlighted AMERSON’s breakthroughs in fire-resistant intelligent optoelectronic busbars, featuring flagship deployments across data centres, rail transit, and urban mixed-use complexes.',
+      'The feature interviewed AMERSON’s core R&D team and ecosystem partners, explaining how proprietary technologies—fiber sensing, AI-driven operations, and modular tap-off design—enhance safety and energy performance for large-scale infrastructure.',
+      'The episode also visited AMERSON’s smart manufacturing base, showcasing automated production lines from high-conductivity busbar processing and fire-resistant encapsulation to intelligent monitoring assembly, highlighting end-to-end quality traceability.',
+      'Through CCTV’s national platform, AMERSON shared its roadmap for advancing sustainable energy infrastructure and announced upcoming strategic collaborations for international markets.',
     ],
   },
   keyFeatures: {

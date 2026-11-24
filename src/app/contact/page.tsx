@@ -4,19 +4,19 @@ import Link from 'next/link'
 import { Globe } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Contact | AIWASON',
-  description: 'Get in touch with AIWASON for project consultations and technical support.',
+  title: 'Contact | AMERSON',
+  description: 'Get in touch with AMERSON for project consultations and technical support.',
   openGraph: {
     type: 'website',
-    title: 'Contact | AIWASON',
-    description: 'Contact AIWASON for project consultations, technical support, and partnerships.',
-    images: [{ url: '/res/aiwason_fireproof_busbar_hero.png', width: 1200, height: 630 }],
+    title: 'Contact | AMERSON',
+    description: 'Contact AMERSON for project consultations, technical support, and partnerships.',
+    images: [{ url: '/res/amerson_fireproof_busbar_hero.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Contact | AIWASON',
-    description: 'Contact AIWASON for project consultations, technical support, and partnerships.',
-    images: ['/res/aiwason_fireproof_busbar_hero.png'],
+    title: 'Contact | AMERSON',
+    description: 'Contact AMERSON for project consultations, technical support, and partnerships.',
+    images: ['/res/amerson_fireproof_busbar_hero.png'],
   },
   alternates: {
     canonical: '/contact',
@@ -59,8 +59,8 @@ export default async function ContactPage({
             </h1>
             <p className="text-base md:text-lg text-gray-600 leading-relaxed">
               {isEN
-                ? 'Connect with AIWASON for engineering consultations, technical partnerships, or urgent support. Our specialists respond quickly across time zones.'
-                : '无论是工程咨询、技术合作还是现场支持，AIWASON 团队都将为您提供及时、专业的服务。'}
+                ? 'Connect with AMERSON for engineering consultations, technical partnerships, or urgent support. Our specialists respond quickly across time zones.'
+                : '无论是工程咨询、技术合作还是现场支持，AMERSON 团队都将为您提供及时、专业的服务。'}
             </p>
           </div>
 

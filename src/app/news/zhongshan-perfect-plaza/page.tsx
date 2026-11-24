@@ -3,7 +3,7 @@ import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/Pro
 import perfectPlazaPrize from '@/assets/images/perfectPlazaPrize.png'
 
 export const metadata: Metadata = {
-  title: 'Zhongshan Perfect Golden Eagle Plaza | AIWASON',
+  title: 'Zhongshan Perfect Golden Eagle Plaza | AMERSON',
   description: 'Fire-rated ring bus serves mall, offices and hotel with maintenance possible under load.',
   alternates: {
     canonical: '/news/zhongshan-perfect-plaza',
@@ -31,13 +31,13 @@ const projectData: ProjectDetail = {
   heroImage: '/res/zhonshan perfect plaza.jpg',
   description: {
     zh: [
-      '中山完美金鹰广场是集购物中心、甲级写字楼、五星级酒店于一体的大型城市综合体项目。项目总建筑面积超过30万平方米，AIWASON为其提供了全面的耐火智能光电母线解决方案。',
+      '中山完美金鹰广场是集购物中心、甲级写字楼、五星级酒店于一体的大型城市综合体项目。项目总建筑面积超过30万平方米，AMERSON为其提供了全面的耐火智能光电母线解决方案。',
       '项目采用环网结构设计，确保商业、办公、酒店三大功能区域的电力供应安全可靠。系统具备带电检修能力，在不中断供电的情况下完成设备维护，保证了商业运营的连续性。',
       '针对综合体多业态的特点，系统实现了分区管理和分时控制。购物中心的照明系统可根据营业时间自动调节，办公区域的空调系统可按楼层独立控制，酒店区域的客房电力可实现精确计量。',
       '智能监测系统对整个建筑的能耗进行实时监控和分析，通过AI算法优化电力分配，显著降低了运营成本。系统预留了充电桩和储能设备接口，为未来的绿色能源应用提供了技术基础。',
     ],
     en: [
-      'Zhongshan Perfect Golden Eagle Plaza is a large urban complex project integrating shopping center, Grade A office buildings, and five-star hotel. With a total construction area of over 300,000 square meters, AIWASON provides comprehensive fire-resistant intelligent optoelectronic busbar solutions.',
+      'Zhongshan Perfect Golden Eagle Plaza is a large urban complex project integrating shopping center, Grade A office buildings, and five-star hotel. With a total construction area of over 300,000 square meters, AMERSON provides comprehensive fire-resistant intelligent optoelectronic busbar solutions.',
       'The project adopts a ring network structure design to ensure safe and reliable power supply for the three major functional areas: commercial, office, and hotel. The system has live maintenance capability, completing equipment maintenance without interrupting power supply, ensuring continuity of commercial operations.',
       'Targeting the multi-format characteristics of the complex, the system realizes zoned management and time-based control. The shopping center\'s lighting system can automatically adjust according to business hours, the office area\'s air conditioning system can be independently controlled by floor, and the hotel area\'s guest room power can achieve precise metering.',
       'The intelligent monitoring system provides real-time monitoring and analysis of the entire building\'s energy consumption. Through AI algorithms to optimize power distribution, operating costs are significantly reduced. The system reserves interfaces for charging piles and energy storage equipment, providing a technical foundation for future green energy applications.',

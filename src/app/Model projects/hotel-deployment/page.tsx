@@ -22,12 +22,12 @@ export default async function Page({ searchParams }: PageProps) {
 
   const detailCopy: Record<'zh' | 'en', string[]> = {
     en: [
-      'Premium hospitality spaces prioritise acoustic comfort and uninterrupted power. AIWASON busbars keep critical loads silent and stable across guest rooms, kitchens, and ballroom clusters while meeting fire safety codes.',
+      'Premium hospitality spaces prioritise acoustic comfort and uninterrupted power. AMERSON busbars keep critical loads silent and stable across guest rooms, kitchens, and ballroom clusters while meeting fire safety codes.',
       'With built-in temperature and leakage sensing, facility teams receive early warnings before faults impact service quality, allowing maintenance to be scheduled around occupancy peaks.',
       'Dedicated service teams coordinate retrofit windows with hotel operations so that renovation workloads never interrupt guest journeys.',
     ],
     zh: [
-      '高端酒店强调静音与不间断供电。AIWASON 母线在客房、后厨及宴会区域实现平稳供电，同时满足严格的耐火与安全规范。',
+      '高端酒店强调静音与不间断供电。AMERSON 母线在客房、后厨及宴会区域实现平稳供电，同时满足严格的耐火与安全规范。',
       '内置温度与漏电监测帮助运维团队提前预警，在不影响入住体验的情况下灵活安排检修计划。',
       '专业服务团队与酒店运营紧密配合，确保改造施工不影响宾客旅程。',
     ],

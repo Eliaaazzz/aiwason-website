@@ -26,7 +26,7 @@ export async function getNewsData(): Promise<NewsPayload> {
     {
       id: 'v1',
       type: 'standard',
-      title: { en: 'AIWASON Smart Busbar Technology', zh: 'AIWASON 智能母线科技' },
+      title: { en: 'AMERSON Smart Busbar Technology', zh: 'AMERSON 智能母线科技' },
       description: { en: 'Explore innovations.', zh: '探索我们的创新。' },
       thumbnail: homeHeroPoster, // static import is fine here; used within the same RSC boundary
       embedUrl: 'https://www.youtube.com/embed/R9g6xvXA9j4',
@@ -51,7 +51,7 @@ export async function getNewsData(): Promise<NewsPayload> {
   const news: NewsItem[] = [
     {
       id: 'n-sina',
-      title: { en: 'AIWASON Featured by Sina Technology', zh: '新浪科技报道艾默森' },
+      title: { en: 'AMERSON Featured by Sina Technology', zh: '新浪科技报道艾默森' },
       source: 'Sina Technology',
       link: 'https://finance.sina.com.cn/jjxw/2025-05-12/doc-inewhnwe8190331.shtml',
       date: '2025-05-12',
@@ -60,7 +60,7 @@ export async function getNewsData(): Promise<NewsPayload> {
     },
     {
       id: 'n-chinadaily',
-      title: { en: 'China Daily Covers AIWASON', zh: '中国日报报道艾默森' },
+      title: { en: 'China Daily Covers AMERSON', zh: '中国日报报道艾默森' },
       source: 'China Daily',
       link: 'https://caijing.chinadaily.com.cn/a/202505/13/WS6822ea40a310205377032daa.html',
       date: '2025-05-13',
@@ -78,7 +78,7 @@ export async function getNewsData(): Promise<NewsPayload> {
     },
     {
       id: 'n-ifeng',
-      title: { en: 'Phoenix Shenzhen Highlights AIWASON', zh: '凤凰网报道艾默森' },
+      title: { en: 'Phoenix Shenzhen Highlights AMERSON', zh: '凤凰网报道艾默森' },
       source: 'Ifeng (Shenzhen)',
       link: 'https://sz.ifeng.com/c/8jI5JgSvn9w.html',
       date: '2025-05-12',
@@ -142,7 +142,7 @@ export async function getNewsData(): Promise<NewsPayload> {
   ]
 
   const wechatAccount: WeChatAccount = {
-    name: { en: 'AIWASON Official', zh: 'AIWASON 官方公众号' },
+    name: { en: 'AMERSON Official', zh: 'AMERSON 官方公众号' },
     qr: '/res/Wechat-QRcode.png', // convert to a plain string if you pass to client
     homepage: 'https://mp.weixin.qq.com/...',
     intro: {

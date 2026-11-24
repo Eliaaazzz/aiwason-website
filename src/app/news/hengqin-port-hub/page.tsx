@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 
 export const metadata: Metadata = {
-  title: 'Hengqin Port Comprehensive Transportation Hub | AIWASON',
+  title: 'Hengqin Port Comprehensive Transportation Hub | AMERSON',
   description: 'Integrated backbone for port/metro/bus with egress lighting and control-room visibility.',
   alternates: {
     canonical: '/news/hengqin-port-hub',
@@ -35,16 +35,16 @@ const projectData: ProjectDetail = {
   heroImage: '/res/横琴口岸综合交通枢纽.jpg',
   description: {
     zh: [
-      '横琴口岸综合交通枢纽是连接珠海与澳门的重要通道，集口岸通关、地铁换乘、公交枢纽于一体。项目日通关能力超过22万人次，是粤港澳大湾区互联互通的重要节点。AIWASON为该项目提供了一体化的耐火智能光电母线解决方案。',
+      '横琴口岸综合交通枢纽是连接珠海与澳门的重要通道，集口岸通关、地铁换乘、公交枢纽于一体。项目日通关能力超过22万人次，是粤港澳大湾区互联互通的重要节点。AMERSON为该项目提供了一体化的耐火智能光电母线解决方案。',
       '项目的核心挑战是实现口岸、地铁、公交三种不同交通方式的电力系统整合。我们设计了多方式环网冗余架构，确保任一系统故障时其他系统仍能正常运行。光纤感知技术直达中控室，实现了全枢纽的统一监控管理。',
       '考虑到口岸的特殊安全要求，系统配置了智能疏散照明和应急电源管理。在紧急情况下，系统能够自动切换到应急模式，确保人员安全疏散通道的照明和通风系统正常运行。',
-      '项目获得了中国建筑工程鲁班奖，这是对AIWASON技术实力和工程质量的高度认可。该项目成为了大湾区交通枢纽电力系统建设的标杆案例。',
+      '项目获得了中国建筑工程鲁班奖，这是对AMERSON技术实力和工程质量的高度认可。该项目成为了大湾区交通枢纽电力系统建设的标杆案例。',
     ],
     en: [
-      'The Hengqin Port Comprehensive Transportation Hub is an important channel connecting Zhuhai and Macau, integrating port clearance, metro transfer, and bus hub functions. The project has a daily clearance capacity of over 220,000 passengers and is an important node for interconnection in the Guangdong-Hong Kong-Macao Greater Bay Area. AIWASON provides an integrated fire-resistant intelligent optoelectronic busbar solution for this project.',
+      'The Hengqin Port Comprehensive Transportation Hub is an important channel connecting Zhuhai and Macau, integrating port clearance, metro transfer, and bus hub functions. The project has a daily clearance capacity of over 220,000 passengers and is an important node for interconnection in the Guangdong-Hong Kong-Macao Greater Bay Area. AMERSON provides an integrated fire-resistant intelligent optoelectronic busbar solution for this project.',
       'The core challenge of the project is to integrate the power systems of three different transportation modes: port, metro, and bus. We designed a multi-modal ring network redundancy architecture to ensure that other systems can still operate normally when any one system fails. Fiber-optic sensing technology reaches directly to the control center, achieving unified monitoring and management of the entire hub.',
       'Considering the special security requirements of the port, the system is configured with intelligent evacuation lighting and emergency power management. In emergency situations, the system can automatically switch to emergency mode to ensure normal operation of lighting and ventilation systems in personnel safety evacuation channels.',
-      'The project won the China Construction Engineering Luban Award, which is a high recognition of AIWASON\'s technical strength and engineering quality. This project has become a benchmark case for power system construction in Greater Bay Area transportation hubs.',
+      'The project won the China Construction Engineering Luban Award, which is a high recognition of AMERSON\'s technical strength and engineering quality. This project has become a benchmark case for power system construction in Greater Bay Area transportation hubs.',
     ],
   },
   keyFeatures: {

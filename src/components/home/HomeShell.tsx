@@ -586,7 +586,7 @@ export default function HomeShell({ defaultLanguage = 'en' }: HomeShellProps) {
         id: 3,
         lines: language === 'en' ? ['FIRE-RESISTANT', 'CORE', 'TECHNOLOGY'] : ['耐火', '核心', '技术'],
         subtitle: t.features.fireResistant.description,
-        img: '/res/aiwason_fireproof_busbar_hero.png',
+        img: '/res/amerson_fireproof_busbar_hero.png',
         bg: BACKGROUND_IMG,
       },
       {
@@ -656,8 +656,8 @@ export default function HomeShell({ defaultLanguage = 'en' }: HomeShellProps) {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="h-16 lg:h-20 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3 group" aria-label="Home">
-              <Image src={LOGO_SRC} alt="AIWASON logo" width={64} height={48} priority className="object-contain" />
-              <span className="text-2xl font-black tracking-wide text-gray-900">AIWASON</span>
+              <Image src={LOGO_SRC} alt="AMERSON logo" width={64} height={48} priority className="object-contain" />
+              <span className="text-2xl font-black tracking-wide text-gray-900">AMERSON</span>
               <span className="text-xs text-gray-400">®</span>
             </Link>
 

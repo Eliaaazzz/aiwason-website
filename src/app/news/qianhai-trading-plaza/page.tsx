@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 
 export const metadata: Metadata = {
-  title: 'Qianhai Exchange Plaza | AIWASON',
+  title: 'Qianhai Exchange Plaza | AMERSON',
   description: 'Backbone retrofit delivered in phases while trading floors remained in service.',
   alternates: {
     canonical: '/news/qianhai-trading-plaza',
@@ -30,13 +30,13 @@ const projectData: ProjectDetail = {
   heroImage: '/res/前海交易广场.jpg',
   description: {
     zh: [
-      '前海交易广场作为重要的金融交易中心，对电力系统的可靠性和连续性要求极高。AIWASON采用分期实施的策略，在保证交易功能全程不中断的前提下，完成了整个建筑的电力系统升级改造。',
+      '前海交易广场作为重要的金融交易中心，对电力系统的可靠性和连续性要求极高。AMERSON采用分期实施的策略，在保证交易功能全程不中断的前提下，完成了整个建筑的电力系统升级改造。',
       '项目最大的挑战在于如何在不影响日常交易业务的情况下，对关键电力设施进行更新换代。团队制定了详细的分阶段实施方案，利用夜间和节假日的时间窗口，逐步完成设备切换和系统升级。',
       '新系统采用双路冗余设计，确保任何单点故障都不会影响交易业务的正常进行。智能监控系统能够实时监测所有关键参数，一旦发现异常立即启动备用回路，实现无缝切换。',
       '项目还特别考虑了金融行业对数据安全的严格要求，配电系统的监控数据采用加密传输，确保敏感信息不会泄露。系统预留了扩展接口，为未来业务增长提供了充足的电力保障。',
     ],
     en: [
-      'As an important financial trading center, Qianhai Exchange Plaza has extremely high requirements for power system reliability and continuity. AIWASON adopted a phased implementation strategy to complete the entire building\'s power system upgrade while ensuring uninterrupted trading functions.',
+      'As an important financial trading center, Qianhai Exchange Plaza has extremely high requirements for power system reliability and continuity. AMERSON adopted a phased implementation strategy to complete the entire building\'s power system upgrade while ensuring uninterrupted trading functions.',
       'The project\'s biggest challenge was how to update critical power facilities without affecting daily trading operations. The team developed a detailed phased implementation plan, utilizing time windows during nights and holidays to gradually complete equipment switching and system upgrades.',
       'The new system adopts dual redundancy design to ensure that any single point of failure will not affect normal trading operations. The intelligent monitoring system can monitor all critical parameters in real-time and immediately activate backup circuits upon detecting anomalies, achieving seamless switching.',
       'The project also specially considered the financial industry\'s strict requirements for data security. The power distribution system\'s monitoring data uses encrypted transmission to ensure sensitive information will not be leaked. The system reserves expansion interfaces, providing sufficient power guarantee for future business growth.',

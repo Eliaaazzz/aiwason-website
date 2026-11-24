@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 
 export const metadata: Metadata = {
-  title: 'BYD Intelligent Manufacturing Campus | AIWASON',
+  title: 'BYD Intelligent Manufacturing Campus | AMERSON',
   description: '6300A busway supplies stamping, battery and final assembly with headroom for ramp-up.',
   alternates: {
     canonical: '/news/byd-smart-factory',
@@ -35,13 +35,13 @@ const projectData: ProjectDetail = {
   heroImage: '/res/深圳比亚迪—A.jpg',
   description: {
     zh: [
-      '比亚迪智能制造园区是全球领先的新能源汽车生产基地，集成了冲压、焊装、涂装、总装四大工艺车间。AIWASON为该项目提供了6300A大容量耐火智能光电母线系统，覆盖整个制造流程的电力需求。',
+      '比亚迪智能制造园区是全球领先的新能源汽车生产基地，集成了冲压、焊装、涂装、总装四大工艺车间。AMERSON为该项目提供了6300A大容量耐火智能光电母线系统，覆盖整个制造流程的电力需求。',
       '项目面临的主要挑战是车间环境恶劣，包括高温、粉尘、震动等工况。我们的解决方案采用了IP54防护等级的分接箱设计，能够在严苛的工业环境中稳定运行。同时，电弧故障检测系统能够快速识别并隔离故障，保护生产设备和人员安全。',
       '为了支持比亚迪快速扩展的生产需求，系统采用了模块化设计理念。每个制造单元都可以独立扩容，而不影响其他生产线的正常运行。这种设计使得比亚迪能够根据市场需求快速调整产能。',
       '智能监测系统实现了对整个园区电力系统的统一管理。通过实时数据分析，系统能够优化电力分配，降低能耗，提升整体生产效率。预测性维护功能大大减少了设备停机时间，确保生产计划的顺利执行。',
     ],
     en: [
-      'The BYD Intelligent Manufacturing Campus is a world-leading new energy vehicle production base that integrates four major process workshops: stamping, welding, painting, and final assembly. AIWASON provides a 6300A high-capacity fire-resistant intelligent optoelectronic busbar system that covers the power requirements of the entire manufacturing process.',
+      'The BYD Intelligent Manufacturing Campus is a world-leading new energy vehicle production base that integrates four major process workshops: stamping, welding, painting, and final assembly. AMERSON provides a 6300A high-capacity fire-resistant intelligent optoelectronic busbar system that covers the power requirements of the entire manufacturing process.',
       'The main challenge faced by the project is the harsh workshop environment, including high temperature, dust, vibration and other working conditions. Our solution adopts IP54 protection rating tap-box design that can operate stably in harsh industrial environments. Meanwhile, the arc fault detection system can quickly identify and isolate faults, protecting production equipment and personnel safety.',
       'To support BYD\'s rapidly expanding production demands, the system adopts a modular design concept. Each manufacturing unit can be independently expanded without affecting the normal operation of other production lines. This design enables BYD to quickly adjust production capacity according to market demand.',
       'The intelligent monitoring system realizes unified management of the entire campus power system. Through real-time data analysis, the system can optimize power distribution, reduce energy consumption, and improve overall production efficiency. Predictive maintenance functions greatly reduce equipment downtime and ensure smooth execution of production plans.',

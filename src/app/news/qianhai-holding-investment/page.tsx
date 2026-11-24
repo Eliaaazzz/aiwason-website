@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 
 export const metadata: Metadata = {
-  title: 'Qianhai Holding Investment Tower | AIWASON',
+  title: 'Qianhai Holding Investment Tower | AMERSON',
   description: 'Intelligent ring supports HQ offices and cultural venues with reserved capacity for future fit-outs.',
   alternates: {
     canonical: '/news/qianhai-holding-investment',
@@ -30,13 +30,13 @@ const projectData: ProjectDetail = {
   heroImage: '/res/前海投控大厦.jpg',
   description: {
     zh: [
-      '前海投控大厦作为现代化企业总部，集办公、会议、文化展示等多功能于一体。AIWASON为其设计的智能环网配电系统，不仅满足当前运营需求，更为未来的空间改造和功能扩展预留了充足的容量和灵活性。',
+      '前海投控大厦作为现代化企业总部，集办公、会议、文化展示等多功能于一体。AMERSON为其设计的智能环网配电系统，不仅满足当前运营需求，更为未来的空间改造和功能扩展预留了充足的容量和灵活性。',
       '系统采用环网结构设计，确保各个功能区域的电力供应稳定可靠。办公区域可根据使用情况灵活调整电力分配，会议中心具备多场景用电模式，文化展示区域的照明系统可实现精确控制。',
       '智能监控系统对整栋大厦的能耗进行精细化管理，通过AI算法分析用电模式，自动调整供电策略以实现最佳的能效比。系统还具备预测性维护功能，能够提前发现潜在问题并安排维护计划。',
       '考虑到企业总部对形象和效率的双重要求，系统在保证高可靠性的同时，注重节能环保和智能化管理。切换操作无感知，为员工提供了舒适稳定的工作环境。',
     ],
     en: [
-      'As a modern corporate headquarters, Qianhai Holding Investment Tower integrates multiple functions including offices, conferences, and cultural exhibitions. The intelligent ring network power distribution system designed by AIWASON not only meets current operational needs but also reserves sufficient capacity and flexibility for future space renovations and functional expansions.',
+      'As a modern corporate headquarters, Qianhai Holding Investment Tower integrates multiple functions including offices, conferences, and cultural exhibitions. The intelligent ring network power distribution system designed by AMERSON not only meets current operational needs but also reserves sufficient capacity and flexibility for future space renovations and functional expansions.',
       'The system adopts a ring network structure design to ensure stable and reliable power supply for various functional areas. Office areas can flexibly adjust power distribution according to usage, the conference center has multi-scenario power modes, and the cultural exhibition area\'s lighting system can achieve precise control.',
       'The intelligent monitoring system provides refined management of the entire building\'s energy consumption. Through AI algorithms analyzing power usage patterns, it automatically adjusts power supply strategies to achieve optimal energy efficiency. The system also has predictive maintenance functions, able to identify potential problems in advance and schedule maintenance plans.',
       'Considering the dual requirements of corporate headquarters for image and efficiency, the system ensures high reliability while focusing on energy conservation and intelligent management. Switching operations are imperceptible, providing employees with a comfortable and stable working environment.',

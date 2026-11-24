@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ProjectDetailLayout, { type ProjectDetail } from '@/components/common/ProjectDetailLayout'
 
 export const metadata: Metadata = {
-  title: 'High-speed Rail Nanfang Xinhui Factory | AIWASON',
+  title: 'High-speed Rail Nanfang Xinhui Factory | AMERSON',
   description: 'Marine-grade, vibration-damped busways with AI diagnostics for coastal environments.',
   alternates: {
     canonical: '/news/hsr-nanfang-xinhui',
@@ -30,13 +30,13 @@ const projectData: ProjectDetail = {
   heroImage: '/res/高铁（南方新会工厂）.jpg',
   description: {
     zh: [
-      '南方新会工厂作为高速动车组制造的重要基地，位于近海地区，面临着潮湿、盐雾和高震动等恒列环境挑战。AIWASON为其设计的智能配电系统采用了船级封装与减震设计，结合AI诊断技术，为高精度制造提供了可靠的电力保障。',
+      '南方新会工厂作为高速动车组制造的重要基地，位于近海地区，面临着潮湿、盐雾和高震动等恒列环境挑战。AMERSON为其设计的智能配电系统采用了船级封装与减震设计，结合AI诊断技术，为高精度制造提供了可靠的电力保障。',
       '系统的最大亮点在于其出色的环境适应性。耐候减震封装技术能够有效抵御近海环境的潮湿、盐雾腐蚀以及生产过程中的强烈震动，确保电力系统的长期稳定运行。每个关键部件都通过了严格的海洋环境测试。',
       'AI诊断系统是该项目的另一个技术突破。通过集成在母线系统中的光纤传感器，系统能够实时收集各种运行数据，包括电气参数、温度、震动等信息。AI算法对这些数据进行深度分析，能够提前预测设备故障并生成智能化的维护工单。',
       '针对高精度制造的特殊需求，系统在电力品质和稳定性方面做了特殊优化。无论是精密机床还是自动化生产线，都能获得稳定、清洁的电力供应，确保高速动车组的制造精度和质量。',
     ],
     en: [
-      'As an important base for high-speed train manufacturing, Nanfang Xinhui Factory is located in a coastal area, facing harsh environmental challenges such as humidity, salt spray, and high vibration. The intelligent power distribution system designed by AIWASON adopts marine-grade encapsulation and vibration-damped design, combined with AI diagnostic technology, providing reliable power guarantee for high-precision manufacturing.',
+      'As an important base for high-speed train manufacturing, Nanfang Xinhui Factory is located in a coastal area, facing harsh environmental challenges such as humidity, salt spray, and high vibration. The intelligent power distribution system designed by AMERSON adopts marine-grade encapsulation and vibration-damped design, combined with AI diagnostic technology, providing reliable power guarantee for high-precision manufacturing.',
       'The system\'s greatest highlight lies in its excellent environmental adaptability. Weatherproof vibration-damped encapsulation technology can effectively resist coastal environment\'s humidity, salt spray corrosion, and strong vibrations during production processes, ensuring long-term stable operation of the power system. Every critical component has passed rigorous marine environment testing.',
       'The AI diagnostic system is another technological breakthrough of this project. Through optical fiber sensors integrated in the busbar system, the system can collect various operational data in real-time, including electrical parameters, temperature, vibration and other information. AI algorithms perform deep analysis of this data, able to predict equipment failures in advance and generate intelligent maintenance work orders.',
       'Targeting the special needs of high-precision manufacturing, the system has made special optimizations in power quality and stability. Whether for precision machine tools or automated production lines, stable and clean power supply can be obtained, ensuring manufacturing precision and quality of high-speed trains.',

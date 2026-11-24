@@ -16,19 +16,19 @@ import wechatQrcode from '@/assets/News/Wechat-QRcode.png'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'News & Media | AIWASON',
+  title: 'News & Media | AMERSON',
   description: 'Latest videos, featured stories, media coverage, and WeChat.',
   openGraph: {
     type: 'website',
-    title: 'News & Media | AIWASON',
+    title: 'News & Media | AMERSON',
     description: 'Latest videos, featured stories, media coverage, and WeChat.',
-    images: [{ url: '/res/aiwason_fireproof_busbar_hero.png', width: 1200, height: 630 }],
+    images: [{ url: '/res/amerson_fireproof_busbar_hero.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'News & Media | AIWASON',
+    title: 'News & Media | AMERSON',
     description: 'Latest videos, featured stories, media coverage, and WeChat.',
-    images: ['/res/aiwason_fireproof_busbar_hero.png'],
+    images: ['/res/amerson_fireproof_busbar_hero.png'],
   },
   alternates: {
     canonical: '/news',
@@ -58,8 +58,8 @@ export default async function NewsPage({ searchParams }: PageProps) {
       zh: '新闻与媒体中心',
     },
     pageIntro: {
-      en: 'Stay current with AIWASON highlights: in-depth videos, strategic collaborations, and media coverage that reveal fresh trends across the power industry.',
-      zh: '聚焦 AIWASON 最新动态：纵览视频专栏、战略协同与主流媒体报道，洞察电力行业新趋势。',
+      en: 'Stay current with AMERSON highlights: in-depth videos, strategic collaborations, and media coverage that reveal fresh trends across the power industry.',
+      zh: '聚焦 AMERSON 最新动态：纵览视频专栏、战略协同与主流媒体报道，洞察电力行业新趋势。',
     },
     headings: {
       videoCenter: { en: 'Video Center', zh: '视频专区' },
@@ -75,8 +75,8 @@ export default async function NewsPage({ searchParams }: PageProps) {
       ceec: {
         title: { en: 'Invited to China–CEEC SMEs Matchmaking', zh: '受邀参加中国—中东欧企业对接会' },
         desc: {
-          en: 'As the sole representative from China’s intelligent busbar sector, AIWASON was invited to the China–CEEC SMEs Matchmaking and Cooperation Achievements Exhibition in Budapest. The team conducted deep exchanges with European partners and secured a portfolio of collaboration opportunities.',
-          zh: 'AIWASON 作为中国智能母线行业唯一代表受邀前往布达佩斯，参与中国—中东欧中小企业合作对接暨成果展，与多国伙伴深入交流，促成系列合作成果。',
+          en: 'As the sole representative from China’s intelligent busbar sector, AMERSON was invited to the China–CEEC SMEs Matchmaking and Cooperation Achievements Exhibition in Budapest. The team conducted deep exchanges with European partners and secured a portfolio of collaboration opportunities.',
+          zh: 'AMERSON 作为中国智能母线行业唯一代表受邀前往布达佩斯，参与中国—中东欧中小企业合作对接暨成果展，与多国伙伴深入交流，促成系列合作成果。',
         },
         date: '2017/11/27',
         href: '/news/ceec-matchmaking',
@@ -84,8 +84,8 @@ export default async function NewsPage({ searchParams }: PageProps) {
       nobel: {
         title: { en: 'Meeting Prof. Michel to Establish Nobel Innovation Workstation', zh: '与诺奖教授米歇尔会面建立诺贝尔创新工作站' },
         desc: {
-          en: 'AIWASON met Nobel Laureate in Chemistry Prof. Hartmut Michel to jointly establish the “Nobel Expert Innovation Workstation.” The partnership accelerates research on high-reliability, green intelligent busbar solutions.',
-          zh: 'AIWASON 与诺贝尔化学奖得主哈特穆特·米歇尔教授会面，携手共建“诺奖·专家创新工作站”，加速高可靠、绿色智能母线方案的研发落地。',
+          en: 'AMERSON met Nobel Laureate in Chemistry Prof. Hartmut Michel to jointly establish the “Nobel Expert Innovation Workstation.” The partnership accelerates research on high-reliability, green intelligent busbar solutions.',
+          zh: 'AMERSON 与诺贝尔化学奖得主哈特穆特·米歇尔教授会面，携手共建“诺奖·专家创新工作站”，加速高可靠、绿色智能母线方案的研发落地。',
         },
         date: '2024/11/14',
         href: '/news/nobel-workstation',
@@ -93,8 +93,8 @@ export default async function NewsPage({ searchParams }: PageProps) {
       cctv: {
         title: { en: 'Interviewed by CCTV', zh: '接受央视采访' },
         desc: {
-          en: 'CCTV invited AIWASON to share insights on fire-resistant intelligent optoelectronic busbars, covering product innovation, urban infrastructure deployment, and enterprise vision.',
-          zh: '中央电视台专访 AIWASON，聚焦耐火智能光电母线在产品创新、城市基础设施部署与企业战略愿景方面的成果。',
+          en: 'CCTV invited AMERSON to share insights on fire-resistant intelligent optoelectronic busbars, covering product innovation, urban infrastructure deployment, and enterprise vision.',
+          zh: '中央电视台专访 AMERSON，聚焦耐火智能光电母线在产品创新、城市基础设施部署与企业战略愿景方面的成果。',
         },
         date: '2024/12/01',
         href: '/news/cctv-interview',
@@ -105,8 +105,8 @@ export default async function NewsPage({ searchParams }: PageProps) {
         id: 'wechat-intro',
         title: { en: 'Official Account Highlights', zh: '公众号精选内容' },
         desc: {
-          en: 'Follow AIWASON Official for project milestones, solution deep-dives, and industry insights covering intelligent busbars.',
-          zh: '关注 AIWASON 官方公众号，获取项目进展、方案详解与智能母线行业洞察。',
+          en: 'Follow AMERSON Official for project milestones, solution deep-dives, and industry insights covering intelligent busbars.',
+          zh: '关注 AMERSON 官方公众号，获取项目进展、方案详解与智能母线行业洞察。',
         },
         img: wechatBanner,
       },
@@ -114,8 +114,8 @@ export default async function NewsPage({ searchParams }: PageProps) {
         id: 'wechat-qr',
         title: { en: 'Scan to Follow', zh: '扫码关注' },
         desc: {
-          en: 'Scan the QR code to stay updated with AIWASON news on WeChat.',
-          zh: '扫描二维码，即刻获取 AIWASON 微信端最新动态。',
+          en: 'Scan the QR code to stay updated with AMERSON news on WeChat.',
+          zh: '扫描二维码，即刻获取 AMERSON 微信端最新动态。',
         },
         img: wechatQrcode,
       },
@@ -200,8 +200,8 @@ export default async function NewsPage({ searchParams }: PageProps) {
         id: 'wechat-intro',
         title: localise({ en: 'Official Account Highlights', zh: '公众号精选内容' }),
        desc: localise({
-          en: 'Follow AIWASON Official for project milestones, solution deep-dives, and power industry insights.',
-          zh: '关注 AIWASON 官方公众号，获取项目进展、方案详解与电力行业洞察。',
+          en: 'Follow AMERSON Official for project milestones, solution deep-dives, and power industry insights.',
+          zh: '关注 AMERSON 官方公众号，获取项目进展、方案详解与电力行业洞察。',
         }),
         img: wechatBanner,
         imageFit: 'contain',
@@ -210,8 +210,8 @@ export default async function NewsPage({ searchParams }: PageProps) {
         id: 'wechat-qr',
         title: localise({ en: 'Scan to Follow', zh: '扫码关注' }),
         desc: localise({
-          en: 'Scan the QR code to stay updated with AIWASON news on WeChat.',
-          zh: '扫描二维码，即刻获取 AIWASON 微信端最新动态。',
+          en: 'Scan the QR code to stay updated with AMERSON news on WeChat.',
+          zh: '扫描二维码，即刻获取 AMERSON 微信端最新动态。',
         }),
         img: wechatQrcode,
         imageFit: 'contain',

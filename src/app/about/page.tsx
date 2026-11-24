@@ -14,22 +14,22 @@ const AboutSection = dynamic(() => import('../../components/about/AboutSection')
 })
 
 export const metadata: Metadata = {
-  title: 'About | AIWASON',
+  title: 'About | AMERSON',
   description:
-    'Learn about AIWASON — a leader in fire-resistant intelligent optoelectronic busbar technology for data centers, smart buildings, and critical infrastructure.',
+    'Learn about AMERSON — a leader in fire-resistant intelligent optoelectronic busbar technology for data centers, smart buildings, and critical infrastructure.',
   openGraph: {
     type: 'website',
-    title: 'About | AIWASON',
+    title: 'About | AMERSON',
     description:
-      'AIWASON pioneers fire-resistant intelligent optoelectronic busbar technology for modern infrastructure.',
-    images: [{ url: '/res/aiwason_fireproof_busbar_hero.png', width: 1200, height: 630 }],
+      'AMERSON pioneers fire-resistant intelligent optoelectronic busbar technology for modern infrastructure.',
+    images: [{ url: '/res/amerson_fireproof_busbar_hero.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About | AIWASON',
+    title: 'About | AMERSON',
     description:
-      'AIWASON pioneers fire-resistant intelligent optoelectronic busbar technology for modern infrastructure.',
-    images: ['/res/aiwason_fireproof_busbar_hero.png'],
+      'AMERSON pioneers fire-resistant intelligent optoelectronic busbar technology for modern infrastructure.',
+    images: ['/res/amerson_fireproof_busbar_hero.png'],
   },
   alternates: {
     canonical: '/about',
